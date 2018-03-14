@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://wadl.dev.java.net/2009/02"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <grammars>
+    <include href=".xsd"/>
+  </grammars>
+  <resources base="http://www.example.com/ledgerclient">
+    <resource path="/retrieveprocessStep">
+        <method id="RetrieveProcessStep" name="GET">
+          <response>
+            <representation element="ahf:ProcessStep" mediaType="application/json"/>
+          </response>
+        </method>
+    </resource>
+	<resource path="/storeprocessstepresult">
+        <method id="StoreProcessStepResult" name="POST">
+          <request>
+            <representation element="ahf:ProcessStepResult" mediaType="application/json"/>
+          </request>
+        </method>
+    </resource>
+	<resource path="/storeoperationresult">
+        <method id="StoreOperationResult" name="POST">
+          <request>
+            <representation element="ahf:OperationResult" mediaType="application/json"/>
+          </request>
+        </method>
+    </resource>
+  </resources>
+</application>

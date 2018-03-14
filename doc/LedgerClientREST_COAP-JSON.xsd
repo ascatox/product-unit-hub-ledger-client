@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.arrowhead.eu/2015/service/service-discovery">
+
+    <xs:complexType name="ProcessStep">
+        <xs:sequence>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="PlannedProductionTime" type="xs:string"/>
+            <xs:element name="WorkcellResource" type="xs:string"/>
+            <xs:element name="BillofOperations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Operation" type="Operation" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Operation">
+        <xs:sequence>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="InstructionTexts" type="xs:string"/>
+            <xs:element name="EquipmentRequirements" type="xs:string"/>
+            <xs:element name="OperationSteps">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="OperationStep" type="OperationStep" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OperationStep">
+        <xs:sequence>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="BillofMaterial" type="xs:string"/>
+            <xs:element name="EquipmentRequirements">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="EquipmentRequirement" type="EquipmentRequirement" minOccurs="0"
+                                    maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Parts">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Part" type="Part" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="InstructionTexts">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="InstructionText" type="InstructionText" minOccurs="0"
+                                    maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EquipmentRequirement">
+        <xs:sequence>
+            <xs:element name="EquipmentType" type="xs:string"/>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="Specifications">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="EquipmentSpecification" type="EquipmentSpecification" minOccurs="0"
+                                    maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EquipmentSpecification">
+        <xs:sequence>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="Specifications" type="xs:string"/>
+            <xs:element name="Value" type="xs:string"/>
+            <xs:element name="Quantity" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Part">
+        <xs:sequence>
+            <xs:element name="PartNo" type="xs:string"/>
+            <xs:element name="Description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="InstructionText">
+        <xs:sequence>
+            <xs:element name="Text" type="xs:string"/>
+            <xs:element name="RTF" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ProcessStepResult">
+        <xs:sequence>
+            <xs:element name="OperationResults">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="OperationResult" type="OperationResult" minOccurs="0"
+                                    maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OperationResult">
+        <xs:sequence>
+            <xs:element name="OperationStepResults">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="OperationStepResult" type="OperationStepResult" minOccurs="0"
+                                    maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OperationStepResult">
+        <xs:sequence>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="StepName" type="xs:string"/>
+            <xs:element name="StepStatus" type="xs:string"/>
+            <xs:element name="ChannelId" type="xs:string"/>
+            <xs:element name="EquipmentRequirement" type="EquipmentRequirement"/>
+            <xs:element name="EquipmentResult" type="EquipmentResult"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EquipmentResult">
+        <xs:sequence>
+            <xs:element name="EquipmentType" type="xs:string"/>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="Results">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="EquipmentResultRecord" type="EquipmentResultRecord" minOccurs="0"
+                                    maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EquipmentResultRecord">
+        <xs:sequence>
+            <xs:element name="SequenceNo" type="xs:string"/>
+            <xs:element name="Result" type="xs:string"/>
+            <xs:element name="Value" type="xs:string"/>
+            <xs:element name="Quantity" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
