@@ -67,15 +67,15 @@ public class ChainInteractionHelper {
             }
             setup();
         } catch (Exception e) {
-           log.error(e);
-           throw new ProductUnitHubException(e);
+            log.error(e);
+            throw new ProductUnitHubException(e);
         }
     }
 
     private void setup() throws Exception {
         ChannelInitializationManager channelInitializationManager = new ChannelInitializationManager(client, channel, organization);
         Channel channel = channelInitializationManager.initializeChannel();
-        if(null == channel || !channel.isInitialized() || channel.isShutdown()) {
+        if (null == channel || !channel.isInitialized() || channel.isShutdown()) {
             log.error("Channel is not initialized");
             throw new ProductUnitHubException("Channel is not initialized");
         }
@@ -131,7 +131,7 @@ public class ChainInteractionHelper {
     }
 
 
-    CompletableFuture<BlockEvent.TransactionEvent> invokeChaincode(String fcn, ArrayList<String> args) {
+    InvokeReturn invokeChaincode(String fcn, ArrayList<String> args) {
         try {
             Collection<ProposalResponse> successful = new LinkedList<>();
             Collection<ProposalResponse> failed = new LinkedList<>();
@@ -147,12 +147,14 @@ public class ChainInteractionHelper {
                 transactionProposalRequest.setUserContext(user);
             }
             log.debug("sending transaction proposal to all peers with arguments:", args.get(0)); //TODO
-
+            String payload = null;
             Collection<ProposalResponse> invokePropResp = channel.sendTransactionProposal(transactionProposalRequest);
             for (ProposalResponse response : invokePropResp) {
                 if (response.getStatus() == ChaincodeResponse.Status.SUCCESS) {
                     log.debug("Successful transaction proposal response Txid: %s from peer %s", response.getTransactionID(), response.getPeer().getName());
                     successful.add(response);
+                    payload = response.getProposalResponse().getResponse().getPayload()
+                            .toStringUtf8();
                 } else {
                     failed.add(response);
                 }
@@ -173,9 +175,9 @@ public class ChainInteractionHelper {
             // Send transaction to orderer
             log.debug("Sending chaincode transaction to orderer.", args.get(0));
             if (user != null) {
-                return channel.sendTransaction(successful, user);
+                return new InvokeReturn(channel.sendTransaction(successful, user), payload);
             }
-            return channel.sendTransaction(successful);
+            return new InvokeReturn(channel.sendTransaction(successful), payload);
         } catch (Exception e) {
 
             throw new CompletionException(e);
@@ -184,7 +186,7 @@ public class ChainInteractionHelper {
     }
 
 
-    public List<String[]> queryChainCode(String functionName, BlockEvent.TransactionEvent transactionEvent, ArrayList<String> args) throws ProductUnitHubException {
+    public List<QueryReturn> queryChainCode(String functionName, BlockEvent.TransactionEvent transactionEvent, ArrayList<String> args) throws ProductUnitHubException {
         try {
             if (null != transactionEvent) {
                 //waitOnFabric(0);
@@ -205,7 +207,7 @@ public class ChainInteractionHelper {
             tm2.put("HyperLedgerFabric", "QueryByChaincodeRequest:JavaSDK".getBytes(configManager.UTF_8));
             tm2.put("method", "QueryByChaincodeRequest".getBytes(configManager.UTF_8));
             queryByChaincodeRequest.setTransientMap(tm2);
-            List<String[]> payloads = new ArrayList<>();
+            List<QueryReturn> payloads = new ArrayList<>();
 
             Collection<ProposalResponse> queryProposals = channel.queryByChaincode(queryByChaincodeRequest, channel
                     .getPeers());
@@ -216,19 +218,15 @@ public class ChainInteractionHelper {
                             + proposalResponse.getStatus() +
                             ". Messages: " + proposalResponse.getMessage()
                             + ". Was verified : " + proposalResponse.isVerified());
-                    String[] returnPayload = new String[2];
-                    returnPayload[0] = proposalResponse.getPeer().getName();
-                    returnPayload[1] = null;
-                    payloads.add(returnPayload);
+                    QueryReturn queryReturn = new QueryReturn(proposalResponse.getPeer().getName(), null);
+                    payloads.add(queryReturn);
                 } else {
                     String payload = proposalResponse.getProposalResponse().getResponse().getPayload()
                             .toStringUtf8();
                     log.debug("Query payload from peer %s returned %s", proposalResponse.getPeer().getName(),
                             payload);
-                    String[] returnPayload = new String[2];
-                    returnPayload[0] = proposalResponse.getPeer().getName();
-                    returnPayload[1] = payload;
-                    payloads.add(returnPayload);
+                    QueryReturn queryReturn = new QueryReturn(proposalResponse.getPeer().getName(), payload);
+                    payloads.add(queryReturn);
                 }
             }
             //  manageChannelEvents(channel);
