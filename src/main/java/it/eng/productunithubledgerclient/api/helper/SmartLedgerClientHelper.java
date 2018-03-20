@@ -369,8 +369,7 @@ public class SmartLedgerClientHelper {
                 newChannel.addEventHub(eventHub);
             }
             //TODO
-            */
-/*String chaincodeEventListenerHandle = newChannel.registerChaincodeEventListener(Pattern.compile(".*"),
+String chaincodeEventListenerHandle = newChannel.registerChaincodeEventListener(Pattern.compile(".*"),
                     Pattern.compile(Pattern.quote(EXPECTED_EVENT_NAME)),
                     (handle, blockEvent, chaincodeEvent) -> {
                         chaincodeEvents.add(new ChaincodeEventCapture(handle, blockEvent, chaincodeEvent));
@@ -386,7 +385,7 @@ public class SmartLedgerClientHelper {
                                 chaincodeEvent.getTxId(),
                                 new String(chaincodeEvent.getPayload()), es);
 
-                    });*//*
+                    });
 
             newChannel.initialize(); //There's no need to initialize the channel we are only building the java
             // structures.
@@ -397,9 +396,8 @@ public class SmartLedgerClientHelper {
 
         {
             throw new SmartLedgerClientException(e);
-        */
-/*} catch (TransactionException e) {
-            throw new SmartLedgerClientException(e);*//*
+} catch (TransactionException e) {
+            throw new SmartLedgerClientException(e);
 
         } catch (
                 Exception e)
@@ -846,8 +844,7 @@ public class SmartLedgerClientHelper {
     }
 
     //TODO
-    */
-/*private static void manageChannelEvents(Channel channel) throws SmartLedgerClientException,
+private static void manageChannelEvents(Channel channel) throws SmartLedgerClientException,
             InvalidArgumentException,
             InterruptedException {
 
@@ -881,8 +878,9 @@ public class SmartLedgerClientHelper {
         } else {
            Util.out("ChaincodeEvents is empty");
         }
-    }*//*
+    }
 
 
 
-}*/
+}
+*/

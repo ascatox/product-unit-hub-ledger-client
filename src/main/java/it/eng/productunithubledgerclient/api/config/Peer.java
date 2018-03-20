@@ -2,18 +2,19 @@ package it.eng.productunithubledgerclient.api.config;
 
 import java.util.Objects;
 
-public class Peers {
+public class Peer {
 
+    private String name;
     private String requestURL;
     private String eventURL;
 
 
-    public Peers(String requestURL, String eventURL) {
+    public Peer(String requestURL, String eventURL) {
         this.requestURL = requestURL;
         this.eventURL = eventURL;
     }
 
-    public Peers() {
+    public Peer() {
     }
 
     public String getRequestURL() {
@@ -32,11 +33,26 @@ public class Peers {
         this.eventURL = eventURL;
     }
 
+    public Peer(String name, String requestURL, String eventURL) {
+        this.name = name;
+        this.requestURL = requestURL;
+        this.eventURL = eventURL;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Peers)) return false;
-        Peers peers = (Peers) o;
+        if (!(o instanceof Peer)) return false;
+        Peer peers = (Peer) o;
         return Objects.equals( requestURL, peers.requestURL ) && Objects.equals( eventURL, peers.eventURL );
     }
 

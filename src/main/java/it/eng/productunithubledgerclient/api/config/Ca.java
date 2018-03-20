@@ -1,5 +1,10 @@
 package it.eng.productunithubledgerclient.api.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hyperledger.fabric_ca.sdk.HFCAClient;
+
+import java.net.MalformedURLException;
 import java.util.Objects;
 
 public class Ca {
@@ -7,9 +12,13 @@ public class Ca {
     private String url;
     private String name;
 
-    public Ca(String url, String name) {
+    private HFCAClient caClient;
+
+
+    public Ca(String url, String name) throws MalformedURLException {
         this.url = url;
         this.name = name;
+        this.caClient = HFCAClient.createNewInstance(url, null);
     }
 
     public Ca() {
@@ -29,6 +38,16 @@ public class Ca {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonProperty
+    public HFCAClient getCaClient() {
+        return caClient;
+    }
+
+    @JsonIgnore
+    public void setCaClient(HFCAClient caClient) {
+        this.caClient = caClient;
     }
 
     @Override

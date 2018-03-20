@@ -2,19 +2,30 @@ package it.eng.productunithubledgerclient.api.config;
 
 import java.util.Objects;
 
-public class Orderers {
+public class Orderer {
 
+    private String name;
     private String url;
 
-    public Orderers(String url) {
+
+    public Orderer(String name, String url) {
+        this.name = name;
         this.url = url;
     }
 
-    public Orderers() {
+    public Orderer() {
     }
 
     public String getUrl() {
         return url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setUrl(String url) {
@@ -24,8 +35,8 @@ public class Orderers {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Orderers)) return false;
-        Orderers orderers = (Orderers) o;
+        if (!(o instanceof Orderer)) return false;
+        Orderer orderers = (Orderer) o;
         return Objects.equals( url, orderers.url );
     }
 

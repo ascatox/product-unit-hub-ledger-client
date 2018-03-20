@@ -1,14 +1,21 @@
 {
   "name": "fabric-network",
   "type": "hlfv1",
-  "channel": "composerchannel",
+  "channelName": "composerchannel",
   "timeout": 300,
   "cryptoconfigdir": "C:/Users/Claudio/Desktop/ENG_STAGE/config.json",
+  "chaincode": {
+    "path": "sdkintegration/gocc/sample_11",
+    "name": "product-unit-hub-chaincode",
+    "version": "1.0",
+    "lang": "NODE"
+  },
   "organizations": [
     {
       "mspID": "Org1MSP",
       "peers": [
         {
+          "name": "peer0.org1.example.com",
           "requestURL": "grpc://localhost:7051",
           "eventURL": "grpc://localhost:7053"
         }
@@ -19,6 +26,7 @@
       },
       "orderers": [
         {
+          "name":"orderer.example.com",
           "url": "grpc://localhost:7050"
         }
       ]
