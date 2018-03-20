@@ -11,6 +11,7 @@ import org.hyperledger.fabric.sdk.EventHub;
 import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
+import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +40,7 @@ public class ChannelInitializationManager {
     }
 
 
-    public Channel initializeChannel() throws Exception {
+    public Channel initializeChannel() throws ProductUnitHubException {
         ////////////////////////////
         //Initialize the channel
         //
@@ -58,7 +59,8 @@ public class ChannelInitializationManager {
             // structures.
             log.debug("Finished initialization channel java structures %s", channel.getName());
             return channel;
-        } catch (InvalidArgumentException e) {
+        } catch (InvalidArgumentException | TransactionException e) {
+            log.error(e);
             throw new ProductUnitHubException(e);
         }
 
