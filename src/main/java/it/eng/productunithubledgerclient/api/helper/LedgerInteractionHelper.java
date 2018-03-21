@@ -21,26 +21,26 @@ import static java.lang.String.format;
 /**
  * @author ascatox
  */
-public class ChainInteractionHelper {
+public class LedgerInteractionHelper {
 
-    private final static Logger log = LogManager.getLogger(ChainInteractionHelper.class);
+    private final static Logger log = LogManager.getLogger(LedgerInteractionHelper.class);
     protected ConfigManager configManager;
-
     protected HFClient client;
     protected Channel channel;
     private User user;
     private Organization organization;
     private Configuration configuration;
+    private EventHandler eventHandler;
 
 
-    File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties");
+    File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties"); //TODO
 
-    public ChainInteractionHelper(Organization organization) throws ProductUnitHubException {
+    public LedgerInteractionHelper(Organization organization) throws ProductUnitHubException {
         doChainInteractionHelper(organization, null);
 
     }
 
-    public ChainInteractionHelper(Organization organization, String userName) throws ProductUnitHubException {
+    public LedgerInteractionHelper(Organization organization, String userName) throws ProductUnitHubException {
         doChainInteractionHelper(organization, userName);
 
     }
@@ -73,6 +73,9 @@ public class ChainInteractionHelper {
             throw new ProductUnitHubException("Channel is not initialized");
         }
         this.channel = channel;
+        //TODO EventHandling
+        //this.eventHandler = EventHandler.getInstance();
+        //this.eventHandler.register(this.channel, null);//todo Event Name
     }
 
     private static boolean checkInstalledChaincode(HFClient client, Peer peer, String ccName, String ccPath, String ccVersion) throws InvalidArgumentException, ProposalException {
@@ -124,7 +127,7 @@ public class ChainInteractionHelper {
     }
 
 
-    public InvokeReturn invokeChaincode(String fcn, ArrayList<String> args) throws ProductUnitHubException {
+    public InvokeReturn invokeChaincode(String functionName, ArrayList<String> args) throws ProductUnitHubException {
         try {
             Collection<ProposalResponse> successful = new LinkedList<>();
             Collection<ProposalResponse> failed = new LinkedList<>();
@@ -133,7 +136,7 @@ public class ChainInteractionHelper {
             /// Send transaction proposal to all peers
             TransactionProposalRequest transactionProposalRequest = client.newTransactionProposalRequest();
             transactionProposalRequest.setChaincodeID(configuration.getChaincode().getChaincodeID());
-            transactionProposalRequest.setFcn(fcn);
+            transactionProposalRequest.setFcn(functionName);
             transactionProposalRequest.setArgs(args);
             transactionProposalRequest.setProposalWaitTime(configManager.getProposalWaitTime());
             if (user != null) { // specific user use that
@@ -179,7 +182,7 @@ public class ChainInteractionHelper {
     }
 
 
-    public List<QueryReturn> queryChainCode(String functionName, BlockEvent.TransactionEvent transactionEvent, ArrayList<String> args) throws ProductUnitHubException {
+    public List<QueryReturn> queryChainCode(String functionName, ArrayList<String> args, BlockEvent.TransactionEvent transactionEvent) throws ProductUnitHubException {
         try {
             if (null != transactionEvent) {
                 //waitOnFabric(0);
