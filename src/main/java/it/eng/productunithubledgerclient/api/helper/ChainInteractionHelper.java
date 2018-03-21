@@ -1,6 +1,5 @@
 package it.eng.productunithubledgerclient.api.helper;
 
-import it.eng.productunithubledgerclient.ProductUnitHubLedgerClientApplication;
 import it.eng.productunithubledgerclient.api.config.ConfigManager;
 import it.eng.productunithubledgerclient.api.config.Configuration;
 import it.eng.productunithubledgerclient.api.config.Organization;
@@ -10,17 +9,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hyperledger.fabric.protos.peer.Query;
 import org.hyperledger.fabric.sdk.*;
-import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 import static java.lang.String.format;
 
@@ -29,8 +23,7 @@ import static java.lang.String.format;
  */
 public class ChainInteractionHelper {
 
-    private final static Logger log = LogManager.getLogger(ProductUnitHubLedgerClientApplication.class);
-    @Autowired
+    private final static Logger log = LogManager.getLogger(ChainInteractionHelper.class);
     protected ConfigManager configManager;
 
     protected HFClient client;
@@ -131,7 +124,7 @@ public class ChainInteractionHelper {
     }
 
 
-    InvokeReturn invokeChaincode(String fcn, ArrayList<String> args) {
+    public InvokeReturn invokeChaincode(String fcn, ArrayList<String> args) throws ProductUnitHubException {
         try {
             Collection<ProposalResponse> successful = new LinkedList<>();
             Collection<ProposalResponse> failed = new LinkedList<>();
@@ -180,7 +173,7 @@ public class ChainInteractionHelper {
             return new InvokeReturn(channel.sendTransaction(successful), payload);
         } catch (Exception e) {
 
-            throw new CompletionException(e);
+            throw new ProductUnitHubException(e);
 
         }
     }

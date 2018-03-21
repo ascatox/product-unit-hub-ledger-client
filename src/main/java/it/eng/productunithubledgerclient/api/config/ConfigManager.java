@@ -4,18 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.io.StringWriter;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Properties;
 
 import static io.netty.util.NetUtil.LOCALHOST;
 
-@org.springframework.context.annotation.Configuration
 public class ConfigManager {
 
     private static final String INVOKEWAITTIME = "100000";
@@ -31,7 +28,6 @@ public class ConfigManager {
         this.configuration = getConfiguration();
     }
 
-    @Bean
     public Configuration getConfiguration() {
         return loadConfigurationFromJSONFile();
     }
@@ -39,8 +35,8 @@ public class ConfigManager {
     private Configuration loadConfigurationFromJSONFile() {
 
         try {
-            Resource resource = new ClassPathResource("config.json");
-            File file = resource.getFile();
+            URL resource = getClass().getResource("config.json");
+            File file = new File(resource.getFile());
             ObjectMapper objectMapper = new ObjectMapper();
             Configuration configuration = objectMapper.readValue(file, Configuration.class);
 

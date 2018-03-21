@@ -12,8 +12,6 @@ import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,11 +21,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author ascatox
  */
-@Component
 public class ChannelInitializationManager {
     private final static Logger log = LogManager.getLogger(ChannelInitializationManager.class);
 
-    @Autowired
     private ConfigManager configManager;
     private HFClient client;
     private Channel channel;
