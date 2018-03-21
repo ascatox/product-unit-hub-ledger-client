@@ -36,13 +36,13 @@ public class UtilConfigLoader {
         Configuration configuration = new Configuration();
         configuration.setCryptoconfigdir("1");
         configuration.setTimeout(10);
-        configuration.setChanneName("2");
+        configuration.setChannelName("2");
         configuration.setName("3");
         configuration.setType("4");
 
         try {
             Configuration configuration1 = configManager.getConfiguration();
-            assertFalse("Configuration is empty", null == configuration1 || StringUtils.isEmpty(configuration1.getChanneName()));
+            assertFalse("Configuration is empty", null == configuration1 || StringUtils.isEmpty(configuration1.getChannelName()));
             //assertEquals( "Test equals Configuration!", configuration, configuration1 );
 
         } catch (Exception e) {

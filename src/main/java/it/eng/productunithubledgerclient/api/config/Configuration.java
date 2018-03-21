@@ -1,11 +1,5 @@
 package it.eng.productunithubledgerclient.api.config;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bouncycastle.util.encoders.Hex;
-import org.hyperledger.fabric.sdk.HFClient;
-import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,17 +8,17 @@ public class Configuration {
 
     private String name;
     private String type;
-    private String channeName;
+    private String channelName;
     private Integer timeout;
     private String cryptoconfigdir;
 
     private List<Organization> organizations;
     private Chaincode chaincode;
 
-    public Configuration(String name, String type, String mspID, String channeName, Integer timeout, String cryptoconfigdir, List<Organization> organizations) {
+    public Configuration(String name, String type, String mspID, String channelName, Integer timeout, String cryptoconfigdir, List<Organization> organizations) {
         this.name = name;
         this.type = type;
-        this.channeName = channeName;
+        this.channelName = channelName;
         this.timeout = timeout;
         this.cryptoconfigdir = cryptoconfigdir;
         this.organizations = new ArrayList<>(  );
@@ -53,12 +47,12 @@ public class Configuration {
 
 
 
-    public String getChanneName() {
-        return channeName;
+    public String getChannelName() {
+        return channelName;
     }
 
-    public void setChanneName(String channeName) {
-        this.channeName = channeName;
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
     }
 
     public Integer getTimeout() {
@@ -101,18 +95,18 @@ public class Configuration {
         if (this == o) return true;
         if (!(o instanceof Configuration)) return false;
         Configuration that = (Configuration) o;
-        return Objects.equals( name, that.name ) && Objects.equals( type, that.type ) && Objects.equals(channeName, that.channeName) && Objects.equals( timeout, that.timeout ) && Objects.equals( cryptoconfigdir, that.cryptoconfigdir ) && Objects.equals( organizations, that.organizations );
+        return Objects.equals( name, that.name ) && Objects.equals( type, that.type ) && Objects.equals(channelName, that.channelName) && Objects.equals( timeout, that.timeout ) && Objects.equals( cryptoconfigdir, that.cryptoconfigdir ) && Objects.equals( organizations, that.organizations );
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash( name, type, channeName, timeout, cryptoconfigdir, organizations );
+        return Objects.hash( name, type, channelName, timeout, cryptoconfigdir, organizations );
     }
 
 
     @Override
     public String toString() {
-        return "Configuration{" + "name='" + name + '\'' + ", type='" + type + '\'' + ", channeName='" + channeName + '\'' + ", timeout=" + timeout + ", cryptoconfigdir='" + cryptoconfigdir + '\'' + ", organizations=" + organizations + '}';
+        return "Configuration{" + "name='" + name + '\'' + ", type='" + type + '\'' + ", channelName='" + channelName + '\'' + ", timeout=" + timeout + ", cryptoconfigdir='" + cryptoconfigdir + '\'' + ", organizations=" + organizations + '}';
     }
 }

@@ -29,17 +29,37 @@ public class ChannelInitializationManager {
     private Channel channel;
     private Organization organization;
 
-    public ChannelInitializationManager(HFClient client, Channel channel, Organization organization) {
-        this.client = client;
-        this.channel = channel;
-        this.organization = organization;
+    private static ChannelInitializationManager ourInstance;
+
+    public static ChannelInitializationManager getInstance(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
+        if (ourInstance == null) { //1
+            synchronized (ChannelInitializationManager.class) {
+                if (ourInstance == null) {  //2
+                    ourInstance = new ChannelInitializationManager(client, configManager, organization);
+                }
+            }
+        }
+        return ourInstance;
     }
 
 
-    public Channel initializeChannel() throws ProductUnitHubException {
+    private ChannelInitializationManager(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
+        initializeChannel(client, configManager, organization);
+    }
+
+    private void setupEnv(HFClient client, ConfigManager configManager, Organization organization) throws InvalidArgumentException {
+        this.client = client;
+        this.configManager = configManager;
+        this.organization = organization;
+        if (null == getChannel())
+            this.channel = client.getChannel(configManager.getConfiguration().getChannelName());
+    }
+
+    private Channel initializeChannel(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
         ////////////////////////////
         //Initialize the channel
         //
+        setupEnv(client, configManager, organization);
         try {
             log.debug("Constructing channel java structures %s", channel.getName());
             //Only peer Admin org
@@ -119,5 +139,9 @@ public class ChannelInitializationManager {
                 channel.addOrderer(orderer);
         }
 
+    }
+
+    public Channel getChannel() {
+        return channel;
     }
 }

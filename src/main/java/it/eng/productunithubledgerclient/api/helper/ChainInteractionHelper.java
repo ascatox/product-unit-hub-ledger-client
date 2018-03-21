@@ -66,8 +66,8 @@ public class ChainInteractionHelper {
     }
 
     private void setup() throws Exception {
-        ChannelInitializationManager channelInitializationManager = new ChannelInitializationManager(client, channel, organization);
-        Channel channel = channelInitializationManager.initializeChannel();
+        ChannelInitializationManager channelInitializationManager = ChannelInitializationManager.getInstance(this.client, this.configManager, this.organization);
+        Channel channel = channelInitializationManager.getChannel();
         if (null == channel || !channel.isInitialized() || channel.isShutdown()) {
             log.error("Channel is not initialized");
             throw new ProductUnitHubException("Channel is not initialized");
