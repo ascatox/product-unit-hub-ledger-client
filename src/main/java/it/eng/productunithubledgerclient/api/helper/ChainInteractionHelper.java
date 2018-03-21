@@ -200,7 +200,7 @@ public class ChainInteractionHelper {
             tm2.put("HyperLedgerFabric", "QueryByChaincodeRequest:JavaSDK".getBytes(configManager.UTF_8));
             tm2.put("method", "QueryByChaincodeRequest".getBytes(configManager.UTF_8));
             queryByChaincodeRequest.setTransientMap(tm2);
-            List<QueryReturn> payloads = new ArrayList<>();
+            List<QueryReturn> queryReturns = new ArrayList<>();
 
             Collection<ProposalResponse> queryProposals = channel.queryByChaincode(queryByChaincodeRequest, channel
                     .getPeers());
@@ -212,18 +212,17 @@ public class ChainInteractionHelper {
                             ". Messages: " + proposalResponse.getMessage()
                             + ". Was verified : " + proposalResponse.isVerified());
                     QueryReturn queryReturn = new QueryReturn(proposalResponse.getPeer().getName(), null);
-                    payloads.add(queryReturn);
+                    queryReturns.add(queryReturn);
                 } else {
                     String payload = proposalResponse.getProposalResponse().getResponse().getPayload()
                             .toStringUtf8();
                     log.debug("Query payload from peer %s returned %s", proposalResponse.getPeer().getName(),
                             payload);
                     QueryReturn queryReturn = new QueryReturn(proposalResponse.getPeer().getName(), payload);
-                    payloads.add(queryReturn);
+                    queryReturns.add(queryReturn);
                 }
             }
-            //  manageChannelEvents(channel);
-            return payloads;
+            return queryReturns;
         } catch (Exception e) {
             log.error(e);
             throw new ProductUnitHubException("Failed during chaincode query with error : " + e.getMessage());

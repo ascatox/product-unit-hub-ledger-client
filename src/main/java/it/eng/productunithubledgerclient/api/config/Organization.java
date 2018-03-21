@@ -12,7 +12,6 @@ import java.util.Objects;
 public class Organization {
 
     private String mspID;
-
     private List<Peer> peers;
     private List<Orderer> orderers;
     private List<User> users;
@@ -102,8 +101,26 @@ public class Organization {
         return null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Organization that = (Organization) o;
+
+        return mspID != null ? mspID.equals(that.mspID) : that.mspID == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return mspID != null ? mspID.hashCode() : 0;
+    }
+
     public User loadUser(String userName) {
         if (StringUtils.isEmpty(userName))
+
             return null;
         for (User user :
                 users) {
@@ -113,20 +130,6 @@ public class Organization {
         return null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Organization))
-            return false;
-        Organization that = (Organization) o;
-        return Objects.equals(mspID, that.mspID) && Objects.equals(peers, that.peers) && Objects.equals(orderers, that.orderers) && Objects.equals(ca, that.ca);
-    }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(mspID, peers, orderers, ca);
-    }
 }
 

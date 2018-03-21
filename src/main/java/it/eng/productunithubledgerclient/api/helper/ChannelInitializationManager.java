@@ -29,10 +29,13 @@ public class ChannelInitializationManager {
     private Channel channel;
     private Organization organization;
 
+    /**
+     * Singleton used to keep the channel configuration.
+     */
     private static ChannelInitializationManager ourInstance;
 
     public static ChannelInitializationManager getInstance(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
-        if (ourInstance == null) { //1
+        if (ourInstance == null || !ourInstance.organization.equals(organization)) { //1
             synchronized (ChannelInitializationManager.class) {
                 if (ourInstance == null) {  //2
                     ourInstance = new ChannelInitializationManager(client, configManager, organization);
@@ -55,7 +58,7 @@ public class ChannelInitializationManager {
             this.channel = client.getChannel(configManager.getConfiguration().getChannelName());
     }
 
-    private Channel initializeChannel(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
+    private void initializeChannel(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
         ////////////////////////////
         //Initialize the channel
         //
@@ -74,7 +77,6 @@ public class ChannelInitializationManager {
             channel.initialize(); //There's no need to initialize the channel we are only building the java
             // structures.
             log.debug("Finished initialization channel java structures %s", channel.getName());
-            return channel;
         } catch (InvalidArgumentException | TransactionException e) {
             log.error(e);
             throw new ProductUnitHubException(e);
