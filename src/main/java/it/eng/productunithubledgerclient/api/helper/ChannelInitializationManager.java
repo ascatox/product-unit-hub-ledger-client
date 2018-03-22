@@ -1,8 +1,9 @@
 package it.eng.productunithubledgerclient.api.helper;
 
 import it.eng.productunithubledgerclient.api.config.ConfigManager;
-import it.eng.productunithubledgerclient.api.config.Orderer;
+import it.eng.productunithubledgerclient.api.config.OrdererConfig;
 import it.eng.productunithubledgerclient.api.config.Organization;
+import it.eng.productunithubledgerclient.api.config.PeerConfig;
 import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,11 +69,11 @@ public class ChannelInitializationManager {
             //Only peer Admin org
             client.setUserContext(organization.getPeerAdminUser());
 
-            buildOrderers(organization.getOrderers());
+            buildOrderers(organization.getOrdererConfigs());
 
-            buildPeers(organization.getPeers());
+            buildPeers(organization.getPeerConfigs());
 
-            buildEventHubs(organization.getPeers());
+            buildEventHubs(organization.getPeerConfigs());
 
             channel.initialize(); //There's no need to initialize the channel we are only building the java
             // structures.
@@ -85,26 +86,26 @@ public class ChannelInitializationManager {
     }
 
     //@ascatox Pay attention!!! EventHubs are the same as Peers with different urls
-    private void buildEventHubs(List<it.eng.productunithubledgerclient.api.config.Peer> peerList) throws InvalidArgumentException {
-        for (it.eng.productunithubledgerclient.api.config.Peer peerObj : peerList) {
+    private void buildEventHubs(List<PeerConfig> peerConfigList) throws InvalidArgumentException {
+        for (PeerConfig peerConfigObj : peerConfigList) {
 
-            final Properties eventHubProperties = configManager.getEventHubProperties(peerObj.getName());
+            final Properties eventHubProperties = configManager.getEventHubProperties(peerConfigObj.getName());
 
             eventHubProperties.put("grpc.NettyChannelBuilderOption.keepAliveTime", new Object[]{5L, TimeUnit
                     .MINUTES});
             eventHubProperties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
                     .SECONDS});
 
-            EventHub eventHub = client.newEventHub(peerObj.getName(), peerObj.getEventURL(), eventHubProperties);
+            EventHub eventHub = client.newEventHub(peerConfigObj.getName(), peerConfigObj.getEventURL(), eventHubProperties);
             channel.addEventHub(eventHub);
         }
     }
 
-    private void buildPeers(List<it.eng.productunithubledgerclient.api.config.Peer> peerList) throws InvalidArgumentException {
-        for (it.eng.productunithubledgerclient.api.config.Peer peerObj : peerList) {
-            String peerLocation = peerObj.getRequestURL();
+    private void buildPeers(List<PeerConfig> peerConfigList) throws InvalidArgumentException {
+        for (PeerConfig peerConfigObj : peerConfigList) {
+            String peerLocation = peerConfigObj.getRequestURL();
 
-            Properties peerProperties = configManager.getPeerProperties(peerObj.getName()); //CaUser properties for
+            Properties peerProperties = configManager.getPeerProperties(peerConfigObj.getName()); //CaUser properties for
             // peer.. if
             // any.
             if (peerProperties == null) {
@@ -113,25 +114,25 @@ public class ChannelInitializationManager {
             //Example of setting specific options on grpc's NettyChannelBuilder
             peerProperties.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
 
-            Peer peer = client.newPeer(peerObj.getName(), peerLocation, peerProperties);
+            Peer peer = client.newPeer(peerConfigObj.getName(), peerLocation, peerProperties);
             //            newChannel.joinPeer(peer);
             channel.addPeer(peer);
             //org.addPeer(peer);
         }
     }
 
-    private void buildOrderers(List<Orderer> orderersConfig) throws InvalidArgumentException {
+    private void buildOrderers(List<OrdererConfig> orderersConfig) throws InvalidArgumentException {
         List<org.hyperledger.fabric.sdk.Orderer> orderers = new LinkedList<>();
-        for (Orderer orderer : orderersConfig) {
+        for (OrdererConfig ordererConfig : orderersConfig) {
 
-            Properties ordererProperties = configManager.getOrdererProperties(orderer.getName());
+            Properties ordererProperties = configManager.getOrdererProperties(ordererConfig.getName());
             //example of setting keepAlive to avoid timeouts on inactive http2 connections.
             // Under 5 minutes would require changes to server side to accept faster ping rates.
             ordererProperties.put("grpc.NettyChannelBuilderOption.keepAliveTime", new Object[]{5L, TimeUnit
                     .MINUTES});
             ordererProperties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
                     .SECONDS});
-            orderers.add(client.newOrderer(orderer.getName(), orderer.getUrl(), ordererProperties));
+            orderers.add(client.newOrderer(ordererConfig.getName(), ordererConfig.getUrl(), ordererProperties));
         }
         org.hyperledger.fabric.sdk.Orderer anOrderer = orderers.iterator().next();
         //Just pick the first orderer in the list to create the channel.

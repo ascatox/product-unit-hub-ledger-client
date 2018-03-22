@@ -80,7 +80,7 @@ final public class LedgerInteractionHelper {
         //this.eventHandler.register(this.channel, null);//todo Event Name
     }
 
-    private void checkInstalledChaincode(Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private void checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
 
         log.debug("Checking installed chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = client.queryInstalledChaincodes(peer);
@@ -105,7 +105,7 @@ final public class LedgerInteractionHelper {
 
     }
 
-    private void checkInstantiatedChaincode(Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private void checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
         log.debug("Checking instantiated chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = this.channel.queryInstantiatedChaincodes(peer);
 

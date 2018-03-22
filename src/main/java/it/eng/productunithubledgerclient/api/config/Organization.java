@@ -1,34 +1,32 @@
 package it.eng.productunithubledgerclient.api.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.fabric.sdk.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Organization {
 
     private String mspID;
-    private List<Peer> peers;
-    private List<Orderer> orderers;
+    private List<PeerConfig> peerConfigs;
+    private List<OrdererConfig> ordererConfigs;
     private List<User> users;
 
     private Ca ca;
 
-    public Organization(String mspID, List<Peer> peers, List<Orderer> orderers, Object ca) {
+    public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Object ca) {
         this.mspID = mspID;
-        this.peers = new ArrayList<>();
-        this.orderers = new ArrayList<>();
+        this.peerConfigs = new ArrayList<>();
+        this.ordererConfigs = new ArrayList<>();
         this.ca = new Ca();
         this.users = new ArrayList<>();
     }
 
     public Organization() {
-        this.peers = new ArrayList<>();
-        this.orderers = new ArrayList<>();
+        this.peerConfigs = new ArrayList<>();
+        this.ordererConfigs = new ArrayList<>();
         this.ca = new Ca();
     }
 
@@ -40,20 +38,20 @@ public class Organization {
         this.mspID = mspID;
     }
 
-    public List<Peer> getPeers() {
-        return peers;
+    public List<PeerConfig> getPeerConfigs() {
+        return peerConfigs;
     }
 
-    public void setPeers(List<Peer> peers) {
-        this.peers = peers;
+    public void setPeerConfigs(List<PeerConfig> peerConfigs) {
+        this.peerConfigs = peerConfigs;
     }
 
-    public List<Orderer> getOrderers() {
-        return orderers;
+    public List<OrdererConfig> getOrdererConfigs() {
+        return ordererConfigs;
     }
 
-    public void setOrderers(List<Orderer> orderers) {
-        this.orderers = orderers;
+    public void setOrdererConfigs(List<OrdererConfig> ordererConfigs) {
+        this.ordererConfigs = ordererConfigs;
     }
 
     public Object getCa() {
