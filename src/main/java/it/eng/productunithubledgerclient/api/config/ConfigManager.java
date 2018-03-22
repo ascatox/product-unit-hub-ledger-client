@@ -35,7 +35,7 @@ public class ConfigManager {
     private Configuration loadConfigurationFromJSONFile() {
 
         try {
-            URL resource = getClass().getResource("config.json");
+            URL resource = getClass().getResource("config-network.json");
             File file = new File(resource.getFile());
             ObjectMapper objectMapper = new ObjectMapper();
             Configuration configuration = objectMapper.readValue(file, Configuration.class);

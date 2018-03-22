@@ -1,10 +1,14 @@
 package it.eng.productunithubledgerclient.api;
 
+import it.eng.productunithubledgerclient.api.config.ConfigManager;
 import it.eng.productunithubledgerclient.model.*;
 
 import java.util.List;
 
-public class LedgerClient implements it.eng.productunithubledgerclient.api.base.LedgerClient {
+final public class LedgerClient implements it.eng.productunithubledgerclient.api.base.LedgerClient {
+
+    private ConfigManager configManager;
+
 
     @Override
     public ProcessStepResult storeProcessStepResult(ProcessStepResult processStepResult) throws Exception {

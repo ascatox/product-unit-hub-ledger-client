@@ -1,5 +1,6 @@
 package it.eng.productunithubledgerclient.api.helper;
 
+import it.eng.productunithubledgerclient.api.config.Chaincode;
 import it.eng.productunithubledgerclient.api.config.ConfigManager;
 import it.eng.productunithubledgerclient.api.config.Configuration;
 import it.eng.productunithubledgerclient.api.config.Organization;
@@ -21,12 +22,12 @@ import static java.lang.String.format;
 /**
  * @author ascatox
  */
-public class LedgerInteractionHelper {
+final public class LedgerInteractionHelper {
 
     private final static Logger log = LogManager.getLogger(LedgerInteractionHelper.class);
-    protected ConfigManager configManager;
-    protected HFClient client;
-    protected Channel channel;
+    private HFClient client;
+    private Channel channel;
+    private ConfigManager configManager;
     private User user;
     private Organization organization;
     private Configuration configuration;
@@ -35,21 +36,22 @@ public class LedgerInteractionHelper {
 
     File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties"); //TODO
 
-    public LedgerInteractionHelper(Organization organization) throws ProductUnitHubException {
-        doChainInteractionHelper(organization, null);
+    public LedgerInteractionHelper(ConfigManager configManager, Organization organization) throws ProductUnitHubException {
+        doChainInteractionHelper(configManager, organization, null);
 
     }
 
-    public LedgerInteractionHelper(Organization organization, String userName) throws ProductUnitHubException {
-        doChainInteractionHelper(organization, userName);
+    public LedgerInteractionHelper(ConfigManager configManager, Organization organization, String userName) throws ProductUnitHubException {
+        doChainInteractionHelper(configManager, organization, userName);
 
     }
 
-    private void doChainInteractionHelper(Organization organization, String userName) throws ProductUnitHubException {
+    private void doChainInteractionHelper(ConfigManager configManager, Organization organization, String userName) throws ProductUnitHubException {
         try {
             //Create instance of client.
             client = HFClient.createNewInstance();
             client.setCryptoSuite(CryptoSuite.Factory.getCryptoSuite());
+            this.configManager = configManager;
             this.organization = organization;
             this.configuration = configManager.getConfiguration();
             this.user = organization.getPeerAdminUser();
@@ -78,57 +80,59 @@ public class LedgerInteractionHelper {
         //this.eventHandler.register(this.channel, null);//todo Event Name
     }
 
-    private static boolean checkInstalledChaincode(HFClient client, Peer peer, String ccName, String ccPath, String ccVersion) throws InvalidArgumentException, ProposalException {
-        log.debug("Checking installed chaincode: %s, at version: %s, on peer: %s", ccName, ccVersion, peer.getName());
+    private void checkInstalledChaincode(Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+
+        log.debug("Checking installed chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = client.queryInstalledChaincodes(peer);
 
         boolean found = false;
 
         for (Query.ChaincodeInfo ccifo : ccinfoList) {
 
-            if (ccPath != null) {
-                found = ccName.equals(ccifo.getName()) && ccPath.equals(ccifo.getPath()) && ccVersion.equals(ccifo.getVersion());
+            if (chaincode.getPath() != null) {
+                found = chaincode.getName().equals(ccifo.getName()) && chaincode.getPath().equals(ccifo.getPath()) && chaincode.getVersion().equals(ccifo.getVersion());
                 if (found) {
                     break;
                 }
             }
 
-            found = ccName.equals(ccifo.getName()) && ccVersion.equals(ccifo.getVersion());
+            found = chaincode.getName().equals(ccifo.getName()) && chaincode.getVersion().equals(ccifo.getVersion());
             if (found) {
                 break;
             }
 
         }
 
-        return found;
     }
 
-    private static boolean checkInstantiatedChaincode(Channel channel, Peer peer, String ccName, String ccPath, String ccVersion) throws InvalidArgumentException, ProposalException {
-        log.debug("Checking instantiated chaincode: %s, at version: %s, on peer: %s", ccName, ccVersion, peer.getName());
-        List<Query.ChaincodeInfo> ccinfoList = channel.queryInstantiatedChaincodes(peer);
+    private void checkInstantiatedChaincode(Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+        log.debug("Checking instantiated chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
+        List<Query.ChaincodeInfo> ccinfoList = this.channel.queryInstantiatedChaincodes(peer);
 
         boolean found = false;
 
         for (Query.ChaincodeInfo ccifo : ccinfoList) {
 
-            if (ccPath != null) {
-                found = ccName.equals(ccifo.getName()) && ccPath.equals(ccifo.getPath()) && ccVersion.equals(ccifo.getVersion());
+            if (chaincode.getPath() != null) {
+                found = chaincode.getName().equals(ccifo.getName()) && chaincode.getPath().equals(ccifo.getPath()) && chaincode.getVersion().equals(ccifo.getVersion());
                 if (found) {
                     break;
                 }
             }
-            found = ccName.equals(ccifo.getName()) && ccVersion.equals(ccifo.getVersion());
+            found = chaincode.getName().equals(ccifo.getName()) && chaincode.getVersion().equals(ccifo.getVersion());
             if (found) {
                 break;
             }
         }
 
-        return found;
     }
 
 
     public InvokeReturn invokeChaincode(String functionName, ArrayList<String> args) throws ProductUnitHubException {
         try {
+            checkInstalledChaincode(configManager.getConfiguration().getChaincode());
+            checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
+
             Collection<ProposalResponse> successful = new LinkedList<>();
             Collection<ProposalResponse> failed = new LinkedList<>();
 
@@ -189,6 +193,8 @@ public class LedgerInteractionHelper {
                 log.debug("Finished transaction with transaction id %s", transactionEvent.getTransactionID());
                 String testTxID = transactionEvent.getTransactionID(); // used in the channel queries later
             }
+            checkInstalledChaincode(configManager.getConfiguration().getChaincode());
+            checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
             ////////////////////////////
             // Send Query Proposal to all peers
             //
