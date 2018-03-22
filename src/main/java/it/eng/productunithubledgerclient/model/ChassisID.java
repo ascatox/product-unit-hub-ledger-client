@@ -1,35 +1,26 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class ChassisID {
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChassisID)) return false;
-        ChassisID chassisID = (ChassisID) o;
-        return Objects.equals( chassisId, chassisID.chassisId ) && Objects.equals( component, chassisID.component ) && Objects.equals( subComponent, chassisID.subComponent );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( chassisId, component, subComponent );
-    }
-
+    @NotNull
     private String chassisId;
+    @NotNull
     private String component;
+    @NotNull
     private String subComponent;
 
     public ChassisID(String chassisId, String component, String subComponent) {
         this.chassisId = chassisId;
         this.component = component;
         this.subComponent = subComponent;
+
     }
 
     public ChassisID() {
     }
+
 
     public String getChassisId() {
         return chassisId;
@@ -54,4 +45,19 @@ public class ChassisID {
     public void setSubComponent(String subComponent) {
         this.subComponent = subComponent;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChassisID)) return false;
+        ChassisID chassisID = (ChassisID) o;
+        return Objects.equals( chassisId, chassisID.chassisId ) && Objects.equals( component, chassisID.component ) && Objects.equals( subComponent, chassisID.subComponent );
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( chassisId, component, subComponent ); }
+
 }
+

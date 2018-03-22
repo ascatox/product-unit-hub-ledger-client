@@ -1,8 +1,13 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 public class Part {
+
+    @NotBlank
+    @Pattern( regexp = "[0-9]")
     private String partNo;
     private String description;
 

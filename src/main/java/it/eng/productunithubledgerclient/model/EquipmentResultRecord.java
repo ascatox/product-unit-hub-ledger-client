@@ -1,28 +1,23 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class EquipmentResultRecord {
-
+    @NotNull
     private Integer sequenceNo;
     private String result;
     private String value;
+    private  String Quantity;
 
     public EquipmentResultRecord() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EquipmentResultRecord)) return false;
-        EquipmentResultRecord that = (EquipmentResultRecord) o;
-        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( result, that.result ) && Objects.equals( value, that.value ) && Objects.equals( quantity, that.quantity );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( sequenceNo, result, value, quantity );
+    public EquipmentResultRecord(Integer sequenceNo, String result, String value, String Quantity) {
+        this.sequenceNo = sequenceNo;
+        this.result = result;
+        this.value = value;
+        this.Quantity = Quantity;
     }
 
     public Integer getSequenceNo() {
@@ -50,19 +45,24 @@ public class EquipmentResultRecord {
     }
 
     public String getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
     public void setQuantity(String quantity) {
-        this.quantity = quantity;
+        this.Quantity = quantity;
     }
 
-    private String quantity;
 
-    public EquipmentResultRecord(Integer sequenceNo, String result, String value, String quantity) {
-        this.sequenceNo = sequenceNo;
-        this.result = result;
-        this.value = value;
-        this.quantity = quantity;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EquipmentResultRecord)) return false;
+        EquipmentResultRecord that = (EquipmentResultRecord) o;
+        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( result, that.result ) && Objects.equals( value, that.value ) && Objects.equals( Quantity, that.Quantity );
     }
-}
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( sequenceNo, result, value, Quantity );
+    }}

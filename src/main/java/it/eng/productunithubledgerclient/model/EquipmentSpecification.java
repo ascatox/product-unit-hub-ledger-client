@@ -1,9 +1,10 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class EquipmentSpecification {
-
+    @NotNull
     public Integer sequenceNo;
     public String specification;
     public String value;

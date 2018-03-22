@@ -1,26 +1,13 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class EquipmentRequirement {
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EquipmentRequirement)) return false;
-        EquipmentRequirement that = (EquipmentRequirement) o;
-        return Objects.equals( equipmentType, that.equipmentType ) && Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( specifications, that.specifications );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( equipmentType, sequenceNo, specifications );
-    }
-
     private String equipmentType;
+    @NotNull
     private Integer sequenceNo;
     private List<EquipmentSpecification> specifications;
 
@@ -54,7 +41,23 @@ public class EquipmentRequirement {
         return specifications;
     }
 
+
+
     public void setSpecifications(List<EquipmentSpecification> specifications) {
         this.specifications = specifications;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EquipmentRequirement)) return false;
+        EquipmentRequirement that = (EquipmentRequirement) o;
+        return Objects.equals( equipmentType, that.equipmentType ) && Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( specifications, that.specifications );
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( equipmentType, sequenceNo, specifications );
+    }
+
 }
