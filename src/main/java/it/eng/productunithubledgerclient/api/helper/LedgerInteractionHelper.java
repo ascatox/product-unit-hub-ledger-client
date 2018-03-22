@@ -34,7 +34,7 @@ final public class LedgerInteractionHelper {
     private EventHandler eventHandler;
 
 
-    File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties"); //TODO
+    File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties"); //FIXME
 
     public LedgerInteractionHelper(ConfigManager configManager, Organization organization) throws ProductUnitHubException {
         doChainInteractionHelper(configManager, organization, null);
@@ -75,37 +75,62 @@ final public class LedgerInteractionHelper {
             throw new ProductUnitHubException("Channel is not initialized");
         }
         this.channel = channel;
-        //TODO EventHandling
-        //this.eventHandler = EventHandler.getInstance();
-        //this.eventHandler.register(this.channel, null);//todo Event Name
+        //FIXME EventHandling
+        //this.eventHandler.register(this.channel, null);//FIXME Event Name
     }
 
-    private void checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private void controlIntalledChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
+        log.debug( "Checking installed chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers() );
+        try {
+            for ( Peer peer : channel.getPeers() ) {
+                if (!checkInstalledChaincode( peer, chaincode )) {
+                    throw new ProductUnitHubException(format( "Peer %s is missing chaincode whit name: %s, path: %s, version: %s",
+                            peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion())  );
+                }
+            }
+        }catch (Exception e) {
+            throw new ProductUnitHubException( e );
+        }
+    }
 
+    private boolean checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
         log.debug("Checking installed chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = client.queryInstalledChaincodes(peer);
-
         boolean found = false;
 
         for (Query.ChaincodeInfo ccifo : ccinfoList) {
-
             if (chaincode.getPath() != null) {
                 found = chaincode.getName().equals(ccifo.getName()) && chaincode.getPath().equals(ccifo.getPath()) && chaincode.getVersion().equals(ccifo.getVersion());
                 if (found) {
                     break;
                 }
             }
-
             found = chaincode.getName().equals(ccifo.getName()) && chaincode.getVersion().equals(ccifo.getVersion());
             if (found) {
                 break;
             }
-
         }
+        return found;
+    }
+
+
+    private void controlInstantiatedChaincode(Chaincode chaincode) throws  ProductUnitHubException{
+        log.debug( "Checking instantiated chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers() );
+        try {
+            for ( Peer peer : channel.getPeers() ) {
+                if (!checkInstantiatedChaincode( peer, chaincode )) {
+                    throw new ProductUnitHubException(format( "Peer %s is missing chaincode whit name: %s, path: %s, version: %s",
+                            peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion())  );
+                }
+            }
+        }catch (Exception e) {
+            throw new ProductUnitHubException( e );
+        }
+
 
     }
 
-    private void checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private boolean checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
         log.debug("Checking instantiated chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = this.channel.queryInstantiatedChaincodes(peer);
 
@@ -124,14 +149,14 @@ final public class LedgerInteractionHelper {
                 break;
             }
         }
+        return found;
 
     }
 
-
     public InvokeReturn invokeChaincode(String functionName, ArrayList<String> args) throws ProductUnitHubException {
         try {
-            checkInstalledChaincode(configManager.getConfiguration().getChaincode());
-            checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
+            //checkInstalledChaincode(configManager.getConfiguration().getChaincode());
+            //checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
 
             Collection<ProposalResponse> successful = new LinkedList<>();
             Collection<ProposalResponse> failed = new LinkedList<>();
@@ -146,7 +171,7 @@ final public class LedgerInteractionHelper {
             if (user != null) { // specific user use that
                 transactionProposalRequest.setUserContext(user);
             }
-            log.debug("sending transaction proposal to all peers with arguments:", args.get(0)); //TODO
+            log.debug("sending transaction proposal to all peers with arguments:", args.get(0)); //FIXME
             String payload = null;
             Collection<ProposalResponse> invokePropResp = channel.sendTransactionProposal(transactionProposalRequest);
             for (ProposalResponse response : invokePropResp) {
@@ -193,8 +218,8 @@ final public class LedgerInteractionHelper {
                 log.debug("Finished transaction with transaction id %s", transactionEvent.getTransactionID());
                 String testTxID = transactionEvent.getTransactionID(); // used in the channel queries later
             }
-            checkInstalledChaincode(configManager.getConfiguration().getChaincode());
-            checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
+            //checkInstalledChaincode(configManager.getConfiguration().getChaincode());
+            //checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
             ////////////////////////////
             // Send Query Proposal to all peers
             //
