@@ -16,18 +16,18 @@
       "peers": [
         {
           "name": "peer0.org1.example.com",
-          "requestURL": "grpc://{server.host}:7051",
-          "eventURL": "grpc://{server.host}:7053"
+          "requestURL": "grpc://${server.host}:7051",
+          "eventURL": "grpc://${server.host}:7053"
         }
       ],
       "ca": {
-        "url": "http://{server.host}:7054",
+        "url": "http://${server.host}:7054",
         "name": "ca.org1.example.com"
       },
       "orderers": [
         {
           "name":"orderer.example.com",
-          "url": "grpc://{server.host}:7050"
+          "url": "grpc://${server.host}:7050"
         }
       ]
     }
