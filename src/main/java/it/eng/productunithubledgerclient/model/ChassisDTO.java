@@ -7,36 +7,21 @@ import java.util.Objects;
 
 public class ChassisDTO implements Serializable{
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChassisDTO)) return false;
-        ChassisDTO that = (ChassisDTO) o;
-        return Objects.equals( chassisId, that.chassisId ) && Objects.equals( productUnits, that.productUnits ) && Objects.equals( billOfProcessStep, that.billOfProcessStep ) && Objects.equals( billOfProcessStepsResult, that.billOfProcessStepsResult );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( chassisId, productUnits, billOfProcessStep, billOfProcessStepsResult );
-    }
-
     private ChassisID chassisId;
     private String productUnits;
     private List<ProcessStep> billOfProcessStep;
     private List<ProcessStepResult> billOfProcessStepsResult;
 
+    public ChassisDTO() {
+        this.billOfProcessStep = new ArrayList<>();
+        this.billOfProcessStepsResult = new ArrayList<>();
+    }
 
     public ChassisDTO(ChassisID chassisId, String productUnits, List<ProcessStep> billOfProcessStep, List<ProcessStepResult> billOfProcessStepsResult) {
         this.chassisId = chassisId;
         this.productUnits = productUnits;
         this.billOfProcessStep = billOfProcessStep;
         this.billOfProcessStepsResult = billOfProcessStepsResult;
-    }
-
-    public ChassisDTO() {
-        this.billOfProcessStep = new ArrayList<>();
-        this.billOfProcessStepsResult = new ArrayList<>();
     }
 
     public ChassisID getChassisId() {
@@ -70,4 +55,19 @@ public class ChassisDTO implements Serializable{
     public void setBillOfProcessStepsResult(List<ProcessStepResult> billOfProcessStepsResult) {
         this.billOfProcessStepsResult = billOfProcessStepsResult;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChassisDTO)) return false;
+        ChassisDTO that = (ChassisDTO) o;
+        return Objects.equals( chassisId, that.chassisId ) && Objects.equals( productUnits, that.productUnits ) && Objects.equals( billOfProcessStep, that.billOfProcessStep ) && Objects.equals( billOfProcessStepsResult, that.billOfProcessStepsResult );
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( chassisId, productUnits, billOfProcessStep, billOfProcessStepsResult );
+    }
+
 }

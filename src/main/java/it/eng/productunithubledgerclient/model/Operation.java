@@ -10,19 +10,6 @@ public class Operation {
     private String equipmentRequirements;
     private List<OperationStep> operationSteps;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Operation)) return false;
-        Operation operation = (Operation) o;
-        return Objects.equals( sequenceNo, operation.sequenceNo ) && Objects.equals( instructionTexts, operation.instructionTexts ) && Objects.equals( equipmentRequirements, operation.equipmentRequirements ) && Objects.equals( operationSteps, operation.operationSteps );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( sequenceNo, instructionTexts, equipmentRequirements, operationSteps );
-    }
 
     public Operation(Integer sequenceNo, List<InstructionText> instructionTexts, String equipmentRequirements, List<OperationStep> operationSteps) {
         this.sequenceNo = sequenceNo;
@@ -67,5 +54,20 @@ public class Operation {
     public void setOperationSteps(List<OperationStep> operationSteps) {
         this.operationSteps = operationSteps;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Operation)) return false;
+        Operation operation = (Operation) o;
+        return Objects.equals( sequenceNo, operation.sequenceNo ) && Objects.equals( instructionTexts, operation.instructionTexts ) && Objects.equals( equipmentRequirements, operation.equipmentRequirements ) && Objects.equals( operationSteps, operation.operationSteps );
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( sequenceNo, instructionTexts, equipmentRequirements, operationSteps );
+    }
+
 }
 

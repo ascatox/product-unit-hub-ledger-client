@@ -6,23 +6,14 @@ import java.util.Objects;
 
 public class EquipmentRequirement {
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EquipmentRequirement)) return false;
-        EquipmentRequirement that = (EquipmentRequirement) o;
-        return Objects.equals( equipmentType, that.equipmentType ) && Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( specifications, that.specifications );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( equipmentType, sequenceNo, specifications );
-    }
 
     private String equipmentType;
     private Integer sequenceNo;
     private List<EquipmentSpecification> specifications;
+
+    public EquipmentRequirement() {
+        this.specifications = new ArrayList<>();
+    }
 
     public EquipmentRequirement(String equipmentType, Integer sequenceNo, List<EquipmentSpecification> specifications) {
         this.equipmentType = equipmentType;
@@ -30,9 +21,6 @@ public class EquipmentRequirement {
         this.specifications = new ArrayList<>();
     }
 
-    public EquipmentRequirement() {
-        this.specifications = new ArrayList<>();
-    }
 
     public String getEquipmentType() {
         return equipmentType;
@@ -57,4 +45,19 @@ public class EquipmentRequirement {
     public void setSpecifications(List<EquipmentSpecification> specifications) {
         this.specifications = specifications;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EquipmentRequirement)) return false;
+        EquipmentRequirement that = (EquipmentRequirement) o;
+        return Objects.equals( equipmentType, that.equipmentType ) && Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( specifications, that.specifications );
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( equipmentType, sequenceNo, specifications );
+    }
+
 }

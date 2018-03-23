@@ -136,6 +136,58 @@
                     <nohelp>true</nohelp>
                 </configuration>
             </plugin>
+            <!-- Maven Assembly Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <resource>
+                            <filtering>true</filtering>
+                            <directory>src/main/resources</directory>
+                            <includes>
+                                <include>config-network.json</include>
+                            </includes>
+                        </resource>
+                        <manifest>
+                            <mainClass>it.eng.productunithubledgerclient.api.LedgerClient</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <server.host>192.168.56.101</server.host>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <server.host>109.232.32.197</server.host>
+            </properties>
+        </profile>
+    </profiles>
 </project>
