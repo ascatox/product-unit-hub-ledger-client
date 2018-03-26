@@ -122,7 +122,7 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
         args.add(json);
         final InvokeReturn invokeReturn = ledgerInteractionHelper.invokeChaincode(fcn.name(), args);
         try {
-            invokeReturn.getCompletableFuture().get(Utils.getTimeout(), TimeUnit.MILLISECONDS);
+            invokeReturn.getCompletableFuture().get(configManager.getConfiguration().getTimeout(), TimeUnit.MILLISECONDS);
             final String payload = invokeReturn.getPayload();
             return payload;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {

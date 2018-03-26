@@ -1,6 +1,5 @@
 package it.eng.productunithubledgerclient.api.exception;
 
-//TODO Extend!!!
 public class ProductUnitHubException extends Exception {
 
     public ProductUnitHubException() {

@@ -40,8 +40,5 @@ public class Utils {
     }
 
 
-    public static Integer getTimeout(){
-        return Integer.parseInt(ConfigManager.INVOKEWAITTIME);
-    }
 
 }

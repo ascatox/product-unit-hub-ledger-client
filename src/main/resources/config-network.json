@@ -1,6 +1,6 @@
 {
   "name": "fabric-network",
-  "type": "hlfv1",
+  "type": "hlfv1.1",
   "channelName": "ledgerchannel",
   "timeout": 300,
   "cryptoconfigdir": "C:/Users/Claudio/Desktop/ENG_STAGE/config.json",
