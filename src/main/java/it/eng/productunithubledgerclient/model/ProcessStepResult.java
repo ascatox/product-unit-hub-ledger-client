@@ -8,19 +8,6 @@ public class ProcessStepResult {
 
     private List<OperationResult> operationResults;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProcessStepResult)) return false;
-        ProcessStepResult that = (ProcessStepResult) o;
-        return Objects.equals( operationResults, that.operationResults );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( operationResults );
-    }
 
     public ProcessStepResult(List<OperationResult> operationResults) {
 
@@ -39,4 +26,19 @@ public class ProcessStepResult {
     public void setOperationResults(List<OperationResult> operationResults) {
         this.operationResults = operationResults;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProcessStepResult)) return false;
+        ProcessStepResult that = (ProcessStepResult) o;
+        return Objects.equals( operationResults, that.operationResults );
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( operationResults );
+    }
+
 }

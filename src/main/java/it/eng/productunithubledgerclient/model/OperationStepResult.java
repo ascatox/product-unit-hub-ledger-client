@@ -12,19 +12,7 @@ public class OperationStepResult {
     private EquipmentRequirement equipmentRequirement;
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OperationStepResult)) return false;
-        OperationStepResult that = (OperationStepResult) o;
-        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( stepName, that.stepName ) && Objects.equals( stepStatus, that.stepStatus ) && Objects.equals( channelId, that.channelId ) && Objects.equals( equipmentResult, that.equipmentResult ) && Objects.equals( equipmentRequirement, that.equipmentRequirement );
-    }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( sequenceNo, stepName, stepStatus, channelId, equipmentResult, equipmentRequirement );
-    }
 
     public OperationStepResult(Integer sequenceNo, String stepName, String stepStatus, String channelId, EquipmentResult equipmentResult, EquipmentRequirement equipmentRequirement) {
         this.sequenceNo = sequenceNo;
@@ -86,5 +74,19 @@ public class OperationStepResult {
 
     public void setEquipmentRequirement(EquipmentRequirement equipmentRequirement) {
         this.equipmentRequirement = equipmentRequirement;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OperationStepResult)) return false;
+        OperationStepResult that = (OperationStepResult) o;
+        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( stepName, that.stepName ) && Objects.equals( stepStatus, that.stepStatus ) && Objects.equals( channelId, that.channelId ) && Objects.equals( equipmentResult, that.equipmentResult ) && Objects.equals( equipmentRequirement, that.equipmentRequirement );
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash( sequenceNo, stepName, stepStatus, channelId, equipmentResult, equipmentRequirement );
     }
 }

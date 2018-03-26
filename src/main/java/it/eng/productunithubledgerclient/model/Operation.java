@@ -10,20 +10,15 @@ import java.util.Objects;
 public class Operation {
     @NotNull
     private Integer sequenceNo;
-
-    private List<InstructionText> instructionTexts;
-
-    private List<EquipmentRequirement> equipmentRequirements;
-
-    private List<OperationStep> operationSteps;
-
     private String Id;
-
     @Pattern( regexp = "[0-9]")
     private String CIN;
-
     private String Description;
     private String OperationType;
+
+    private List<InstructionText> instructionTexts;
+    private List<EquipmentRequirement> equipmentRequirements;
+    private List<OperationStep> operationSteps;
 
 
     public Operation() {

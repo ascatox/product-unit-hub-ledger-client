@@ -67,7 +67,7 @@ final public class LedgerInteractionHelper {
         }
     }
 
-    private void setup() throws Exception {
+    public void setup() throws Exception {
         ChannelInitializationManager channelInitializationManager = ChannelInitializationManager.getInstance(this.client, this.configManager, this.organization);
         Channel channel = channelInitializationManager.getChannel();
         if (null == channel || !channel.isInitialized() || channel.isShutdown()) {
@@ -79,7 +79,7 @@ final public class LedgerInteractionHelper {
         //this.eventHandler.register(this.channel, null);//FIXME Event Name
     }
 
-    private void controlIntalledChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
+    public void controlIntalledChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
         log.debug( "Checking installed chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers() );
         try {
             for ( Peer peer : channel.getPeers() ) {
@@ -93,7 +93,7 @@ final public class LedgerInteractionHelper {
         }
     }
 
-    private boolean checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    public boolean checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
         log.debug("Checking installed chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = client.queryInstalledChaincodes(peer);
         boolean found = false;
@@ -114,7 +114,7 @@ final public class LedgerInteractionHelper {
     }
 
 
-    private void controlInstantiatedChaincode(Chaincode chaincode) throws  ProductUnitHubException{
+    public void controlInstantiatedChaincode(Chaincode chaincode) throws  ProductUnitHubException{
         log.debug( "Checking instantiated chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers() );
         try {
             for ( Peer peer : channel.getPeers() ) {
@@ -130,7 +130,7 @@ final public class LedgerInteractionHelper {
 
     }
 
-    private boolean checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    public boolean checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
         log.debug("Checking instantiated chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = this.channel.queryInstantiatedChaincodes(peer);
 

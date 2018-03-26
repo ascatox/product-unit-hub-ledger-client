@@ -1,38 +1,63 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ChassisDTO implements Serializable{
+public class ChassisDTO implements Serializable {
 
 
+    @NotNull
+    private String ChassisId;
+    @NotNull
+    private String Component;
+    @NotNull
+    private String SubComponent;
 
-    private ChassisID chassisId;
     private String productUnits;
-    private List<ProcessStep> billOfProcessStep;
+
+    private List<ProcessStep> billOfProcessSteps;
     private List<ProcessStepResult> billOfProcessStepsResult;
 
 
-    public ChassisDTO(ChassisID chassisId, String productUnits, List<ProcessStep> billOfProcessStep, List<ProcessStepResult> billOfProcessStepsResult) {
-        this.chassisId = chassisId;
-        this.productUnits = productUnits;
-        this.billOfProcessStep = billOfProcessStep;
-        this.billOfProcessStepsResult = billOfProcessStepsResult;
-    }
-
     public ChassisDTO() {
-        this.billOfProcessStep = new ArrayList<>();
+        this.billOfProcessSteps = new ArrayList<>();
         this.billOfProcessStepsResult = new ArrayList<>();
     }
 
-    public ChassisID getChassisId() {
-        return chassisId;
+    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits, List<ProcessStep> billOfProcessSteps, List<ProcessStepResult> billOfProcessStepsResult) {
+        ChassisId = chassisId;
+        Component = component;
+        SubComponent = subComponent;
+        this.productUnits = productUnits;
+        this.billOfProcessSteps = new ArrayList<>();
+        this.billOfProcessStepsResult = new ArrayList<>();
     }
 
-    public void setChassisId(ChassisID chassisId) {
-        this.chassisId = chassisId;
+    public String getChassisId() {
+        return ChassisId;
+    }
+
+    public void setChassisId(String chassisId) {
+        ChassisId = chassisId;
+    }
+
+    public String getComponent() {
+        return Component;
+    }
+
+    public void setComponent(String component) {
+        Component = component;
+    }
+
+    public String getSubComponent() {
+        return SubComponent;
+    }
+
+    public void setSubComponent(String subComponent) {
+        SubComponent = subComponent;
     }
 
     public String getProductUnits() {
@@ -43,12 +68,12 @@ public class ChassisDTO implements Serializable{
         this.productUnits = productUnits;
     }
 
-    public List<ProcessStep> getBillOfProcessStep() {
-        return billOfProcessStep;
+    public List<ProcessStep> getBillOfProcessSteps() {
+        return billOfProcessSteps;
     }
 
-    public void setBillOfProcessStep(List<ProcessStep> billOfProcessStep) {
-        this.billOfProcessStep = billOfProcessStep;
+    public void setBillOfProcessSteps(List<ProcessStep> billOfProcessSteps) {
+        this.billOfProcessSteps = billOfProcessSteps;
     }
 
     public List<ProcessStepResult> getBillOfProcessStepsResult() {
@@ -64,12 +89,13 @@ public class ChassisDTO implements Serializable{
         if (this == o) return true;
         if (!(o instanceof ChassisDTO)) return false;
         ChassisDTO that = (ChassisDTO) o;
-        return Objects.equals( chassisId, that.chassisId  );
+        return Objects.equals( ChassisId, that.ChassisId ) && Objects.equals( Component, that.Component ) && Objects.equals( SubComponent, that.SubComponent ) && Objects.equals( productUnits, that.productUnits ) && Objects.equals( billOfProcessSteps, that.billOfProcessSteps ) && Objects.equals( billOfProcessStepsResult, that.billOfProcessStepsResult );
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash( chassisId );
+        return Objects.hash( ChassisId, Component, SubComponent, productUnits, billOfProcessSteps, billOfProcessStepsResult );
     }
 }
+

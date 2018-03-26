@@ -1,16 +1,22 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class InstructionText implements Serializable {
+
+    @NotNull
+    private Integer SequenceNo;
+
     private String text;
     private String rtf;
 
     public InstructionText() {
     }
 
-    public InstructionText(String text, String rtf) {
+    public InstructionText(String text, String rtf, Integer SequenceNo) {
+        this.SequenceNo = SequenceNo;
         this.text = text;
         this.rtf = rtf;
     }
@@ -31,22 +37,18 @@ public class InstructionText implements Serializable {
         this.rtf = rtf;
     }
 
+    public Integer getSequenceNo() {
+        return SequenceNo;
+    }
+
+    public void setSequenceNo(Integer sequenceNo) {
+        SequenceNo = sequenceNo;
+    }
+
     @Override
     public String toString() {
         return "InstructionText{" + "text='" + text + '\'' + ", rtf='" + rtf + '\'' + '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof InstructionText)) return false;
-        InstructionText that = (InstructionText) o;
-        return Objects.equals( text, that.text ) && Objects.equals( rtf, that.rtf );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash( text, rtf );
-    }
 
 }

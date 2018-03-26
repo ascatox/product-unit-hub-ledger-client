@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ProcessStep{
+public class ProcessStep {
+
     @NotNull
     private Integer plannedProductionTime;
     @NotNull
@@ -15,7 +16,7 @@ public class ProcessStep{
     private List<Operation> billofOperations;
 
 
-    public ProcessStep(Integer plannedProductionTime, Integer sequenceNo,String Id, String Name, WorkCellResource workcellOperation, List<Operation> billofOperations) {
+    public ProcessStep(Integer plannedProductionTime, Integer sequenceNo, String Id, String Name, WorkCellResource workcellOperation, List<Operation> billofOperations) {
         this.plannedProductionTime = plannedProductionTime;
         this.sequenceNo = sequenceNo;
         this.workCellResource = workcellOperation;

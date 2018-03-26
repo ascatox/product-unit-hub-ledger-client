@@ -6,25 +6,25 @@ import java.util.Objects;
 public class Material {
 
     @NotNull
-    private Integer PartNo;
-    private Integer Quantity;
-    private String Description;
+    public String PartNo;
+    public Integer Quantity;
+    public String Description;
 
 
     public Material() {
     }
 
-    public Material(Integer partNo, Integer quantity, String description) {
+    public Material(String partNo, Integer quantity, String description) {
         PartNo = partNo;
         Quantity = quantity;
         Description = description;
     }
 
-    public Integer getPartNo() {
+    public String getPartNo() {
         return PartNo;
     }
 
-    public void setPartNo(Integer partNo) {
+    public void setPartNo(String partNo) {
         PartNo = partNo;
     }
 
