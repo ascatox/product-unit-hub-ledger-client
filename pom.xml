@@ -87,10 +87,14 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.0.8.Final</version>
         </dependency>
-
-
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -153,13 +157,6 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <archive>
-                        <resource>
-                            <filtering>true</filtering>
-                            <directory>src/main/resources</directory>
-                            <includes>
-                                <include>config-network.json</include>
-                            </includes>
-                        </resource>
                         <manifest>
                             <mainClass>it.eng.productunithubledgerclient.api.LedgerClient</mainClass>
                         </manifest>
