@@ -1,0 +1,9 @@
+it.eng.productunithubledgerclient
+it.eng.productunithubledgerclient.api
+it.eng.productunithubledgerclient.api.base
+it.eng.productunithubledgerclient.api.config
+it.eng.productunithubledgerclient.api.exception
+it.eng.productunithubledgerclient.api.helper
+it.eng.productunithubledgerclient.convert
+it.eng.productunithubledgerclient.model
+it.eng.productunithubledgerclient.utils

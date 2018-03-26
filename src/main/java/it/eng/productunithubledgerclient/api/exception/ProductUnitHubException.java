@@ -23,5 +23,8 @@ public class ProductUnitHubException extends Exception {
             writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
+
+
 }
 

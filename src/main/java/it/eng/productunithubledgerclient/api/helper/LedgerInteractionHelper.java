@@ -34,7 +34,7 @@ final public class LedgerInteractionHelper {
     private EventHandler eventHandler;
 
 
-    File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties"); //FIXME
+    //File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties"); //FIXME
 
     public LedgerInteractionHelper(ConfigManager configManager, Organization organization) throws ProductUnitHubException {
         doChainInteractionHelper(configManager, organization, null);
@@ -67,7 +67,7 @@ final public class LedgerInteractionHelper {
         }
     }
 
-    public void setup() throws Exception {
+    private void setup() throws Exception {
         ChannelInitializationManager channelInitializationManager = ChannelInitializationManager.getInstance(this.client, this.configManager, this.organization);
         Channel channel = channelInitializationManager.getChannel();
         if (null == channel || !channel.isInitialized() || channel.isShutdown()) {
@@ -76,7 +76,11 @@ final public class LedgerInteractionHelper {
         }
         this.channel = channel;
         //FIXME EventHandling
-        //this.eventHandler.register(this.channel, null);//FIXME Event Name
+        this.eventHandler = EventHandler.getInstance();
+        this.eventHandler.register(this.channel, null);//FIXME Event Name
+
+        this.controlIntalledChaincodeOnPeers(configuration.getChaincode());
+        this.controlInstantiatedChaincodeOnPeers(configuration.getChaincode());
     }
 
     public void controlIntalledChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
@@ -84,7 +88,7 @@ final public class LedgerInteractionHelper {
         try {
             for ( Peer peer : channel.getPeers() ) {
                 if (!checkInstalledChaincode( peer, chaincode )) {
-                    throw new ProductUnitHubException(format( "Peer %s is missing chaincode whit name: %s, path: %s, version: %s",
+                    throw new ProductUnitHubException(format( "Peer %s is missing chaincode whith name: %s, path: %s, version: %s",
                             peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion())  );
                 }
             }
@@ -93,7 +97,7 @@ final public class LedgerInteractionHelper {
         }
     }
 
-    public boolean checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private boolean checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
         log.debug("Checking installed chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = client.queryInstalledChaincodes(peer);
         boolean found = false;
@@ -114,23 +118,21 @@ final public class LedgerInteractionHelper {
     }
 
 
-    public void controlInstantiatedChaincode(Chaincode chaincode) throws  ProductUnitHubException{
-        log.debug( "Checking instantiated chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers() );
+    public void controlInstantiatedChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
+        log.debug( "Checking installed chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers() );
         try {
             for ( Peer peer : channel.getPeers() ) {
                 if (!checkInstantiatedChaincode( peer, chaincode )) {
-                    throw new ProductUnitHubException(format( "Peer %s is missing chaincode whit name: %s, path: %s, version: %s",
+                    throw new ProductUnitHubException(format( "Peer %s has not installed chaincode with name: %s, path: %s, version: %s",
                             peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion())  );
                 }
             }
         }catch (Exception e) {
             throw new ProductUnitHubException( e );
         }
-
-
     }
 
-    public boolean checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private boolean checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
         log.debug("Checking instantiated chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
         List<Query.ChaincodeInfo> ccinfoList = this.channel.queryInstantiatedChaincodes(peer);
 
@@ -153,20 +155,20 @@ final public class LedgerInteractionHelper {
 
     }
 
-    public InvokeReturn invokeChaincode(String functionName, ArrayList<String> args) throws ProductUnitHubException {
+    public InvokeReturn invokeChaincode(String functionName, List<String> args) throws ProductUnitHubException {
         try {
-            //checkInstalledChaincode(configManager.getConfiguration().getChaincode());
-            //checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
-
             Collection<ProposalResponse> successful = new LinkedList<>();
             Collection<ProposalResponse> failed = new LinkedList<>();
+
+            String[] argsArr = new String[args.size()];
+            argsArr = args.toArray(argsArr);
 
             ///////////////
             /// Send transaction proposal to all peers
             TransactionProposalRequest transactionProposalRequest = client.newTransactionProposalRequest();
             transactionProposalRequest.setChaincodeID(configuration.getChaincode().getChaincodeID());
             transactionProposalRequest.setFcn(functionName);
-            transactionProposalRequest.setArgs(args);
+            transactionProposalRequest.setArgs(argsArr);
             transactionProposalRequest.setProposalWaitTime(configManager.getProposalWaitTime());
             if (user != null) { // specific user use that
                 transactionProposalRequest.setUserContext(user);
@@ -196,7 +198,6 @@ final public class LedgerInteractionHelper {
             }
             log.debug("Successfully received transaction proposal responses.");
 
-            ////////////////////////////
             // Send transaction to orderer
             log.debug("Sending chaincode transaction to orderer.", args.get(0));
             if (user != null) {
@@ -211,22 +212,22 @@ final public class LedgerInteractionHelper {
     }
 
 
-    public List<QueryReturn> queryChainCode(String functionName, ArrayList<String> args, BlockEvent.TransactionEvent transactionEvent) throws ProductUnitHubException {
+    public List<QueryReturn> queryChainCode(String functionName, List<String> args, BlockEvent.TransactionEvent transactionEvent) throws ProductUnitHubException {
         try {
             if (null != transactionEvent) {
                 //waitOnFabric(0);
                 log.debug("Finished transaction with transaction id %s", transactionEvent.getTransactionID());
                 String testTxID = transactionEvent.getTransactionID(); // used in the channel queries later
             }
-            //checkInstalledChaincode(configManager.getConfiguration().getChaincode());
-            //checkInstantiatedChaincode(configManager.getConfiguration().getChaincode());
-            ////////////////////////////
             // Send Query Proposal to all peers
             //
             log.debug("Now query chaincode for the values rquired.");
 
+            String[] argsArr = new String[args.size()];
+            argsArr = args.toArray(argsArr);
+
             QueryByChaincodeRequest queryByChaincodeRequest = client.newQueryProposalRequest();
-            queryByChaincodeRequest.setArgs(args);
+            queryByChaincodeRequest.setArgs(argsArr);
             queryByChaincodeRequest.setFcn(functionName);
             queryByChaincodeRequest.setChaincodeID(configuration.getChaincode().getChaincodeID());
 

@@ -15,9 +15,9 @@ import static io.netty.util.NetUtil.LOCALHOST;
 
 public class ConfigManager {
 
-    private static final String INVOKEWAITTIME = "100000";
-    private static final String DEPLOYWAITTIME = "120000";
-    private static final String PROPOSALWAITTIME = "120000";
+    public static final String INVOKEWAITTIME = "100000";
+    public static final String DEPLOYWAITTIME = "120000";
+    public static final String PROPOSALWAITTIME = "120000";
     public static final String UTF_8 = "UTF-8";
 
     private final static Logger log = LogManager.getLogger(ConfigManager.class);

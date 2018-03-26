@@ -1,8 +1,11 @@
 package it.eng.productunithubledgerclient.api.base;
 
+import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.model.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 public interface LedgerClient {
 
@@ -13,7 +16,7 @@ public interface LedgerClient {
      * @return
      * @throws Exception
      */
-     void storeProcessStepRouting(List<ChassisDTO> chassisDTOS)  throws Exception;
+     void storeProcessStepRouting(List<ChassisDTO> chassisDTOS) throws ProductUnitHubException, InterruptedException, ExecutionException, TimeoutException;
 
     /**
      *
@@ -21,7 +24,21 @@ public interface LedgerClient {
      * @return
      * @throws Exception
      */
-     void storeProcessStepResult(ChassisDTO chassisDTO) throws Exception;
+     void storeProcessStepResult(ChassisDTO chassisDTO) throws ProductUnitHubException;
+
+    /**
+     *
+     * @param json
+     * @throws ProductUnitHubException
+     */
+    void storeProcessStepRouting(String json)  throws ProductUnitHubException;
+
+    /**
+     *
+     * @param json
+     * @throws ProductUnitHubException
+     */
+    void storeProcessStepResult(String json) throws ProductUnitHubException;
 
     /**
      *
@@ -30,7 +47,7 @@ public interface LedgerClient {
      * @throws Exception
      */
 
-     List<ChassisDTO> getProcessStepRouting(String component, String subComponent)  throws Exception ;
+     List<ChassisDTO> getProcessStepRouting(String component, String subComponent)  throws ProductUnitHubException ;
 
     /**
      *
@@ -38,6 +55,6 @@ public interface LedgerClient {
      * @return
      * @throws Exception
      */
-     ChassisDTO getProcessStepResult(String chassisID, String component, String subComponent) throws Exception;
+     ChassisDTO getProcessStepResult(String chassisID, String component, String subComponent) throws ProductUnitHubException;
 
 }
