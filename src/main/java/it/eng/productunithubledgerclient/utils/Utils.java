@@ -17,14 +17,31 @@
 package it.eng.productunithubledgerclient.utils;
 
 
+import it.eng.productunithubledgerclient.api.config.ConfigManager;
+import it.eng.productunithubledgerclient.api.config.Enrollment;
+import it.eng.productunithubledgerclient.api.config.Organization;
+import it.eng.productunithubledgerclient.api.config.User;
 import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.model.ChassisDTO;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import javax.validation.ConstraintViolation;
+import java.io.*;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Set;
 
 public class Utils {
+    private final static Logger log = LogManager.getLogger(Utils.class);
 
 
     public static void getMessageViolations(Set<ConstraintViolation<ChassisDTO>> violations) throws ProductUnitHubException {
@@ -38,6 +55,52 @@ public class Utils {
             throw new ProductUnitHubException(messageBuilder.toString());
     }
 
+
+    /**
+     * Get the user with a given name
+     *
+     * @return user
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException
+     * @throws InvalidKeySpecException
+     */
+    public User getMember(String name, String cryptoDir, Organization organization) throws ProductUnitHubException {
+        try {
+
+            // Create the User and try to restore it's state from the key value store (if found).
+            User user = new User();
+            user.setMspId(organization.getMspID());
+            File certConfigPath = ConfigManager.getCertConfigPath(organization.getDomainName(), name, cryptoDir);
+            String certificate = new String(IOUtils.toByteArray(new FileInputStream(certConfigPath)), ConfigManager.UTF_8);
+            File fileSk = ConfigManager.findFileSk(organization.getDomainName(), name, cryptoDir);
+
+            PrivateKey privateKey = getPrivateKeyFromBytes(IOUtils.toByteArray(new FileInputStream(fileSk)));
+            user.setEnrollment(new Enrollment(privateKey, certificate));
+
+            return user;
+        } catch (IOException | NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException | ClassCastException e) {
+            log.error(e);
+            throw new ProductUnitHubException(e);
+
+        }
+    }
+
+
+    private static PrivateKey getPrivateKeyFromBytes(byte[] data) throws IOException, NoSuchProviderException,
+            NoSuchAlgorithmException, InvalidKeySpecException {
+        final Reader pemReader = new StringReader(new String(data));
+
+        final PrivateKeyInfo pemPair;
+        try (PEMParser pemParser = new PEMParser(pemReader)) {
+            pemPair = (PrivateKeyInfo) pemParser.readObject();
+        }
+
+        PrivateKey privateKey = new JcaPEMKeyConverter().setProvider(BouncyCastleProvider.PROVIDER_NAME)
+                .getPrivateKey(pemPair);
+
+        return privateKey;
+    }
 
 
 }

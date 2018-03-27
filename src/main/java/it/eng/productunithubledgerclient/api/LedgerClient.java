@@ -10,6 +10,8 @@ import it.eng.productunithubledgerclient.api.helper.LedgerInteractionHelper;
 import it.eng.productunithubledgerclient.api.helper.QueryReturn;
 import it.eng.productunithubledgerclient.convert.JsonConverter;
 import it.eng.productunithubledgerclient.model.ChassisDTO;
+import it.eng.productunithubledgerclient.model.ProcessStep;
+import it.eng.productunithubledgerclient.model.ProcessStepResult;
 import it.eng.productunithubledgerclient.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -21,6 +23,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -85,6 +88,16 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
     }
 
     @Override
+    public void storeProcessStepRouting(Iterator<ChassisDTO> chassisDTOs) throws ProductUnitHubException {
+
+    }
+
+    @Override
+    public void storeProcessStepResult(ProcessStepResult processStepResult) throws ProductUnitHubException {
+
+    }
+
+    @Override
     public void storeProcessStepRouting(String json) throws ProductUnitHubException {
         if (null == json || json.isEmpty())
             throw new ProductUnitHubException(Function.storeProcessStepRouting.name() + " is in error, No input data!");
@@ -102,13 +115,28 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
 
     }
 
-    public List<ChassisDTO> getProcessStepRouting(String component, String subComponent) throws ProductUnitHubException {
+    public Iterator<ChassisDTO> getProcessStepRouting(String component, String subComponent) throws ProductUnitHubException {
         if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent))
             throw new ProductUnitHubException(Function.getProcessStepRouting.name() + " is in error, No input data!");
         List<String> args = new ArrayList<>();
         args.add(component);
         args.add(subComponent);
         return doQueryByJson(Function.getProcessStepRouting, args);
+    }
+
+    @Override
+    public ChassisDTO getProcessStepRouting(String chassisID, String component, String subComponent) throws ProductUnitHubException {
+        return null;
+    }
+
+    @Override
+    public Iterator<ProcessStep> getProcessStep(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException {
+        return null;
+    }
+
+    @Override
+    public ProcessStepResult getProcessStepResult(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException {
+        return null;
     }
 
     public ChassisDTO getProcessStepResult(String chassisID, String component, String subComponent) throws ProductUnitHubException {
@@ -118,9 +146,9 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
         args.add(chassisID);
         args.add(component);
         args.add(subComponent);
-        List<ChassisDTO> chassisDTOS = doQueryByJson(Function.getProcessStepResult, args);
-        if(null == chassisDTOS || chassisDTOS.isEmpty()) return null;
-        return chassisDTOS.get(0);
+        Iterator<ChassisDTO> chassisDTOS = doQueryByJson(Function.getProcessStepResult, args);
+        if(null == chassisDTOS || !chassisDTOS.hasNext()) return null;
+        return chassisDTOS.next();
     }
 
 
@@ -139,7 +167,7 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
     }
 
 
-    private List<ChassisDTO> doQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
+    private Iterator<ChassisDTO> doQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
         List<ChassisDTO> chassisDTOS = new ArrayList<>();
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
@@ -147,7 +175,7 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
                 ChassisDTO fromJson =(ChassisDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class);
                 chassisDTOS.add(fromJson);
             }
-            return chassisDTOS;
+            return chassisDTOS.iterator();
         } catch (Exception e) {
             log.error(e);
             throw new ProductUnitHubException(e);

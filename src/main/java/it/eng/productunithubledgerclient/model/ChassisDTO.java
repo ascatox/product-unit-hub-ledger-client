@@ -3,6 +3,7 @@ package it.eng.productunithubledgerclient.model;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ChassisDTO implements Serializable {
@@ -18,21 +19,18 @@ public class ChassisDTO implements Serializable {
     private String productUnits;
 
     private List<ProcessStep> billOfProcessSteps;
-    private List<ProcessStepResult> billOfProcessStepsResult;
 
 
     public ChassisDTO() {
         this.billOfProcessSteps = new ArrayList<>();
-        this.billOfProcessStepsResult = new ArrayList<>();
     }
 
-    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits, List<ProcessStep> billOfProcessSteps, List<ProcessStepResult> billOfProcessStepsResult) {
+    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits, List<ProcessStep> billOfProcessSteps) {
         ChassisId = chassisId;
         Component = component;
         SubComponent = subComponent;
         this.productUnits = productUnits;
         this.billOfProcessSteps = new ArrayList<>();
-        this.billOfProcessStepsResult = new ArrayList<>();
     }
 
     public String getChassisId() {
@@ -74,14 +72,6 @@ public class ChassisDTO implements Serializable {
 
     public void setBillOfProcessSteps(List<ProcessStep> billOfProcessSteps) {
         this.billOfProcessSteps = billOfProcessSteps;
-    }
-
-    public List<ProcessStepResult> getBillOfProcessStepsResult() {
-        return billOfProcessStepsResult;
-    }
-
-    public void setBillOfProcessStepsResult(List<ProcessStepResult> billOfProcessStepsResult) {
-        this.billOfProcessStepsResult = billOfProcessStepsResult;
     }
 
     @Override

@@ -127,9 +127,10 @@ public class ConfigManager {
                                 sampleOrgDomainName,
                                 format("/users/Admin@%s/msp/signcerts/Admin@%s-cert.pem", sampleOrgDomainName,
                                         sampleOrgDomainName)).toFile());
+*/
 
-
-    public static File findFileSk(File directory) {
+    public static File findFileSk(String domainName, String user, String cryptoDir) {
+        File directory = getSkConfigPath(domainName,user, cryptoDir);
 
         File[] matches = directory.listFiles((dir, name) -> name.endsWith("_sk"));
 
@@ -145,20 +146,20 @@ public class ConfigManager {
         return matches[0];
     }
 
-    private static File getSkConfigPath(String domainName, String user) {
-        return Paths.get(configuration.getCryptoconfigdir(),
+    public static File getSkConfigPath(String domainName, String user, String cryptoDir) {
+        return Paths.get(cryptoDir,
                 "/peerOrganizations/",
                 domainName, format("/users/"+user+"@%s/msp/keystore", domainName))
                 .toFile();
     }
 
-    private static File getCertConfigPath(String domainName, String user) {
-        return Paths.get(configuration.getCryptoconfigdir(), "/peerOrganizations/",
+    public static File getCertConfigPath(String domainName, String user, String cryptoDir) {
+        return Paths.get(cryptoDir, "/peerOrganizations/",
                 domainName,
                 format("/users/Admin@%s/msp/signcerts/"+user+"@%s-cert.pem", domainName,
                         domainName)).toFile();
     }
 
-*/
+
 
 }//end class

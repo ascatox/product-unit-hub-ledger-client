@@ -1,19 +1,8 @@
 package it.eng.productunithubledgerclient.api.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +14,6 @@ public class Organization {
     private List<OrdererConfig> orderers;
     private List<User> users;
     private Ca ca;
-
-    private final static Logger log = LogManager.getLogger(Organization.class);
-
 
     public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Ca ca) {
         this.mspID = mspID;
@@ -141,56 +127,12 @@ public class Organization {
     public User loadUser(String userName) {
         if (StringUtils.isEmpty(userName))
             return null;
-        for (User user :
-                users) {
+        for (User user : users) {
             if (user.getName().equals(userName))
                 return user;
         }
         return null;
     }
-
-
-    /**
-     * Get the user with a given name
-     *
-     * @param name
-     * @param org
-     * @param mspId
-     * @param privateKeyFile
-     * @param certificateFile
-     * @return user
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     * @throws NoSuchProviderException
-     * @throws InvalidKeySpecException
-     */
-    /*public User getMember(String name, String org, String mspId, File privateKeyFile,
-                          File certificateFile) throws ProductUnitHubException {
-        try {
-            // Try to get the User state from the cache
-            User user = users.contains()
-            if (null != user) {
-                return user;
-            }
-
-            // Create the User and try to restore it's state from the key value store (if found).
-            user = new User();
-            user.setMspId(mspId);
-
-            String certificate = new String(IOUtils.toByteArray(new FileInputStream(certificateFile)), ConfigManager.UTF_8);
-
-            PrivateKey privateKey = getPrivateKeyFromBytes(IOUtils.toByteArray(new FileInputStream(privateKeyFile)));
-
-            user.setEnrollment(new SampleStoreEnrollement(privateKey, certificate));
-
-            return user;
-        } catch (IOException | NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException | ClassCastException e) {
-            log.error(e);
-            throw new ProductUnitHubException(e);
-
-        }
-    }*/
-
 
 }
 

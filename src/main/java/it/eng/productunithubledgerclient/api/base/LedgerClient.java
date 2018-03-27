@@ -4,6 +4,7 @@ import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.api.helper.EventHandler;
 import it.eng.productunithubledgerclient.model.*;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
@@ -11,32 +12,27 @@ import java.util.concurrent.TimeoutException;
 
 public interface LedgerClient {
 
-    //TODO I have to create a correct type of Exception for my managed Exceptions!!!
     /**
      *
-     * @param chassisDTOS
+     * @param chassisDTOs
+     * @throws ProductUnitHubException
+     */
+    void storeProcessStepRouting(Iterator<ChassisDTO> chassisDTOs) throws ProductUnitHubException;
+
+    /**
+     * @param processStepResult
      * @return
      * @throws Exception
      */
-     void storeProcessStepRouting(List<ChassisDTO> chassisDTOS) throws ProductUnitHubException, InterruptedException, ExecutionException, TimeoutException;
+    void storeProcessStepResult(ProcessStepResult processStepResult) throws ProductUnitHubException;
 
     /**
-     *
-     * @param chassisDTO
-     * @return
-     * @throws Exception
-     */
-     void storeProcessStepResult(ChassisDTO chassisDTO) throws ProductUnitHubException;
-
-    /**
-     *
      * @param json
      * @throws ProductUnitHubException
      */
-    void storeProcessStepRouting(String json)  throws ProductUnitHubException;
+    void storeProcessStepRouting(String json) throws ProductUnitHubException;
 
     /**
-     *
      * @param json
      * @throws ProductUnitHubException
      */
@@ -44,21 +40,44 @@ public interface LedgerClient {
 
     /**
      *
-     * @param component,subComponent
+     * @param component
+     * @param subComponent
      * @return
-     * @throws Exception
+     * @throws ProductUnitHubException
      */
+    Iterator<ChassisDTO> getProcessStepRouting(String component, String subComponent) throws ProductUnitHubException;
 
-     List<ChassisDTO> getProcessStepRouting(String component, String subComponent)  throws ProductUnitHubException ;
 
     /**
      *
-     * @param chassisID,component,subComponent
+     * @param chassisID
+     * @param component
+     * @param subComponent
      * @return
-     * @throws Exception
+     * @throws ProductUnitHubException
      */
-     ChassisDTO getProcessStepResult(String chassisID, String component, String subComponent) throws ProductUnitHubException;
+    ChassisDTO getProcessStepRouting(String chassisID, String component, String subComponent) throws ProductUnitHubException;
 
 
+    /**
+     * @param chassisID
+     * @param component
+     * @param subComponent
+     * @param workCellResourceID
+     * @return
+     * @throws ProductUnitHubException
+     */
+    Iterator<ProcessStep> getProcessStep(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException;
+
+    /**
+     * @param chassisID
+     * @param component
+     * @param subComponent
+     * @param workCellResourceID
+     * @return
+     * @throws ProductUnitHubException
+     */
+
+    ProcessStepResult getProcessStepResult(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException;
 
 }
