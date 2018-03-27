@@ -74,7 +74,7 @@ Include `repositories` and `dependency` as shown below in your `pom.xml`
 ```
 Otherwise if you want to do it manually:
 ```bash
-	mvn package && mvn install
+ mvn package && mvn install
 ```
 
 # JavaDoc
