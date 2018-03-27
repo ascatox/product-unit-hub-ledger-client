@@ -14,7 +14,7 @@ TODO
 # Configure the LedgerClient
 Edit the file `config-network.json`[*](https://github.com/far-edge/DistributedLedger/blob/develop/ledger-client/src/main/resources/config-network.properties) with your favourite text editor in order to configure the network as in your HLF previous installation. Under you can find a complete example of configured file: <br/>
 `vim config-network.json` 
-`
+```javascript
 {
   "name": "fabric-network",
   "type": "hlfv1.1",
@@ -51,7 +51,6 @@ Edit the file `config-network.json`[*](https://github.com/far-edge/DistributedLe
     }
   ]
 }
-
 ```
 
 Copy your HLF `crypto-config` dir under the chosen directory (default directory is **USER HOME**), if you have problems [here](https://github.com/ascatox/configuration-network-fabric#troubleshooting). <br/>
