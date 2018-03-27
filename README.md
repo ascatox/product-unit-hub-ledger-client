@@ -61,8 +61,8 @@ In order to use the library use Maven with these commands:
 ```bash
  mvn package && mvn install
 ```
-# FarEdge hosted environment
-In order to use the FarEdge hosted env, you should only include `repositories` and `dependency` as shown below in your `pom.xml`
+# FarEdge Hosted environment
+In order to use the FarEdge Hosted env, you should **only** include `repositories` and `dependency` as shown below in your `pom.xml`
 ```bash 
 <repositories>
 	<repository>
