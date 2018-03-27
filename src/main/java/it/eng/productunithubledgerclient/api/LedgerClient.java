@@ -41,7 +41,7 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
     }
 
 
-    public void doLedgerClient() throws ProductUnitHubException {
+    private void doLedgerClient() throws ProductUnitHubException {
         try {
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             validator = factory.getValidator();
@@ -71,6 +71,7 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
         }
         String json = JsonConverter.convertToJson(chassisDTOs);
         final String payload = doInvokeByJson(Function.storeProcessStepRouting, json);
+        log.debug("Payload retrieved: "+payload);
     }
 
 
@@ -79,6 +80,8 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
             throw new ProductUnitHubException(Function.storeProcessStepResult.name() + " is in error, No input data!");
         String json = JsonConverter.convertToJson(chassisDTO);
         final String payload = doInvokeByJson(Function.storeProcessStepResult, json);
+        log.debug("Payload retrieved: "+payload);
+
     }
 
     @Override
@@ -86,6 +89,8 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
         if (null == json || json.isEmpty())
             throw new ProductUnitHubException(Function.storeProcessStepRouting.name() + " is in error, No input data!");
         final String payload = doInvokeByJson(Function.storeProcessStepRouting, json);
+        log.debug("Payload retrieved: "+payload);
+
     }
 
     @Override
@@ -93,6 +98,8 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
         if (null == json || json.isEmpty())
             throw new ProductUnitHubException(Function.storeProcessStepResult.name() + " is in error, No input data!");
         final String payload = doInvokeByJson(Function.storeProcessStepResult, json);
+        log.debug("Payload retrieved: "+payload);
+
     }
 
     public List<ChassisDTO> getProcessStepRouting(String component, String subComponent) throws ProductUnitHubException {

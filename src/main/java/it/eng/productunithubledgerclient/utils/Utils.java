@@ -17,7 +17,6 @@
 package it.eng.productunithubledgerclient.utils;
 
 
-import it.eng.productunithubledgerclient.api.config.ConfigManager;
 import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.model.ChassisDTO;
 import org.apache.commons.lang3.StringUtils;

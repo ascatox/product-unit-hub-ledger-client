@@ -2,10 +2,11 @@
   "name": "fabric-network",
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
-  "timeout": 300,
-  "cryptoconfigdir": "C:/Users/Claudio/Desktop/ENG_STAGE/config.json",
+  "timeout": 3000,
+  "cryptoconfigdir": "",
+  "user":"admin",
   "chaincode": {
-    "path": "sdkintegration/gocc/sample_11",
+    "path": "",
     "name": "product-unit-hub-chaincode",
     "version": "1.0",
     "lang": "NODE"
@@ -22,7 +23,7 @@
       ],
       "ca": {
         "url": "http://localhost:7054",
-        "name": "ca.org1.example.com"
+        "name": "ca.example.com"
       },
       "orderers": [
         {

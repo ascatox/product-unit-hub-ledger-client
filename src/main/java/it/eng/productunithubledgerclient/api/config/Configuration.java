@@ -1,5 +1,7 @@
 package it.eng.productunithubledgerclient.api.config;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +13,7 @@ public class Configuration {
     private String channelName;
     private Integer timeout;
     private String cryptoconfigdir;
+    private String user;
 
     private List<Organization> organizations;
     private Chaincode chaincode;
@@ -21,12 +24,11 @@ public class Configuration {
         this.channelName = channelName;
         this.timeout = timeout;
         this.cryptoconfigdir = cryptoconfigdir;
-        this.organizations = new ArrayList<>(  );
+        this.organizations = new ArrayList<>();
     }
 
     public Configuration() {
-        this.organizations = new ArrayList<>(  );
-
+        this.organizations = new ArrayList<>();
     }
 
     public String getName() {
@@ -46,7 +48,6 @@ public class Configuration {
     }
 
 
-
     public String getChannelName() {
         return channelName;
     }
@@ -64,6 +65,8 @@ public class Configuration {
     }
 
     public String getCryptoconfigdir() {
+        if (StringUtils.isEmpty(cryptoconfigdir))
+            this.setCryptoconfigdir(System.getProperty("user.home"));
         return cryptoconfigdir;
     }
 
@@ -83,25 +86,32 @@ public class Configuration {
         return chaincode;
     }
 
-
     public void setChaincode(Chaincode chaincode) {
 
         this.chaincode = chaincode;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Configuration)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Configuration))
+            return false;
         Configuration that = (Configuration) o;
-        return Objects.equals( name, that.name ) && Objects.equals( type, that.type ) && Objects.equals(channelName, that.channelName) && Objects.equals( timeout, that.timeout ) && Objects.equals( cryptoconfigdir, that.cryptoconfigdir ) && Objects.equals( organizations, that.organizations );
+        return Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(channelName, that.channelName) && Objects.equals(timeout, that.timeout) && Objects.equals(cryptoconfigdir, that.cryptoconfigdir) && Objects.equals(organizations, that.organizations);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( name, type, channelName, timeout, cryptoconfigdir, organizations );
+        return Objects.hash(name, type, channelName, timeout, cryptoconfigdir, organizations);
     }
 
 
