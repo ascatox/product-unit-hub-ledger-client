@@ -3,6 +3,22 @@
 **LedgerClient** is a **Java 8** library to interface with an [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en/latest/) blockchain using the [Hyperledger Fabric SDK Java](https://github.com/hyperledger/fabric-sdk-java).
 
 The [Chaincode](https://github.com/ascatox/product-unit-hub-chaincode) in **Node** technology, to interact with the Product Unit Hub, will be released soon ⏰.
+# FarEdge Hosted Environment
+In order to use the FarEdge Hosted env, you should **only** copy your HLF `crypto-config` folder (given) under the **USER HOME** directory and include `repositories` and `dependency` as shown below in your `pom.xml`
+```bash 
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+	
+<dependency>
+	<groupId>com.github.ascatox</groupId>
+	<artifactId>product-unit-hub-ledger-client</artifactId>
+	<version>master-SNAPSHOT</version>
+</dependency>
+```
 # Developer Environment
 ## Setup HLF
 In order to use the Library, launch Fabric as described in the [official docs](https://hyperledger-fabric.readthedocs.io/en/latest/) in the section [Writing your First Application](https://hyperledger-fabric.readthedocs.io/en/release-1.1/write_first_app.html).<br/>
@@ -59,22 +75,6 @@ Copy your HLF `crypto-config` dir under the chosen directory (default directory 
 In order to use the library use Maven with these commands:
 ```bash
  mvn package && mvn install
-```
-# FarEdge Hosted Environment
-In order to use the FarEdge Hosted env, you should **only** copy your HLF `crypto-config` folder (given) under the **USER HOME** directory and include `repositories` and `dependency` as shown below in your `pom.xml`
-```bash 
-<repositories>
-	<repository>
-	    <id>jitpack.io</id>
-	    <url>https://jitpack.io</url>
-	</repository>
-</repositories>
-	
-<dependency>
-	<groupId>com.github.ascatox</groupId>
-	<artifactId>product-unit-hub-ledger-client</artifactId>
-	<version>master-SNAPSHOT</version>
-</dependency>
 ```
 # JavaDoc
 The **JavaDoc** documentation of the Library, is present in the `doc` folder of the project.<br/>
