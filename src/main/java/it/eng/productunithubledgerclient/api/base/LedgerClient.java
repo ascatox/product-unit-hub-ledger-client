@@ -13,53 +13,64 @@ import java.util.concurrent.TimeoutException;
 public interface LedgerClient {
 
     /**
-     *
-     * @param chassisDTOs
+     * This method store in the Ledger a ProcessStepRouting consisting in a list of Chassis {@link ChassisDTO}.
+     * @see ChassisDTO
+     * @param chassisDTOs the list of Chassis
      * @throws ProductUnitHubException
      */
-    void storeProcessStepRouting(Iterator<ChassisDTO> chassisDTOs) throws ProductUnitHubException;
+    void storeProcessStepRouting(final List<ChassisDTO> chassisDTOs) throws ProductUnitHubException;
 
     /**
+     * This method store in the Ledger a ProcessStepResult {@link ProcessStepResult}
+     * @see ProcessStepResult
      * @param processStepResult
      * @return
      * @throws Exception
      */
-    void storeProcessStepResult(ProcessStepResult processStepResult) throws ProductUnitHubException;
+    void storeProcessStepResult(final ProcessStepResult processStepResult) throws ProductUnitHubException;
 
     /**
+     * This method store in the Ledger a ProcessStepRouting consisting in a list of Chassis given in json format {@link ChassisDTO}
+     * @see ChassisDTO
      * @param json
      * @throws ProductUnitHubException
      */
-    void storeProcessStepRouting(String json) throws ProductUnitHubException;
+    void storeProcessStepRouting(final String json) throws ProductUnitHubException;
 
     /**
+     * This method store in the Ledger a ProcessStepResult given in json format {@link ProcessStepResult}
+     * @see ProcessStepResult
      * @param json
      * @throws ProductUnitHubException
      */
-    void storeProcessStepResult(String json) throws ProductUnitHubException;
+    void storeProcessStepResult(final String json) throws ProductUnitHubException;
 
     /**
-     *
+     * This method gives a list of Chassis {@link ChassisDTO}
+     * @see ChassisDTO
      * @param component
      * @param subComponent
      * @return
      * @throws ProductUnitHubException
      */
-    Iterator<ChassisDTO> getProcessStepRouting(String component, String subComponent) throws ProductUnitHubException;
+    List<ChassisDTO> getProcessStepRouting(final String component, final String subComponent) throws ProductUnitHubException;
 
 
     /**
-     *
+     * This method gives a Chassis {@link ChassisDTO}
+     * @see ChassisDTO
      * @param chassisID
      * @param component
      * @param subComponent
      * @return
      * @throws ProductUnitHubException
      */
-    ChassisDTO getProcessStepRouting(String chassisID, String component, String subComponent) throws ProductUnitHubException;
+    ChassisDTO getProcessStepRouting(final String chassisID, final String component, final String subComponent) throws ProductUnitHubException;
 
 
     /**
+     * This method gives a list of ProcessStep {@link ProcessStep}
+     * @see ProcessStep
      * @param chassisID
      * @param component
      * @param subComponent
@@ -67,9 +78,10 @@ public interface LedgerClient {
      * @return
      * @throws ProductUnitHubException
      */
-    Iterator<ProcessStep> getProcessStep(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException;
+    List<ProcessStep> getProcessStep(final String chassisID, final String component, final String subComponent, final String workCellResourceID) throws ProductUnitHubException;
 
     /**
+     *
      * @param chassisID
      * @param component
      * @param subComponent
@@ -78,6 +90,6 @@ public interface LedgerClient {
      * @throws ProductUnitHubException
      */
 
-    ProcessStepResult getProcessStepResult(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException;
+    ProcessStepResult getProcessStepResult(final String chassisID, final String component, final String subComponent, final String workCellResourceID) throws ProductUnitHubException;
 
 }
