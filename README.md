@@ -12,7 +12,7 @@ TODO
 ### 💡Alternative solution --> `config-service-network` [installation guide](https://github.com/ascatox/configuration-network-fabric).
 
 # Configure the LedgerClient
-Edit the file `config-network.json`[*](https://github.com/far-edge/DistributedLedger/blob/develop/ledger-client/src/main/resources/config-network.properties) with your favourite text editor in order to configure the network as in your HLF previous installation. Under you can find a complete example of configured file: <br/>
+Edit the file `config-network.json`[*](https://github.com/ascatox/product-unit-hub-ledger-client/blob/master/src/main/resources/config-network.json) with your favourite text editor in order to configure the network as in your HLF previous installation. Under you can find a complete example of configured file: <br/>
 `vim config-network.json` 
 ```javascript
 {
@@ -82,4 +82,4 @@ The **JavaDoc** documentation of the Library, is present in the `doc` folder of 
 Clone the project or download the [zip file](https://github.com/far-edge/DistributedLedger/blob/develop/ledger-client/doc.zip) and open the `index.html` in the doc folder to explore the documentation, starting from `LedgerClient`.
 
 # Usage
-You can find simple [examples](https://github.com/far-edge/DistributedLedger/blob/develop/ledger-client/src/test/java/eu/faredge/smartledger/client/End2EndTestSmartLedgerClientDSM.java) of usage looking at the **End2End tests** in the `test` folder of project.
+You can find a simple example of usage looking at the **End2End tests** in the `test` folder of project.
