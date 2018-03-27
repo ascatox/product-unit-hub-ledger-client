@@ -53,14 +53,33 @@ Edit the file `config-network.json`[*](https://github.com/far-edge/DistributedLe
 }
 ```
 
-Copy your HLF `crypto-config` dir under the chosen directory (default directory is **USER HOME**), if you have problems [here](https://github.com/ascatox/configuration-network-fabric#troubleshooting). <br/>
+Copy your HLF `crypto-config` dir under the chosen directory (default directory is **USER HOME**), if you have problems look at [here](https://github.com/ascatox/configuration-network-fabric#troubleshooting). <br/>
 
-### Maven
+### Maven projects
+Include `repositories` and `dependency` as shown below in your `pom.xml`
+
+```bash 
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+	
+<dependency>
+	<groupId>com.github.ascatox</groupId>
+	<artifactId>product-unit-hub-ledger-client</artifactId>
+	<version>master-SNAPSHOT</version>
+</dependency>
+```
+Otherwise if you want to do it manually:
+```bash
+	mvn package && mvn install
+```
 
 # JavaDoc
 The **JavaDoc** documentation of the Library, is present in the `doc` folder of the project.<br/>
 Clone the project or download the [zip file](https://github.com/far-edge/DistributedLedger/blob/develop/ledger-client/doc.zip) and open the `index.html` in the doc folder to explore the documentation, starting from `LedgerClient`.
 
 # Usage
-If your project uses maven, 
 You can find simple [examples](https://github.com/far-edge/DistributedLedger/blob/develop/ledger-client/src/test/java/eu/faredge/smartledger/client/End2EndTestSmartLedgerClientDSM.java) of usage looking at the **End2End tests** in the `test` folder of project.
