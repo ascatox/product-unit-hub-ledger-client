@@ -62,7 +62,7 @@ In order to use the library use Maven with these commands:
  mvn package && mvn install
 ```
 # FarEdge Hosted Environment
-In order to use the FarEdge Hosted env, you should **only** include `repositories` and `dependency` as shown below in your `pom.xml`
+In order to use the FarEdge Hosted env, you should **only** copy your HLF `crypto-config` dir (given) under the **USER HOME** directory and include `repositories` and `dependency` as shown below in your `pom.xml`
 ```bash 
 <repositories>
 	<repository>
