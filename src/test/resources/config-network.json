@@ -4,7 +4,6 @@
   "channelName": "ledgerchannel",
   "timeout": 3000,
   "cryptoconfigdir": "",
-  "user":"admin",
   "chaincode": {
     "path": "",
     "name": "product-unit-hub-chaincode",
@@ -13,23 +12,27 @@
   },
   "organizations": [
     {
+      "domainName": "org1.example.com",
       "mspID": "Org1MSP",
       "peers": [
         {
           "name": "peer0.org1.example.com",
-          "requestURL": "grpc://localhost:7051",
-          "eventURL": "grpc://localhost:7053"
+          "requestURL": "grpc://192.168.56.101:7051",
+          "eventURL": "grpc://192.168.56.101:7053"
         }
       ],
       "ca": {
-        "url": "http://localhost:7054",
+        "url": "http://192.168.56.101:7054",
         "name": "ca.example.com"
       },
       "orderers": [
         {
-          "name":"orderer.example.com",
-          "url": "grpc://localhost:7050"
+          "name": "orderer.example.com",
+          "url": "grpc://192.168.56.101:7050"
         }
+      ],
+      "users": [
+        "Admin"
       ]
     }
   ]

@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>product-unit-hub-ledger-client</name>
+    <domainName>product-unit-hub-ledger-client</domainName>
     <description>Product Unit Hub LedgerClient</description>
 
     <properties>
@@ -61,6 +61,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.0.8.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.1-b08</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -77,6 +82,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*Unit*.java</exclude>
+                        <exclude>**/End2End*.java</exclude>
                     </excludes>
                     <includes>
                         <!--<include>**/End2End*.java</include>--> <!--FIXME-->
@@ -114,6 +120,14 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>${skipTests}</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
@@ -121,38 +135,14 @@
                     <nohelp>true</nohelp>
                 </configuration>
             </plugin>
-            <!-- Maven Assembly Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>it.eng.productunithubledgerclient.api.LedgerClient</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <profiles>
         <profile>
             <id>dev</id>
             <properties>
-                <server.host>localhost</server.host>
+                <skipTests>true</skipTests>
+                <server.host>192.168.56.101</server.host>
                 <chain.user>admin</chain.user>
             </properties>
         </profile>
@@ -162,9 +152,46 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
+                <skipTests>true</skipTests> <!-- FIXME -->
                 <server.host>109.232.32.197</server.host>
                 <chain.user>admin</chain.user>
             </properties>
+        </profile>
+        <profile>
+            <id>all-jars</id>
+            <properties>
+                <skipTests>true</skipTests> <!-- FIXME -->
+                <server.host>109.232.32.197</server.host>
+                <chain.user>admin</chain.user>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <archive>
+                                <manifest>
+                                    <mainClass>it.eng.productunithubledgerclient.api.LedgerClient</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

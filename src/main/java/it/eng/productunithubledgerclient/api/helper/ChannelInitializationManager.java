@@ -69,11 +69,11 @@ public class ChannelInitializationManager {
             //Only peer Admin org
             client.setUserContext(organization.getPeerAdminUser());
 
-            buildOrderers(organization.getOrdererConfigs());
+            buildOrderers(organization.getOrderers());
 
-            buildPeers(organization.getPeerConfigs());
+            buildPeers(organization.getPeers());
 
-            buildEventHubs(organization.getPeerConfigs());
+            buildEventHubs(organization.getPeers());
 
             channel.initialize(); //There's no need to initialize the channel we are only building the java
             // structures.

@@ -10,24 +10,42 @@ import java.util.List;
 public class Organization {
 
     private String mspID;
-    private List<PeerConfig> peerConfigs;
-    private List<OrdererConfig> ordererConfigs;
-    private List<User> users;
-
+    private String domainName;
+    private List<PeerConfig> peers;
+    private List<OrdererConfig> orderers;
+    private List<User> userList;
+    private List<String> users;
     private Ca ca;
 
-    public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Object ca) {
+    public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Ca ca) {
         this.mspID = mspID;
-        this.peerConfigs = new ArrayList<>();
-        this.ordererConfigs = new ArrayList<>();
-        this.ca = new Ca();
-        this.users = new ArrayList<>();
+        this.peers = peerConfigs;
+        this.orderers = ordererConfigs;
+        this.ca = ca;
+        this.userList = new ArrayList<>();
+    }
+
+    public List<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<String> users) {
+        this.users = users;
     }
 
     public Organization() {
-        this.peerConfigs = new ArrayList<>();
-        this.ordererConfigs = new ArrayList<>();
+        this.peers = new ArrayList<>();
+
+        this.orderers = new ArrayList<>();
         this.ca = new Ca();
+    }
+
+    public String getDomainName() {
+        return domainName;
+    }
+
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
     }
 
     public String getMspID() {
@@ -38,20 +56,20 @@ public class Organization {
         this.mspID = mspID;
     }
 
-    public List<PeerConfig> getPeerConfigs() {
-        return peerConfigs;
+    public List<PeerConfig> getPeers() {
+        return peers;
     }
 
-    public void setPeerConfigs(List<PeerConfig> peerConfigs) {
-        this.peerConfigs = peerConfigs;
+    public void setPeers(List<PeerConfig> peers) {
+        this.peers = peers;
     }
 
-    public List<OrdererConfig> getOrdererConfigs() {
-        return ordererConfigs;
+    public List<OrdererConfig> getOrderers() {
+        return orderers;
     }
 
-    public void setOrdererConfigs(List<OrdererConfig> ordererConfigs) {
-        this.ordererConfigs = ordererConfigs;
+    public void setOrderers(List<OrdererConfig> orderers) {
+        this.orderers = orderers;
     }
 
     public Object getCa() {
@@ -62,22 +80,22 @@ public class Organization {
         this.ca = ca;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<User> getUserList() {
+        return userList;
     }
 
     @JsonIgnore
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     //@See Claudio
-    //FIXME Add a json file to store users!!!!
+    //FIXME Add a json file to store userList!!!!
     public User getAdminUser() {
-        if (getUsers().isEmpty())
+        if (getUserList().isEmpty())
             return null;
         for (User user :
-                users) {
+                userList) {
             for (String role : user.getRoles()) {
                 if (role.toLowerCase().contains("admin"))
                     return user;
@@ -87,10 +105,10 @@ public class Organization {
     }
 
     public User getPeerAdminUser() {
-        if (getUsers().isEmpty())
+        if (getUserList().isEmpty())
             return null;
         for (User user :
-                users) {
+                userList) {
             for (String role : user.getRoles()) {
                 if (role.toLowerCase().contains("peer"))
                     return user;
@@ -118,10 +136,9 @@ public class Organization {
 
     public User loadUser(String userName) {
         if (StringUtils.isEmpty(userName))
-
             return null;
         for (User user :
-                users) {
+                userList) {
             if (user.getName().equals(userName))
                 return user;
         }

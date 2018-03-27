@@ -13,7 +13,6 @@ public class Configuration {
     private String channelName;
     private Integer timeout;
     private String cryptoconfigdir;
-    private String user;
 
     private List<Organization> organizations;
     private Chaincode chaincode;
@@ -89,14 +88,6 @@ public class Configuration {
     public void setChaincode(Chaincode chaincode) {
 
         this.chaincode = chaincode;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     @Override

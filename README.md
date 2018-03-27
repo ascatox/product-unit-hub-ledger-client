@@ -18,39 +18,41 @@ Edit the file `config-network.json`[*](https://github.com/ascatox/product-unit-h
 `vim config-network.json` 
 ```javascript
 {
-  "name": "fabric-network",
+  "domainName": "fabric-network",
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
   "timeout": 3000,
   "cryptoconfigdir": "",
-  "user":"admin",
   "chaincode": {
     "path": "",
-    "name": "product-unit-hub-chaincode",
+    "domainName": "product-unit-hub-chaincode",
     "version": "1.0",
     "lang": "NODE"
   },
   "organizations": [
     {
+      "domainName":"org1.example.com"  
       "mspID": "Org1MSP",
       "peers": [
         {
-          "name": "peer0.org1.example.com",
-          "requestURL": "grpc://localhost:7051",
-          "eventURL": "grpc://localhost:7053"
+          "domainName": "peer0.org1.example.com",
+          "requestURL": "grpc://192.168.56.101:7051",
+          "eventURL": "grpc://192.168.56.101:7053"
         }
       ],
       "ca": {
-        "url": "http://localhost:7054",
-        "name": "ca.example.com"
+        "url": "http://192.168.56.101:7054",
+        "domainName": "ca.example.com"
       },
       "orderers": [
         {
-          "name":"orderer.example.com",
-          "url": "grpc://localhost:7050"
+          "domainName":"orderer.example.com",
+          "url": "grpc://192.168.56.101:7050"
         }
-      ]
-    }
+      ],
+      "users":[
+      "Admin"
+     ]
   ]
 }
 ```
