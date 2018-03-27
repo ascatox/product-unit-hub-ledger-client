@@ -64,6 +64,7 @@ public class ChassisDTO implements Serializable {
         return productUnits;
     }
 
+
     public void setProductUnits(String productUnits) {
         this.productUnits = productUnits;
     }
@@ -86,16 +87,27 @@ public class ChassisDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChassisDTO)) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
         ChassisDTO that = (ChassisDTO) o;
-        return Objects.equals( ChassisId, that.ChassisId ) && Objects.equals( Component, that.Component ) && Objects.equals( SubComponent, that.SubComponent ) && Objects.equals( productUnits, that.productUnits ) && Objects.equals( billOfProcessSteps, that.billOfProcessSteps ) && Objects.equals( billOfProcessStepsResult, that.billOfProcessStepsResult );
+
+        if (ChassisId != null ? !ChassisId.equals(that.ChassisId) : that.ChassisId != null)
+            return false;
+        if (Component != null ? !Component.equals(that.Component) : that.Component != null)
+            return false;
+        return SubComponent != null ? SubComponent.equals(that.SubComponent) : that.SubComponent == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( ChassisId, Component, SubComponent, productUnits, billOfProcessSteps, billOfProcessStepsResult );
+        int result = ChassisId != null ? ChassisId.hashCode() : 0;
+        result = 31 * result + (Component != null ? Component.hashCode() : 0);
+        result = 31 * result + (SubComponent != null ? SubComponent.hashCode() : 0);
+        return result;
     }
+
 }
 

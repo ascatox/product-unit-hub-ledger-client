@@ -79,7 +79,7 @@
                         <exclude>**/*Unit*.java</exclude>
                     </excludes>
                     <includes>
-                        <include>**/End2End*.java</include>
+                        <!--<include>**/End2End*.java</include>--> <!--FIXME-->
                     </includes>
                 </configuration>
                 <executions>

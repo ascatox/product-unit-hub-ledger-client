@@ -1,4 +1,4 @@
-package it.eng.productunithubledgerclient;
+package it.eng.productunithubledgerclient.unit;
 
 import it.eng.productunithubledgerclient.api.config.ConfigManager;
 import it.eng.productunithubledgerclient.api.config.Configuration;

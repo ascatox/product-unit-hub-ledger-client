@@ -1,4 +1,4 @@
-package it.eng.productunithubledgerclient;
+package it.eng.productunithubledgerclient.unit;
 
 import it.eng.productunithubledgerclient.model.Material;
 import org.apache.commons.lang3.StringUtils;
