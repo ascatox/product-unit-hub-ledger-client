@@ -83,4 +83,4 @@ The **JavaDoc** documentation of the Library, is present in the `doc` folder of 
 Clone the project or download the [zip file](https://github.com/ascatox/product-unit-hub-ledger-client/blob/master/doc.zip) and open the `index.html` in the doc folder to explore the documentation, starting from `LedgerClient`.
 
 # Usage
-You can find a simple example of usage looking at the **End2End tests** in the `test` folder of project.
+You can find a simple example of usage looking at the **End2End tests** in the `test/integration` folder of project.
