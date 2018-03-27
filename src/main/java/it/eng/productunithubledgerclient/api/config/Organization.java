@@ -1,9 +1,19 @@
 package it.eng.productunithubledgerclient.api.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hyperledger.fabric.sdk.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,24 +23,18 @@ public class Organization {
     private String domainName;
     private List<PeerConfig> peers;
     private List<OrdererConfig> orderers;
-    private List<User> userList;
-    private List<String> users;
+    private List<User> users;
     private Ca ca;
+
+    private final static Logger log = LogManager.getLogger(Organization.class);
+
 
     public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Ca ca) {
         this.mspID = mspID;
         this.peers = peerConfigs;
         this.orderers = ordererConfigs;
         this.ca = ca;
-        this.userList = new ArrayList<>();
-    }
-
-    public List<String> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<String> users) {
-        this.users = users;
+        this.users = new ArrayList<>();
     }
 
     public Organization() {
@@ -80,22 +84,22 @@ public class Organization {
         this.ca = ca;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public List<User> getUsers() {
+        return users;
     }
 
     @JsonIgnore
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     //@See Claudio
-    //FIXME Add a json file to store userList!!!!
+    //FIXME Add a json file to store users!!!!
     public User getAdminUser() {
-        if (getUserList().isEmpty())
+        if (getUsers().isEmpty())
             return null;
         for (User user :
-                userList) {
+                users) {
             for (String role : user.getRoles()) {
                 if (role.toLowerCase().contains("admin"))
                     return user;
@@ -105,10 +109,10 @@ public class Organization {
     }
 
     public User getPeerAdminUser() {
-        if (getUserList().isEmpty())
+        if (getUsers().isEmpty())
             return null;
         for (User user :
-                userList) {
+                users) {
             for (String role : user.getRoles()) {
                 if (role.toLowerCase().contains("peer"))
                     return user;
@@ -138,12 +142,54 @@ public class Organization {
         if (StringUtils.isEmpty(userName))
             return null;
         for (User user :
-                userList) {
+                users) {
             if (user.getName().equals(userName))
                 return user;
         }
         return null;
     }
+
+
+    /**
+     * Get the user with a given name
+     *
+     * @param name
+     * @param org
+     * @param mspId
+     * @param privateKeyFile
+     * @param certificateFile
+     * @return user
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException
+     * @throws InvalidKeySpecException
+     */
+    /*public User getMember(String name, String org, String mspId, File privateKeyFile,
+                          File certificateFile) throws ProductUnitHubException {
+        try {
+            // Try to get the User state from the cache
+            User user = users.contains()
+            if (null != user) {
+                return user;
+            }
+
+            // Create the User and try to restore it's state from the key value store (if found).
+            user = new User();
+            user.setMspId(mspId);
+
+            String certificate = new String(IOUtils.toByteArray(new FileInputStream(certificateFile)), ConfigManager.UTF_8);
+
+            PrivateKey privateKey = getPrivateKeyFromBytes(IOUtils.toByteArray(new FileInputStream(privateKeyFile)));
+
+            user.setEnrollment(new SampleStoreEnrollement(privateKey, certificate));
+
+            return user;
+        } catch (IOException | NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException | ClassCastException e) {
+            log.error(e);
+            throw new ProductUnitHubException(e);
+
+        }
+    }*/
 
 
 }

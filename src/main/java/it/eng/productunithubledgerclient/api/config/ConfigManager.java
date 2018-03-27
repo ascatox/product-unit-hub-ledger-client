@@ -1,15 +1,15 @@
 package it.eng.productunithubledgerclient.api.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.StringWriter;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Properties;
+
+import static java.lang.String.format;
 
 
 public class ConfigManager {
@@ -66,7 +66,7 @@ public class ConfigManager {
         File cert = Paths.get(getTestChannelPath(), "crypto-config/ordererOrganizations".replace("orderer", type), domainName, type + "s",
                 name, "tls/server.crt").toFile();
         if (!cert.exists()) {
-            throw new RuntimeException(String.format("Missing cert file for: %s. Could not find at location: %s", name,
+            throw new RuntimeException(format("Missing cert file for: %s. Could not find at location: %s", name,
                     cert.getAbsolutePath()));
         }
 
@@ -127,25 +127,38 @@ public class ConfigManager {
                                 sampleOrgDomainName,
                                 format("/users/Admin@%s/msp/signcerts/Admin@%s-cert.pem", sampleOrgDomainName,
                                         sampleOrgDomainName)).toFile());
-     */
 
-    /*public static File findFileSk(File directory) {
+
+    public static File findFileSk(File directory) {
 
         File[] matches = directory.listFiles((dir, name) -> name.endsWith("_sk"));
 
         if (null == matches) {
             throw new RuntimeException(format("Matches returned null does %s directory exist?", directory
-                    .getAbsoluteFile().getDomainName()));
+                    .getAbsoluteFile().getName()));
         }
 
         if (matches.length != 1) {
             throw new RuntimeException(format("Expected in %s only 1 sk file but found %d", directory.getAbsoluteFile
-                    ().getDomainName(), matches.length));
+                    ().getName(), matches.length));
         }
-
         return matches[0];
-
     }
-    */
+
+    private static File getSkConfigPath(String domainName, String user) {
+        return Paths.get(configuration.getCryptoconfigdir(),
+                "/peerOrganizations/",
+                domainName, format("/users/"+user+"@%s/msp/keystore", domainName))
+                .toFile();
+    }
+
+    private static File getCertConfigPath(String domainName, String user) {
+        return Paths.get(configuration.getCryptoconfigdir(), "/peerOrganizations/",
+                domainName,
+                format("/users/Admin@%s/msp/signcerts/"+user+"@%s-cert.pem", domainName,
+                        domainName)).toFile();
+    }
+
+*/
 
 }//end class
