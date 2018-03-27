@@ -4,7 +4,7 @@
 
 The [Chaincode](https://github.com/ascatox/product-unit-hub-chaincode) in **Node** technology, to interact with the Product Unit Hub, will be released soon ⏰.
 # FarEdge Hosted Environment
-In order to use the FarEdge Hosted env, you should **only** copy your HLF `crypto-config` folder (given) under the **USER HOME** directory and include `repositories` and `dependency` as shown below in your `pom.xml`
+In order to use the FarEdge Hosted env, you should **only** copy your HLF `crypto-config` folder (given) under the logged **USER HOME** directory and include `repositories` and `dependency` as shown below in your `pom.xml`
 ```bash 
 <repositories>
 	<repository>
