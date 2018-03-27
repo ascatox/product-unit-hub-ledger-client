@@ -7,6 +7,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -42,6 +45,24 @@ public class End2EndTest {
             ledgerClient.storeProcessStepResult(chassisDTO);
             ChassisDTO processStepResult = ledgerClient.getProcessStepResult(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent());
             assertEquals(processStepResult, chassisDTO);
+        } catch (ProductUnitHubException e) {
+            assertFalse(e.getMessage(), true);
+        }
+    }
+
+
+    @Test
+    public void testProcessStepRouting() {
+        List<ChassisDTO> chassisDTOList = new ArrayList<>();
+        ChassisDTO chassisDTO = new ChassisDTO();
+        chassisDTO.setChassisId("122333");
+        chassisDTO.setComponent("wheel");
+        chassisDTO.setSubComponent("round");
+        chassisDTOList.add(chassisDTO);
+        try {
+            ledgerClient.storeProcessStepRouting(chassisDTOList);
+            List<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
+            assertEquals(chassisDTOList, processStepRoutings);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }
