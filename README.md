@@ -45,7 +45,7 @@ Edit the file `config-network.json`[*](https://github.com/ascatox/product-unit-h
   },
   "organizations": [
     {
-      "domainName":"org1.example.com"  
+      "domainName":"org1.example.com", 
       "mspID": "Org1MSP",
       "peers": [
         {
