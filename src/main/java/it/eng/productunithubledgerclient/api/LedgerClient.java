@@ -74,14 +74,14 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
     }
 
 
-    public void storeProcessStepResult(ChassisDTO chassisDTO) throws ProductUnitHubException {
+    /*public void storeProcessStepResult(ChassisDTO chassisDTO) throws ProductUnitHubException {
         if (chassisDTO == null || StringUtils.isEmpty(chassisDTO.getChassisId()))
             throw new ProductUnitHubException(Function.storeProcessStepResult.name() + " is in error, No input data!");
         String json = JsonConverter.convertToJson(chassisDTO);
         final String payload = doInvokeByJson(Function.storeProcessStepResult, json);
         log.debug("Payload retrieved: " + payload);
 
-    }
+    }*/
 
     @Override
     public void storeProcessStepResult(ProcessStepResultDTO processStepResultDTO) throws ProductUnitHubException {
