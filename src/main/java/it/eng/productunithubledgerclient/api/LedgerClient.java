@@ -112,22 +112,46 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
 
     @Override
     public final ChassisDTO getProcessStepRouting(String chassisID, String component, String subComponent) throws ProductUnitHubException {
-        return null;
-    }
+        if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent) || StringUtils.isEmpty( chassisID ))
+            throw new ProductUnitHubException(Function.getProcessStepRouting.name() + " is in error, No input data!");
+        List<String> args = new ArrayList<>();
+        args.add( chassisID);
+        args.add( component);
+        args.add( subComponent);
+        return (ChassisDTO) doQueryByJson( Function.getProcessStepRouting, args );
+        }
 
     @Override
     public final Collection<ProcessStep> getProcessStep(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException {
-        return null;
+        if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent) || StringUtils.isEmpty( chassisID ) || StringUtils.isEmpty( workCellResourceID ))
+            throw new ProductUnitHubException( Function.getProcessStep.name() + " is in error, No input data!" );
+        List<String> args = new ArrayList<>();
+        args.add( chassisID);
+        args.add( component);
+        args.add( subComponent);
+        args.add( workCellResourceID);
+        return doProcessStepQueryByJson( Function.getProcessStep, args );
     }
 
     @Override
-    public Collection<ProcessStep> getProcessStep(String chassisId, String component, String subComponent) throws ProductUnitHubException {
-        return null;
-    }
+    public Collection<ProcessStep> getProcessStep(String chassisID, String component, String subComponent) throws ProductUnitHubException {
+        if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent) || StringUtils.isEmpty( chassisID ))
+            throw new ProductUnitHubException( Function.getProcessStep.name() + " is in error, No input data!" );
+        List<String> args = new ArrayList<>();
+        args.add( chassisID);
+        args.add( component);
+        args.add( subComponent);
+        return doProcessStepQueryByJson( Function.getProcessStep, args );    }
 
     @Override
     public final ProcessStepResultDTO getProcessStepResult(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException {
-        return null;
+        if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent) || StringUtils.isEmpty( chassisID ))
+            throw new ProductUnitHubException(Function.getProcessStepResult.name() + " is in error, No input data!");
+        List<String> args = new ArrayList<>();
+        args.add( chassisID);
+        args.add( component);
+        args.add( subComponent);
+        return (ProcessStepResultDTO) doQueryByJson( Function.getProcessStepResult, args);
     }
 
 
@@ -160,5 +184,20 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
             throw new ProductUnitHubException(e);
         }
     }
+    private Collection<ProcessStep> doProcessStepQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
+        Collection<ProcessStep> processSteps = new ArrayList<>();
+        try {
+            final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
+            for (QueryReturn queryReturn : queryReturns) {
+                ProcessStep fromJson = (ProcessStep) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStep.class);
+                processSteps.add(fromJson);
+            }
+            return processSteps;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ProductUnitHubException(e);
+        }
+    }
+
 
 }
