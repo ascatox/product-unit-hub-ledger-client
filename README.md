@@ -1,9 +1,11 @@
-# ProductUnitHub LedgerClient library for Hyperledger Fabric 1.1
+# Product Unit Hub LedgerClient
+## Library for Hyperledger Fabric 1.1
 
 **LedgerClient** is a **Java 8** library to interface with an [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en/latest/) blockchain using the [Hyperledger Fabric SDK Java](https://github.com/hyperledger/fabric-sdk-java).
 
 The [Chaincode](https://github.com/ascatox/product-unit-hub-chaincode) in **Node** technology, to interact with the Product Unit Hub, will be released soon ⏰.
-# FAR-EDGE Hosted Environment
+# FAR-EDGE Hosted Environment 
+#### (Recommended solution)
 In order to use the FAR-EDGE Hosted Env, you should **only** copy your HLF `crypto-config` folder (given) under the logged **USER HOME** directory and include `repositories` and `dependency` as shown below in your Maven `pom.xml`
 ```bash 
 <repositories>
@@ -19,7 +21,8 @@ In order to use the FAR-EDGE Hosted Env, you should **only** copy your HLF `cryp
 	<version>master-SNAPSHOT</version>
 </dependency>
 ```
-# Developer Environment
+# Developer Environment 
+#### (Alternative solution)
 ## Setup HLF
 In order to use the Library, launch Fabric as described in the [official docs](https://hyperledger-fabric.readthedocs.io/en/latest/) in the section [Writing your First Application](https://hyperledger-fabric.readthedocs.io/en/release-1.1/write_first_app.html).<br/>
 
@@ -32,43 +35,45 @@ Edit the file `config-network.json`[*](https://github.com/ascatox/product-unit-h
 `vim config-network.json` 
 ```javascript
 {
-  "domainName": "fabric-network",
+  "name": "fabric-network",
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
   "timeout": 3000,
   "cryptoconfigdir": "",
   "chaincode": {
     "path": "",
-    "domainName": "product-unit-hub-chaincode",
+    "name": "product-unit-hub-chaincode",
     "version": "1.0",
     "lang": "NODE"
   },
   "organizations": [
     {
-      "domainName":"org1.example.com", 
+      "domainName": "org1.example.com",
       "mspID": "Org1MSP",
       "peers": [
         {
-          "domainName": "peer0.org1.example.com",
+          "name": "peer0.org1.example.com",
           "requestURL": "grpc://localhost:7051",
           "eventURL": "grpc://localhost:7053"
         }
       ],
       "ca": {
         "url": "http://localhost:7054",
-        "domainName": "ca.example.com"
+        "name": "ca.example.com"
       },
       "orderers": [
         {
-          "domainName":"orderer.example.com",
+          "name": "orderer.example.com",
           "url": "grpc://localhost:7050"
         }
       ],
-      "users":[
-      {
-        "name": "Admin"
-      }
-     ]
+      "users": [
+        {
+          "name":  "Admin"
+        }
+
+      ]
+    }
   ]
 }
 ```
