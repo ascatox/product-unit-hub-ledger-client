@@ -22,7 +22,7 @@ public class ChassisDTO implements Serializable {
     @NotNull
     private String subComponent;
 
-    private String workCellResourceId;
+    private String productUnits;
 
     private Collection<ProcessStep> billOfProcessSteps;
 
@@ -31,11 +31,11 @@ public class ChassisDTO implements Serializable {
         this.billOfProcessSteps = new ArrayList<>();
     }
 
-    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String workCellResourceId, List<ProcessStep> billOfProcessSteps) {
+    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits, List<ProcessStep> billOfProcessSteps) {
         this.chassisId = chassisId;
         this.component = component;
         this.subComponent = subComponent;
-        this.workCellResourceId = workCellResourceId;
+        this.productUnits = productUnits;
         this.billOfProcessSteps = new ArrayList<>();
     }
 
@@ -79,17 +79,17 @@ public class ChassisDTO implements Serializable {
     }
 
     /**
-     * The workCellResourceId {@link WorkCellResource} field contains the productUnit identifiers.
+     * The productUnits {@link String} field contains the productUnit identifiers.
      * @return
      */
-
-    public String getWorkCellResourceId() {
-        return workCellResourceId;
+    public String getProductUnits() {
+        return productUnits;
     }
 
-    public void setWorkCellResourceId(String workCellResourceId) {
-        this.workCellResourceId = workCellResourceId;
+    public void setProductUnits(String productUnits) {
+        this.productUnits = productUnits;
     }
+
 
     public void setBillOfProcessSteps(Collection<ProcessStep> billOfProcessSteps) {
         this.billOfProcessSteps = billOfProcessSteps;
