@@ -4,7 +4,8 @@
 **LedgerClient** is a **Java 8** library to interface with an [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en/latest/) blockchain using the [Hyperledger Fabric SDK Java](https://github.com/hyperledger/fabric-sdk-java).
 
 The [Chaincode](https://github.com/ascatox/product-unit-hub-chaincode) in **Node** technology, to interact with the Product Unit Hub, will be released soon ⏰.
-# FAR-EDGE Hosted Environment (Recommended solution)
+# FAR-EDGE Hosted Environment 
+#### (Recommended solution)
 In order to use the FAR-EDGE Hosted Env, you should **only** copy your HLF `crypto-config` folder (given) under the logged **USER HOME** directory and include `repositories` and `dependency` as shown below in your Maven `pom.xml`
 ```bash 
 <repositories>
@@ -20,7 +21,8 @@ In order to use the FAR-EDGE Hosted Env, you should **only** copy your HLF `cryp
 	<version>master-SNAPSHOT</version>
 </dependency>
 ```
-# Developer Environment (Alternative solution)
+# Developer Environment 
+#### (Alternative solution)
 ## Setup HLF
 In order to use the Library, launch Fabric as described in the [official docs](https://hyperledger-fabric.readthedocs.io/en/latest/) in the section [Writing your First Application](https://hyperledger-fabric.readthedocs.io/en/release-1.1/write_first_app.html).<br/>
 
