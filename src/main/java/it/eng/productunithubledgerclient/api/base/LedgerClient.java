@@ -85,6 +85,18 @@ public interface LedgerClient {
     Collection<ProcessStep> getProcessStep(String chassisId, String component, String subComponent, String workCellResourceId) throws ProductUnitHubException;
 
     /**
+     * This method gives a collection of ProcessStep {@link ProcessStep}
+     *
+     * @param chassisId
+     * @param component
+     * @param subComponent
+     * @return
+     * @throws ProductUnitHubException
+     */
+    Collection<ProcessStep> getProcessStep(String chassisId, String component, String subComponent) throws ProductUnitHubException;
+
+
+    /**
      * This method gives a ProcessStepResultDTO {@link ProcessStepResultDTO} passing as parameters a full key with component, subComponent and WorkCellResourceId
      *
      * @param chassisId

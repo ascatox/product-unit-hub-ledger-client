@@ -12,20 +12,20 @@ public class Configuration {
     private Integer timeout;
     private String cryptoconfigdir;
 
-    private Set<Organization> organizations;
+    private List<Organization> organizations;
     private Chaincode chaincode;
 
-    public Configuration(String name, String type, String mspID, String channelName, Integer timeout, String cryptoconfigdir, Set<Organization> organizations) {
+    public Configuration(String name, String type, String mspID, String channelName, Integer timeout, String cryptoconfigdir, List<Organization> organizations) {
         this.name = name;
         this.type = type;
         this.channelName = channelName;
         this.timeout = timeout;
         this.cryptoconfigdir = cryptoconfigdir;
-        this.organizations = new HashSet<>();
+        this.organizations = new ArrayList<>();
     }
 
     public Configuration() {
-        this.organizations = new HashSet<>();
+        this.organizations = new ArrayList<>();
     }
 
     public String getName() {
@@ -71,11 +71,11 @@ public class Configuration {
         this.cryptoconfigdir = cryptoconfigdir;
     }
 
-    public Set<Organization> getOrganizations() {
+    public List<Organization> getOrganizations() {
         return organizations;
     }
 
-    public void setOrganizations(Set<Organization> organizations) {
+    public void setOrganizations(List<Organization> organizations) {
         this.organizations = organizations;
     }
 

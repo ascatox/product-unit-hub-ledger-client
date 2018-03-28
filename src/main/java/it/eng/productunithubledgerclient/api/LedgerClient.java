@@ -74,18 +74,13 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
     }
 
 
-    /*public void storeProcessStepResult(ChassisDTO chassisDTO) throws ProductUnitHubException {
-        if (chassisDTO == null || StringUtils.isEmpty(chassisDTO.getChassisId()))
-            throw new ProductUnitHubException(Function.storeProcessStepResult.name() + " is in error, No input data!");
-        String json = JsonConverter.convertToJson(chassisDTO);
-        final String payload = doInvokeByJson(Function.storeProcessStepResult, json);
-        log.debug("Payload retrieved: " + payload);
-
-    }*/
-
     @Override
     public void storeProcessStepResult(ProcessStepResultDTO processStepResultDTO) throws ProductUnitHubException {
-
+        if (processStepResultDTO == null || processStepResultDTO.getOperationResults().isEmpty())
+            throw new ProductUnitHubException(Function.storeProcessStepResult.name() + " is in error, No input data!");
+        String json = JsonConverter.convertToJson(processStepResultDTO);
+        final String payload = doInvokeByJson(Function.storeProcessStepResult, json);
+        log.debug("Payload retrieved: " + payload);
     }
 
     @Override
@@ -126,22 +121,14 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
     }
 
     @Override
-    public final ProcessStepResultDTO getProcessStepResult(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException {
+    public Collection<ProcessStep> getProcessStep(String chassisId, String component, String subComponent) throws ProductUnitHubException {
         return null;
     }
 
-    /*public final ChassisDTO getProcessStepResult(String chassisID, String component, String subComponent) throws ProductUnitHubException {
-        if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent))
-            throw new ProductUnitHubException(Function.getProcessStepResult.name() + " is in error, No input data!");
-        List<String> args = new ArrayList<>();
-        args.add(chassisID);
-        args.add(component);
-        args.add(subComponent);
-        List<ChassisDTO> chassisDTOS = doQueryByJson(Function.getProcessStepResult, args);
-        if (null == chassisDTOS || !chassisDTOS.isEmpty())
-            return null;
-        return chassisDTOS.get(0);
-    }*/
+    @Override
+    public final ProcessStepResultDTO getProcessStepResult(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException {
+        return null;
+    }
 
 
     private String doInvokeByJson(Function fcn, String json) throws ProductUnitHubException {

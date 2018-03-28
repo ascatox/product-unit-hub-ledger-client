@@ -1,6 +1,5 @@
 package it.eng.productunithubledgerclient.api.config;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 

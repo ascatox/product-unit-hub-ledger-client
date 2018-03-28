@@ -34,11 +34,14 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import javax.validation.ConstraintViolation;
 import java.io.*;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Set;
+
+import static java.lang.String.format;
 
 public class Utils {
     private final static Logger log = LogManager.getLogger(Utils.class);
@@ -55,31 +58,41 @@ public class Utils {
             throw new ProductUnitHubException(messageBuilder.toString());
     }
 
+    public static File findFileSk(String domainName, String user, String cryptoDir) {
+        File directory = getSkConfigPath(domainName,user, cryptoDir);
 
+        File[] matches = directory.listFiles((dir, name) -> name.endsWith("_sk"));
 
-    public User getMember(String name, String cryptoDir, Organization organization) throws ProductUnitHubException {
-        try {
-
-            // Create the User and try to restore it's state from the key value store (if found).
-            User user = new User();
-            user.setMspId(organization.getMspID());
-            File certConfigPath = ConfigManager.getCertConfigPath(organization.getDomainName(), name, cryptoDir);
-            String certificate = new String(IOUtils.toByteArray(new FileInputStream(certConfigPath)), ConfigManager.UTF_8);
-            File fileSk = ConfigManager.findFileSk(organization.getDomainName(), name, cryptoDir);
-
-            PrivateKey privateKey = getPrivateKeyFromBytes(IOUtils.toByteArray(new FileInputStream(fileSk)));
-            user.setEnrollment(new Enrollment(privateKey, certificate));
-
-            return user;
-        } catch (IOException | NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException | ClassCastException e) {
-            log.error(e);
-            throw new ProductUnitHubException(e);
-
+        if (null == matches) {
+            throw new RuntimeException(format("Matches returned null does %s directory exist?", directory
+                    .getAbsoluteFile().getName()));
         }
+
+        if (matches.length != 1) {
+            throw new RuntimeException(format("Expected in %s only 1 sk file but found %d", directory.getAbsoluteFile
+                    ().getName(), matches.length));
+        }
+        return matches[0];
+    }
+
+    public static File getSkConfigPath(String domainName, String user, String cryptoDir) {
+        return Paths.get(cryptoDir,
+                "/peerOrganizations/",
+                domainName, format("/users/"+user+"@%s/msp/keystore", domainName))
+                .toFile();
+    }
+
+    public static File getCertConfigPath(String domainName, String user, String cryptoDir) {
+        return Paths.get(cryptoDir, "/peerOrganizations/",
+                domainName,
+                format("/users/Admin@%s/msp/signcerts/"+user+"@%s-cert.pem", domainName,
+                        domainName)).toFile();
     }
 
 
-    private static PrivateKey getPrivateKeyFromBytes(byte[] data) throws IOException, NoSuchProviderException,
+
+
+    public static PrivateKey getPrivateKeyFromBytes(byte[] data) throws IOException, NoSuchProviderException,
             NoSuchAlgorithmException, InvalidKeySpecException {
         final Reader pemReader = new StringReader(new String(data));
 

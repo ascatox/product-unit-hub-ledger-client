@@ -12,23 +12,22 @@ public class Organization {
 
     private String mspID;
     private String domainName;
-    private Set<PeerConfig> peers;
-    private Set<OrdererConfig> orderers;
+    private List<PeerConfig> peers;
+    private List<OrdererConfig> orderers;
     private Set<User> users;
     private Ca ca;
 
-    public Organization(String mspID, Set<PeerConfig> peerConfigs, Set<OrdererConfig> ordererConfigs, Ca ca) {
+    public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Ca ca) {
         this.mspID = mspID;
         this.peers = peerConfigs;
         this.orderers = ordererConfigs;
         this.ca = ca;
-        this.users = new HashSet<>();
+        this.users = new HashSet<>(); //HERE
     }
 
     public Organization() {
-        this.peers = new HashSet<>();
-
-        this.orderers = new HashSet<>();
+        this.peers = new ArrayList<>();
+        this.orderers = new ArrayList<>(); //HERE
         this.ca = new Ca();
     }
 
@@ -48,19 +47,19 @@ public class Organization {
         this.mspID = mspID;
     }
 
-    public Set<PeerConfig> getPeers() {
+    public List<PeerConfig> getPeers() {
         return peers;
     }
 
-    public void setPeers(Set<PeerConfig> peers) {
+    public void setPeers(List<PeerConfig> peers) {
         this.peers = peers;
     }
 
-    public Set<OrdererConfig> getOrderers() {
+    public List<OrdererConfig> getOrderers() {
         return orderers;
     }
 
-    public void setOrderers(Set<OrdererConfig> orderers) {
+    public void setOrderers(List<OrdererConfig> orderers) {
         this.orderers = orderers;
     }
 
@@ -126,15 +125,7 @@ public class Organization {
         return mspID != null ? mspID.hashCode() : 0;
     }
 
-    public User loadUser(String userName) {
-        if (StringUtils.isEmpty(userName))
-            return null;
-        for (User user : users) {
-            if (user.getName().equals(userName))
-                return user;
-        }
-        return null;
-    }
+
 
 }
 
