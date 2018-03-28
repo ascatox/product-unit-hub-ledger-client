@@ -6,7 +6,6 @@ import it.eng.productunithubledgerclient.utils.Utils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 
 import java.io.File;
@@ -16,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
+import java.util.stream.Stream;
 
 /**
  * @author ascatox
@@ -23,7 +23,6 @@ import java.security.spec.InvalidKeySpecException;
 public class UserManager {
     private final static Logger log = LogManager.getLogger(UserManager.class);
 
-    //TODO Singleton
     private static UserManager instance;
     private Configuration configuration;
     private Organization organization;
@@ -36,7 +35,7 @@ public class UserManager {
     public static UserManager getInstance(Configuration configuration, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
         if (instance == null || !instance.organization.equals(organization)) { //1
             synchronized (ChannelInitializationManager.class) {
-                if (instance == null) {  //2
+                if (instance == null || !instance.organization.equals(organization)) {  //2
                     instance = new UserManager(configuration, organization);
                 }
             }
@@ -44,25 +43,28 @@ public class UserManager {
         return instance;
     }
 
-    public User getMember(String name) throws ProductUnitHubException {
+    /*public void completeUsers(String name) throws ProductUnitHubException {
         try {
-            User user = new User();
-            user.setMspId(organization.getMspID());
-            File certConfigPath = Utils.getCertConfigPath(organization.getDomainName(), name, configuration.getCryptoconfigdir());
-            String certificate = new String(IOUtils.toByteArray(new FileInputStream(certConfigPath)), ConfigManager.UTF_8);
-            File fileSk = Utils.findFileSk(organization.getDomainName(), name, configuration.getCryptoconfigdir());
-
-            PrivateKey privateKey = Utils.getPrivateKeyFromBytes(IOUtils.toByteArray(new FileInputStream(fileSk)));
-            user.setEnrollment(new Enrollment(privateKey, certificate));
-
-            return user;
+            Stream<User> userStream = organization.getUsers().stream();
         } catch (IOException | NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException | ClassCastException e) {
             log.error(e);
             throw new ProductUnitHubException(e);
 
         }
-    }
+    }*/
 
+    private User doCompleteUser(String name) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeySpecException {
+        User user = new User();
+        user.setName(name);
+        user.setMspId(organization.getMspID());
+        File certConfigPath = Utils.getCertConfigPath(organization.getDomainName(), name, configuration.getCryptoconfigdir());
+        String certificate = new String(IOUtils.toByteArray(new FileInputStream(certConfigPath)), ConfigManager.UTF_8);
+        File fileSk = Utils.findFileSk(organization.getDomainName(), name, configuration.getCryptoconfigdir());
+        PrivateKey privateKey = Utils.getPrivateKeyFromBytes(IOUtils.toByteArray(new FileInputStream(fileSk)));
+        user.setEnrollment(new Enrollment(privateKey, certificate));
+
+        return user;
+    }
 
 
 }

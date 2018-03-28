@@ -4,5 +4,7 @@ it.eng.productunithubledgerclient.api.config
 it.eng.productunithubledgerclient.api.exception
 it.eng.productunithubledgerclient.api.helper
 it.eng.productunithubledgerclient.convert
+it.eng.productunithubledgerclient.integration
 it.eng.productunithubledgerclient.model
+it.eng.productunithubledgerclient.unit
 it.eng.productunithubledgerclient.utils

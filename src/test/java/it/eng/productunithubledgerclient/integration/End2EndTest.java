@@ -3,6 +3,8 @@ package it.eng.productunithubledgerclient.integration;
 import it.eng.productunithubledgerclient.api.LedgerClient;
 import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.model.ChassisDTO;
+import it.eng.productunithubledgerclient.model.OperationResult;
+import it.eng.productunithubledgerclient.model.ProcessStepResultDTO;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -37,15 +39,15 @@ public class End2EndTest {
 
 
     @Test
-    public void testProcessStepResult() {
-        ChassisDTO chassisDTO = new ChassisDTO();
-        chassisDTO.setChassisId("122333");
-        chassisDTO.setComponent("wheel");
-        chassisDTO.setSubComponent("round");
+    public void testStoreProcessStepResult() {
+        ProcessStepResultDTO processStepResultDTO = new ProcessStepResultDTO();
+        OperationResult operationResult = new OperationResult();
+        processStepResultDTO.getOperationResults().add(operationResult);
         try {
-            ledgerClient.storeProcessStepResult(chassisDTO);
-            ChassisDTO processStepResult = ledgerClient.getProcessStepResult(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent());
-            assertEquals(processStepResult, chassisDTO);
+            ledgerClient.storeProcessStepResult(processStepResultDTO);
+            ProcessStepResultDTO processStepResultDTO1 = ledgerClient.getProcessStepResult(processStepResultDTO.getChassisId(),
+                    processStepResultDTO.getComponent(), processStepResultDTO.getSubComponent(), processStepResultDTO.getWorkCellResourceId());
+            assertEquals(processStepResultDTO, processStepResultDTO1);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }
@@ -53,7 +55,7 @@ public class End2EndTest {
 
 
     @Test
-    public void testProcessStepRouting() {
+    public void testStoreProcessStepRouting() {
         List<ChassisDTO> chassisDTOList = new ArrayList<>();
         ChassisDTO chassisDTO = new ChassisDTO();
         chassisDTO.setChassisId("122333");
