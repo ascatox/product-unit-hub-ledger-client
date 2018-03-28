@@ -43,15 +43,13 @@ public class UserManager {
         return instance;
     }
 
-    /*public void completeUsers(String name) throws ProductUnitHubException {
-        try {
+    public void completeUsers(String name) throws ProductUnitHubException {
             Stream<User> userStream = organization.getUsers().stream();
-        } catch (IOException | NoSuchAlgorithmException | NoSuchProviderException | InvalidKeySpecException | ClassCastException e) {
-            log.error(e);
-            throw new ProductUnitHubException(e);
+            userStream.forEach(user -> {
+                //TODO
+            });
 
-        }
-    }*/
+    }
 
     private User doCompleteUser(String name) throws IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeySpecException {
         User user = new User();
