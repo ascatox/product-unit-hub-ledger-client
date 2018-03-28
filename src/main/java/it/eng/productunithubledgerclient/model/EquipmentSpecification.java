@@ -2,8 +2,8 @@ package it.eng.productunithubledgerclient.model;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 public class EquipmentSpecification {
     @NotNull
@@ -11,20 +11,20 @@ public class EquipmentSpecification {
     public String specification;
     public String value;
     public Integer quantity;
-    public List<Parameters> Parameters;
+    public Collection<Parameters> parameters;
 
 
     public EquipmentSpecification() {
-        this.Parameters = new ArrayList<>(  );
+        this.parameters = new ArrayList<>(  );
 
     }
 
-    public EquipmentSpecification(@NotNull Integer sequenceNo, String specification, String value, Integer quantity, List<it.eng.productunithubledgerclient.model.Parameters> parameters) {
+    public EquipmentSpecification(@NotNull Integer sequenceNo, String specification, String value, Integer quantity, Collection<it.eng.productunithubledgerclient.model.Parameters> parameters) {
         this.sequenceNo = sequenceNo;
         this.specification = specification;
         this.value = value;
         this.quantity = quantity;
-        this.Parameters = new ArrayList<>(  );
+        this.parameters = new ArrayList<>(  );
     }
 
     public Integer getSequenceNo() {
@@ -47,6 +47,8 @@ public class EquipmentSpecification {
         return value;
     }
 
+
+
     public void setValue(String value) {
         this.value = value;
     }
@@ -59,25 +61,32 @@ public class EquipmentSpecification {
         this.quantity = quantity;
     }
 
-    public List<it.eng.productunithubledgerclient.model.Parameters> getParameters() {
-        return Parameters;
+    public Collection<it.eng.productunithubledgerclient.model.Parameters> getParameters() {
+        return parameters;
     }
 
     public void setParameters(List<it.eng.productunithubledgerclient.model.Parameters> parameters) {
-        Parameters = parameters;
+        this.parameters = parameters;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EquipmentSpecification)) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
         EquipmentSpecification that = (EquipmentSpecification) o;
-        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( specification, that.specification ) && Objects.equals( value, that.value ) && Objects.equals( quantity, that.quantity ) && Objects.equals( Parameters, that.Parameters );
+
+        if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo) : that.sequenceNo != null)
+            return false;
+        return specification != null ? specification.equals(that.specification) : that.specification == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( sequenceNo, specification, value, quantity, Parameters );
+        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
+        result = 31 * result + (specification != null ? specification.hashCode() : 0);
+        return result;
     }
 }

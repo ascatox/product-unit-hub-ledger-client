@@ -1,95 +1,101 @@
 package it.eng.productunithubledgerclient.api.base;
 
 import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
-import it.eng.productunithubledgerclient.api.helper.EventHandler;
-import it.eng.productunithubledgerclient.model.*;
+import it.eng.productunithubledgerclient.model.ChassisDTO;
+import it.eng.productunithubledgerclient.model.ProcessStep;
+import it.eng.productunithubledgerclient.model.ProcessStepResultDTO;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
+import java.util.Collection;
 
 public interface LedgerClient {
 
     /**
-     * This method store in the Ledger a ProcessStepRouting consisting in a list of Chassis {@link ChassisDTO}.
-     * @see ChassisDTO
+     * This method stores in the Ledger a ProcessStepRouting consisting in a collection of Chassis {@link ChassisDTO}.
+     *
      * @param chassisDTOs the list of Chassis
      * @throws ProductUnitHubException
+     * @see ChassisDTO
      */
-    void storeProcessStepRouting(final List<ChassisDTO> chassisDTOs) throws ProductUnitHubException;
+    void storeProcessStepRouting(Collection<ChassisDTO> chassisDTOs) throws ProductUnitHubException;
 
     /**
-     * This method store in the Ledger a ProcessStepResult {@link ProcessStepResult}
-     * @see ProcessStepResult
-     * @param processStepResult
+     * This method stores in the Ledger a ProcessStepResultDTO {@link ProcessStepResultDTO}
+     *
+     * @param processStepResultDTO
      * @return
      * @throws Exception
+     * @see ProcessStepResultDTO
      */
-    void storeProcessStepResult(final ProcessStepResult processStepResult) throws ProductUnitHubException;
+    void storeProcessStepResult(ProcessStepResultDTO processStepResultDTO) throws ProductUnitHubException;
 
     /**
-     * This method store in the Ledger a ProcessStepRouting consisting in a list of Chassis given in json format {@link ChassisDTO}
-     * @see ChassisDTO
+     * This method stores in the Ledger a ProcessStepRouting consisting in a collection of Chassis given in json format {@link ChassisDTO}
+     *
      * @param json
      * @throws ProductUnitHubException
+     * @see ChassisDTO
      */
-    void storeProcessStepRouting(final String json) throws ProductUnitHubException;
+    void storeProcessStepRouting(String json) throws ProductUnitHubException;
 
     /**
-     * This method store in the Ledger a ProcessStepResult given in json format {@link ProcessStepResult}
-     * @see ProcessStepResult
+     * This method stores in the Ledger a ProcessStepResultDTO given in json format {@link ProcessStepResultDTO}
+     *
      * @param json
      * @throws ProductUnitHubException
+     * @see ProcessStepResultDTO
      */
-    void storeProcessStepResult(final String json) throws ProductUnitHubException;
+    void storeProcessStepResult(String json) throws ProductUnitHubException;
 
     /**
-     * This method gives a list of Chassis {@link ChassisDTO}
-     * @see ChassisDTO
+     * This method gives a collection of Chassis {@link ChassisDTO}
+     *
      * @param component
      * @param subComponent
      * @return
      * @throws ProductUnitHubException
+     * @see ChassisDTO
      */
-    List<ChassisDTO> getProcessStepRouting(final String component, final String subComponent) throws ProductUnitHubException;
+    Collection<ChassisDTO> getProcessStepRouting(String component, String subComponent) throws ProductUnitHubException;
 
 
     /**
      * This method gives a Chassis {@link ChassisDTO}
-     * @see ChassisDTO
-     * @param chassisID
-     * @param component
-     * @param subComponent
-     * @return
-     * @throws ProductUnitHubException
-     */
-    ChassisDTO getProcessStepRouting(final String chassisID, final String component, final String subComponent) throws ProductUnitHubException;
-
-
-    /**
-     * This method gives a list of ProcessStep {@link ProcessStep}
-     * @see ProcessStep
-     * @param chassisID
-     * @param component
-     * @param subComponent
-     * @param workCellResourceID
-     * @return
-     * @throws ProductUnitHubException
-     */
-    List<ProcessStep> getProcessStep(final String chassisID, final String component, final String subComponent, final String workCellResourceID) throws ProductUnitHubException;
-
-    /**
      *
-     * @param chassisID
+     * @param chassisId
      * @param component
      * @param subComponent
-     * @param workCellResourceID
      * @return
      * @throws ProductUnitHubException
+     * @see ChassisDTO
+     */
+    ChassisDTO getProcessStepRouting(String chassisId, String component, String subComponent) throws ProductUnitHubException;
+
+
+    /**
+     * This method gives a collection of ProcessStep {@link ProcessStep}
+     *
+     * @param chassisId
+     * @param component
+     * @param subComponent
+     * @param workCellResourceId
+     * @return
+     * @throws ProductUnitHubException
+     * @see ProcessStep
+     */
+    Collection<ProcessStep> getProcessStep(String chassisId, String component, String subComponent, String workCellResourceId) throws ProductUnitHubException;
+
+    /**
+     * This method gives a ProcessStepResultDTO {@link ProcessStepResultDTO} passing as parameters a full key with component, subComponent and WorkCellResourceId
+     *
+     * @param chassisId
+     * @param component
+     * @param subComponent
+     * @param workCellResourceId
+     * @return
+     * @throws ProductUnitHubException
+     * @see ProcessStepResultDTO
      */
 
-    ProcessStepResult getProcessStepResult(final String chassisID, final String component, final String subComponent, final String workCellResourceID) throws ProductUnitHubException;
+    ProcessStepResultDTO getProcessStepResult(String chassisId, String component, String subComponent, String workCellResourceId) throws ProductUnitHubException;
 
 }

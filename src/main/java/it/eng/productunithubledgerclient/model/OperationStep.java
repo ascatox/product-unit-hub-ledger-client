@@ -2,18 +2,22 @@ package it.eng.productunithubledgerclient.model;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class represents an Operation to execute.
+ */
 public class OperationStep {
 
     @NotNull
     private Integer sequenceNo;
     private String Description;
 
-    private List<Material> billofMaterial;
-    private List <EquipmentRequirement> equipmentRequirements;
-    private List <InstructionText> istructionTexts;
+    private Collection<Material> billofMaterial;
+    private Collection <EquipmentRequirement> equipmentRequirements;
+    private Collection <InstructionText> istructionTexts;
 
 
     public OperationStep(Integer sequenceNo, String billofMaterial,String Description, List<EquipmentRequirement> equipmentRequirements, List<InstructionText> istructionTexts) {
@@ -37,7 +41,11 @@ public class OperationStep {
         this.sequenceNo = sequenceNo;
     }
 
-    public List<Material> getBillofMaterial() {
+    /**
+     * This field represents a collection of materials needed {@link Material}.
+     * @return
+     */
+    public Collection<Material> getBillofMaterial() {
         return billofMaterial;
     }
 
@@ -53,7 +61,12 @@ public class OperationStep {
         this.billofMaterial = billofMaterial;
     }
 
-    public List<EquipmentRequirement> getEquipmentRequirements() {
+
+    /**
+     * The field represents a collection of EquipmentRequirements {@link EquipmentRequirement}
+     * @return
+     */
+    public Collection<EquipmentRequirement> getEquipmentRequirements() {
         return equipmentRequirements;
     }
 
@@ -62,8 +75,11 @@ public class OperationStep {
     }
 
 
-
-    public List<InstructionText> getIstructionTexts() {
+    /**
+     * The field represents a collection of Instructions to execute {@link InstructionText}.
+     * @return
+     */
+    public Collection<InstructionText> getIstructionTexts() {
         return istructionTexts;
     }
 
@@ -73,15 +89,18 @@ public class OperationStep {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OperationStep)) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
         OperationStep that = (OperationStep) o;
-        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( billofMaterial, that.billofMaterial ) && Objects.equals( equipmentRequirements, that.equipmentRequirements ) && Objects.equals( istructionTexts, that.istructionTexts );
+
+        return sequenceNo != null ? sequenceNo.equals(that.sequenceNo) : that.sequenceNo == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( sequenceNo, billofMaterial, equipmentRequirements, istructionTexts );
+        return sequenceNo != null ? sequenceNo.hashCode() : 0;
     }
 }

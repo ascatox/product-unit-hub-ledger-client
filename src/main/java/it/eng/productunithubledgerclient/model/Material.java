@@ -6,55 +6,57 @@ import java.util.Objects;
 public class Material {
 
     @NotNull
-    public String PartNo;
-    public Integer Quantity;
-    public String Description;
+    public String partNo;
+    public Integer quantity;
+    public String description;
 
 
     public Material() {
     }
 
     public Material(String partNo, Integer quantity, String description) {
-        PartNo = partNo;
-        Quantity = quantity;
-        Description = description;
+        this.partNo = partNo;
+        this.quantity = quantity;
+        this.description = description;
     }
 
     public String getPartNo() {
-        return PartNo;
+        return partNo;
     }
 
     public void setPartNo(String partNo) {
-        PartNo = partNo;
+        this.partNo = partNo;
     }
 
     public Integer getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(Integer quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Material)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Material))
+            return false;
         Material that = (Material) o;
-        return Objects.equals( PartNo, that.PartNo ) && Objects.equals( Quantity, that.Quantity ) && Objects.equals( Description, that.Description );
+        return Objects.equals(partNo, that.partNo) && Objects.equals(quantity, that.quantity) && Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash( PartNo, Quantity, Description );
+        return Objects.hash(partNo, quantity, description);
     }
 }

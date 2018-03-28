@@ -2,6 +2,7 @@ package it.eng.productunithubledgerclient.model;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,9 +11,9 @@ public class EquipmentRequirement {
     private String equipmentType;
     @NotNull
     private Integer sequenceNo;
-    private List<EquipmentSpecification> specifications;
+    private Collection<EquipmentSpecification> specifications;
 
-    public EquipmentRequirement(String equipmentType, Integer sequenceNo, List<EquipmentSpecification> specifications) {
+    public EquipmentRequirement(String equipmentType, Integer sequenceNo, Collection<EquipmentSpecification> specifications) {
         this.equipmentType = equipmentType;
         this.sequenceNo = sequenceNo;
         this.specifications = new ArrayList<>();
@@ -38,27 +39,30 @@ public class EquipmentRequirement {
         this.sequenceNo = sequenceNo;
     }
 
-    public List<EquipmentSpecification> getSpecifications() {
+
+
+    public Collection<EquipmentSpecification> getSpecifications() {
         return specifications;
     }
-
-
 
     public void setSpecifications(List<EquipmentSpecification> specifications) {
         this.specifications = specifications;
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EquipmentRequirement)) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
         EquipmentRequirement that = (EquipmentRequirement) o;
-        return Objects.equals( equipmentType, that.equipmentType ) && Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( specifications, that.specifications );
+
+        return sequenceNo != null ? sequenceNo.equals(that.sequenceNo) : that.sequenceNo == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( equipmentType, sequenceNo, specifications );
+        return sequenceNo != null ? sequenceNo.hashCode() : 0;
     }
-
 }

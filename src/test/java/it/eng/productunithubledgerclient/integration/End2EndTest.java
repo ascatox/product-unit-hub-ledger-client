@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -62,8 +62,8 @@ public class End2EndTest {
         chassisDTOList.add(chassisDTO);
         try {
             ledgerClient.storeProcessStepRouting(chassisDTOList);
-            Iterator<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
-            assertEquals(chassisDTOList.iterator(), processStepRoutings);
+            Collection<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
+            assertEquals(chassisDTOList, processStepRoutings);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }

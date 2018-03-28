@@ -63,7 +63,7 @@ public class EventHandler {
                     chaincodeEvents.add(new ChaincodeEventCapture(handle, blockEvent, chaincodeEvent));
 
                     String es = blockEvent.getPeer() != null ? blockEvent.getPeer().getName() : blockEvent.getEventHub().getName();
-                    log.info("RECEIVED Chaincode event with handle: %s, chaincode Id: %s, chaincode event name: %s, "
+                    log.info("RECEIVED Chaincode event with handle: %s, chaincode id: %s, chaincode event name: %s, "
                                     + "transaction id: %s, event payload: \"%s\", from eventhub: %s",
                             handle, chaincodeEvent.getChaincodeId(),
                             chaincodeEvent.getEventName(),

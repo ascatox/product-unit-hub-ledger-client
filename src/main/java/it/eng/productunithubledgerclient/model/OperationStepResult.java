@@ -2,6 +2,9 @@ package it.eng.productunithubledgerclient.model;
 
 import java.util.Objects;
 
+/**
+ * This class represents
+ */
 public class OperationStepResult {
 
     private Integer sequenceNo;
@@ -10,8 +13,6 @@ public class OperationStepResult {
     private String channelId;
     private EquipmentResult equipmentResult;
     private EquipmentRequirement equipmentRequirement;
-
-
 
 
     public OperationStepResult(Integer sequenceNo, String stepName, String stepStatus, String channelId, EquipmentResult equipmentResult, EquipmentRequirement equipmentRequirement) {

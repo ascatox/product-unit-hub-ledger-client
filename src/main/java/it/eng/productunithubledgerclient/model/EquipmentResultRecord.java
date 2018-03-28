@@ -1,14 +1,13 @@
 package it.eng.productunithubledgerclient.model;
 
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 public class EquipmentResultRecord {
     @NotNull
     private Integer sequenceNo;
     private String result;
     private String value;
-    private  String Quantity;
+    private String quantity;
 
     public EquipmentResultRecord() {
     }
@@ -17,7 +16,7 @@ public class EquipmentResultRecord {
         this.sequenceNo = sequenceNo;
         this.result = result;
         this.value = value;
-        this.Quantity = Quantity;
+        this.quantity = Quantity;
     }
 
     public Integer getSequenceNo() {
@@ -45,24 +44,27 @@ public class EquipmentResultRecord {
     }
 
     public String getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(String quantity) {
-        this.Quantity = quantity;
+        this.quantity = quantity;
     }
-
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EquipmentResultRecord)) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
         EquipmentResultRecord that = (EquipmentResultRecord) o;
-        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( result, that.result ) && Objects.equals( value, that.value ) && Objects.equals( Quantity, that.Quantity );
+
+        return sequenceNo.equals(that.sequenceNo);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( sequenceNo, result, value, Quantity );
-    }}
+        return sequenceNo.hashCode();
+    }
+}

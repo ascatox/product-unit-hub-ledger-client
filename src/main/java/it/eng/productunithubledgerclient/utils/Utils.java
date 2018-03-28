@@ -56,15 +56,7 @@ public class Utils {
     }
 
 
-    /**
-     * Get the user with a given name
-     *
-     * @return user
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     * @throws NoSuchProviderException
-     * @throws InvalidKeySpecException
-     */
+
     public User getMember(String name, String cryptoDir, Organization organization) throws ProductUnitHubException {
         try {
 

@@ -1,24 +1,23 @@
 package it.eng.productunithubledgerclient.model;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 public class Operation {
     @NotNull
     private Integer sequenceNo;
-    private String Id;
+    private String id;
     @Pattern( regexp = "[0-9]")
     private String CIN;
-    private String Description;
-    private String OperationType;
+    private String description;
+    private String operationType;
 
-    private List<InstructionText> instructionTexts;
-    private List<EquipmentRequirement> equipmentRequirements;
-    private List<OperationStep> operationSteps;
+    private Collection<InstructionText> instructionTexts;
+    private Collection<EquipmentRequirement> equipmentRequirements;
+    private Collection<OperationStep> operationSteps;
 
 
     public Operation() {
@@ -27,15 +26,15 @@ public class Operation {
         this.operationSteps = new ArrayList<>(  );
     }
 
-    public Operation(@NotNull Integer sequenceNo, List<InstructionText> instructionTexts, List<EquipmentRequirement> equipmentRequirements, List<OperationStep> operationSteps, String id, @Pattern(regexp = "[0-9]") String CIN, String description, String operationType) {
+    public Operation(@NotNull Integer sequenceNo, Collection<InstructionText> instructionTexts, Collection<EquipmentRequirement> equipmentRequirements, Collection<OperationStep> operationSteps, String id, @Pattern(regexp = "[0-9]") String CIN, String description, String operationType) {
         this.sequenceNo = sequenceNo;
         this.instructionTexts = new ArrayList<>(  );
         this.equipmentRequirements = new ArrayList<>(  );
         this.operationSteps = new ArrayList<>(  );
-        Id = id;
+        this.id = id;
         this.CIN = CIN;
-        Description = description;
-        OperationType = operationType;
+        this.description = description;
+        this.operationType = operationType;
     }
 
     public Integer getSequenceNo() {
@@ -46,7 +45,7 @@ public class Operation {
         this.sequenceNo = sequenceNo;
     }
 
-    public List<InstructionText> getInstructionTexts() {
+    public Collection<InstructionText> getInstructionTexts() {
         return instructionTexts;
     }
 
@@ -54,7 +53,7 @@ public class Operation {
         this.instructionTexts = instructionTexts;
     }
 
-    public List<EquipmentRequirement> getEquipmentRequirements() {
+    public Collection<EquipmentRequirement> getEquipmentRequirements() {
         return equipmentRequirements;
     }
 
@@ -62,7 +61,7 @@ public class Operation {
         this.equipmentRequirements = equipmentRequirements;
     }
 
-    public List<OperationStep> getOperationSteps() {
+    public Collection<OperationStep> getOperationSteps() {
         return operationSteps;
     }
 
@@ -71,11 +70,11 @@ public class Operation {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getCIN() {
@@ -87,25 +86,40 @@ public class Operation {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getOperationType() {
-        return OperationType;
+        return operationType;
     }
 
     public void setOperationType(String operationType) {
-        OperationType = operationType;
+        this.operationType = operationType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Operation operation = (Operation) o;
+
+        if (sequenceNo != null ? !sequenceNo.equals(operation.sequenceNo) : operation.sequenceNo != null)
+            return false;
+        return id != null ? id.equals(operation.id) : operation.id == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( sequenceNo, instructionTexts, equipmentRequirements, operationSteps );
+        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        return result;
     }
 }
 

@@ -1,12 +1,16 @@
 package it.eng.productunithubledgerclient.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class represents a Result of an Operation.
+ */
 public class OperationResult {
 
-    private List<OperationResult> operationResults;
+    private Collection<OperationResult> operationResults;
 
     @Override
     public boolean equals(Object o) {
@@ -22,7 +26,7 @@ public class OperationResult {
         return Objects.hash( operationResults );
     }
 
-    public OperationResult(List<OperationResult> operationResults) {
+    public OperationResult(Collection<OperationResult> operationResults) {
         this.operationResults = new ArrayList<>();
     }
 
@@ -31,11 +35,15 @@ public class OperationResult {
         this.operationResults = new ArrayList<>();
     }
 
-    public List<OperationResult> getOperationResults() {
+    /**
+     * This field represents a collection of OperationResult {@link OperationResult}
+     * @return
+     */
+    public Collection<OperationResult> getOperationResults() {
         return operationResults;
     }
 
-    public void setOperationResults(List<OperationResult> operationResults) {
+    public void setOperationResults(Collection<OperationResult> operationResults) {
         this.operationResults = operationResults;
     }
 }

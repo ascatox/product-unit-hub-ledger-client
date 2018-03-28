@@ -2,21 +2,21 @@ package it.eng.productunithubledgerclient.model;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 public class EquipmentResult {
     @NotNull
     private Integer sequenceNo;
-    
     private String equipmentType;
-    private List<EquipmentResultRecord> results;
+    private Collection<EquipmentResultRecord> results;
 
     public EquipmentResult() {
         this.results = new ArrayList<>();
     }
 
-    public EquipmentResult(Integer sequenceNo, String equipmentType, List<EquipmentResultRecord> results) {
+    public EquipmentResult(Integer sequenceNo, String equipmentType, Collection<EquipmentResultRecord> results) {
         this.sequenceNo = sequenceNo;
         this.equipmentType = equipmentType;
         this.results = new ArrayList<>();
@@ -38,23 +38,32 @@ public class EquipmentResult {
         this.equipmentType = equipmentType;
     }
 
-    public List<EquipmentResultRecord> getResults() {
+    public Collection<EquipmentResultRecord> getResults() {
         return results;
     }
 
     public void setResults(List<EquipmentResultRecord> results) {
         this.results = results;
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EquipmentResult)) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
         EquipmentResult that = (EquipmentResult) o;
-        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( equipmentType, that.equipmentType ) && Objects.equals( results, that.results );
+
+        if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo) : that.sequenceNo != null)
+            return false;
+        return equipmentType != null ? equipmentType.equals(that.equipmentType) : that.equipmentType == null;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash( sequenceNo, equipmentType, results );
-    }}
+        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
+        result = 31 * result + (equipmentType != null ? equipmentType.hashCode() : 0);
+        return result;
+    }
+}

@@ -25,7 +25,7 @@ public class TestModelMaterial {
         try {
             material.setPartNo( "1" );
 
-            assertFalse("PartNo is empty", null == material || StringUtils.isEmpty(material.getPartNo()));
+            assertFalse("partNo is empty", null == material || StringUtils.isEmpty(material.getPartNo()));
 
 
         } catch (Exception e) {
