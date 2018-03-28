@@ -2,9 +2,7 @@ package it.eng.productunithubledgerclient.api.config;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Configuration {
 
@@ -14,20 +12,20 @@ public class Configuration {
     private Integer timeout;
     private String cryptoconfigdir;
 
-    private List<Organization> organizations;
+    private Set<Organization> organizations;
     private Chaincode chaincode;
 
-    public Configuration(String name, String type, String mspID, String channelName, Integer timeout, String cryptoconfigdir, List<Organization> organizations) {
+    public Configuration(String name, String type, String mspID, String channelName, Integer timeout, String cryptoconfigdir, Set<Organization> organizations) {
         this.name = name;
         this.type = type;
         this.channelName = channelName;
         this.timeout = timeout;
         this.cryptoconfigdir = cryptoconfigdir;
-        this.organizations = new ArrayList<>();
+        this.organizations = new HashSet<>();
     }
 
     public Configuration() {
-        this.organizations = new ArrayList<>();
+        this.organizations = new HashSet<>();
     }
 
     public String getName() {
@@ -73,11 +71,11 @@ public class Configuration {
         this.cryptoconfigdir = cryptoconfigdir;
     }
 
-    public List<Organization> getOrganizations() {
+    public Set<Organization> getOrganizations() {
         return organizations;
     }
 
-    public void setOrganizations(List<Organization> organizations) {
+    public void setOrganizations(Set<Organization> organizations) {
         this.organizations = organizations;
     }
 

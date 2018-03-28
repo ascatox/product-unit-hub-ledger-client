@@ -4,29 +4,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Organization {
 
     private String mspID;
     private String domainName;
-    private List<PeerConfig> peers;
-    private List<OrdererConfig> orderers;
-    private List<User> users;
+    private Set<PeerConfig> peers;
+    private Set<OrdererConfig> orderers;
+    private Set<User> users;
     private Ca ca;
 
-    public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Ca ca) {
+    public Organization(String mspID, Set<PeerConfig> peerConfigs, Set<OrdererConfig> ordererConfigs, Ca ca) {
         this.mspID = mspID;
         this.peers = peerConfigs;
         this.orderers = ordererConfigs;
         this.ca = ca;
-        this.users = new ArrayList<>();
+        this.users = new HashSet<>();
     }
 
     public Organization() {
-        this.peers = new ArrayList<>();
+        this.peers = new HashSet<>();
 
-        this.orderers = new ArrayList<>();
+        this.orderers = new HashSet<>();
         this.ca = new Ca();
     }
 
@@ -46,19 +48,19 @@ public class Organization {
         this.mspID = mspID;
     }
 
-    public List<PeerConfig> getPeers() {
+    public Set<PeerConfig> getPeers() {
         return peers;
     }
 
-    public void setPeers(List<PeerConfig> peers) {
+    public void setPeers(Set<PeerConfig> peers) {
         this.peers = peers;
     }
 
-    public List<OrdererConfig> getOrderers() {
+    public Set<OrdererConfig> getOrderers() {
         return orderers;
     }
 
-    public void setOrderers(List<OrdererConfig> orderers) {
+    public void setOrderers(Set<OrdererConfig> orderers) {
         this.orderers = orderers;
     }
 
@@ -70,12 +72,12 @@ public class Organization {
         this.ca = ca;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
     @JsonIgnore
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

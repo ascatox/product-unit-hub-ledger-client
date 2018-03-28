@@ -130,7 +130,7 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
         return null;
     }
 
-    public final ChassisDTO getProcessStepResult(String chassisID, String component, String subComponent) throws ProductUnitHubException {
+    /*public final ChassisDTO getProcessStepResult(String chassisID, String component, String subComponent) throws ProductUnitHubException {
         if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent))
             throw new ProductUnitHubException(Function.getProcessStepResult.name() + " is in error, No input data!");
         List<String> args = new ArrayList<>();
@@ -141,7 +141,7 @@ final public class LedgerClient implements it.eng.productunithubledgerclient.api
         if (null == chassisDTOS || !chassisDTOS.isEmpty())
             return null;
         return chassisDTOS.get(0);
-    }
+    }*/
 
 
     private String doInvokeByJson(Function fcn, String json) throws ProductUnitHubException {
