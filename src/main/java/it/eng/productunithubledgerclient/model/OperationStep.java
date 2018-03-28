@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class represents an Operation to execute.
+ * This class represents an Operation Step to execute.
  */
 public class OperationStep {
 
@@ -20,7 +20,7 @@ public class OperationStep {
     private Collection <InstructionText> istructionTexts;
 
 
-    public OperationStep(Integer sequenceNo, String billofMaterial,String Description, List<EquipmentRequirement> equipmentRequirements, List<InstructionText> istructionTexts) {
+    public OperationStep(Integer sequenceNo, String billofMaterial,String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> istructionTexts) {
         this.sequenceNo = sequenceNo;
         this.billofMaterial = new ArrayList<>();
         this.equipmentRequirements = new ArrayList<>();

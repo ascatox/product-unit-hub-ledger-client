@@ -3,7 +3,7 @@ package it.eng.productunithubledgerclient.model;
 import java.util.Objects;
 
 /**
- * This class represents
+ * This class represents a result of an Operation Step.
  */
 public class OperationStepResult {
 

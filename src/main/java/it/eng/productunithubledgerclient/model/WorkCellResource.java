@@ -3,7 +3,7 @@ package it.eng.productunithubledgerclient.model;
 import java.util.Objects;
 
 /**
- * This class represents the WorkCell.
+ * This class represents a WorkCell.
  */
 public class WorkCellResource {
 
