@@ -1,4 +1,4 @@
-# ProductUnitHub LedgerClient
+# Product Unit Hub LedgerClient
 ## Library for Hyperledger Fabric 1.1
 
 **LedgerClient** is a **Java 8** library to interface with an [Hyperledger Fabric](https://hyperledger-fabric.readthedocs.io/en/latest/) blockchain using the [Hyperledger Fabric SDK Java](https://github.com/hyperledger/fabric-sdk-java).
