@@ -53,18 +53,18 @@ Edit the file `config-network.json`[*](https://github.com/ascatox/product-unit-h
       "peers": [
         {
           "name": "peer0.org1.example.com",
-          "requestURL": "grpc://192.168.56.101:7051",
-          "eventURL": "grpc://192.168.56.101:7053"
+          "requestURL": "grpc://localhost:7051",
+          "eventURL": "grpc://localhost:7053"
         }
       ],
       "ca": {
-        "url": "http://192.168.56.101:7054",
+        "url": "http://localhost:7054",
         "name": "ca.example.com"
       },
       "orderers": [
         {
           "name": "orderer.example.com",
-          "url": "grpc://192.168.56.101:7050"
+          "url": "grpc://localhost:7050"
         }
       ],
       "users": [
