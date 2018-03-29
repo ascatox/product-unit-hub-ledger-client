@@ -1,8 +1,11 @@
 package it.eng.productunithubledgerclient.api.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -81,12 +84,16 @@ public class Organization {
     }
 
     //@See Claudio
-    //FIXME Add a json file to store users!!!!
-    public User getAdminUser() {
+    //FIXME Add a json file to store users!!!
+    //@See ascatox
+    //TODO Control if it's correct!!!!
+    public User getAdminUser() throws IOException {
         if (getUsers().isEmpty())
             return null;
-        for (User user :
-                users) {
+
+       // ObjectMapper mapper = new ObjectMapper();
+        for (User user : users) {
+            // mapper.writeValue(new File("product-unit-hub-ledger-client/src/main/resources/json-user"), user );
             for (String role : user.getRoles()) {
                 if (role.toLowerCase().contains("admin"))
                     return user;

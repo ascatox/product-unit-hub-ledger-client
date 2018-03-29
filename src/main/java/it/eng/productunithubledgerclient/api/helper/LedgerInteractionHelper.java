@@ -1,15 +1,13 @@
 package it.eng.productunithubledgerclient.api.helper;
 
-import it.eng.productunithubledgerclient.api.config.Chaincode;
-import it.eng.productunithubledgerclient.api.config.ConfigManager;
-import it.eng.productunithubledgerclient.api.config.Configuration;
-import it.eng.productunithubledgerclient.api.config.Organization;
+import it.eng.productunithubledgerclient.api.config.*;
 import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hyperledger.fabric.protos.peer.Query;
 import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.User;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
@@ -29,6 +27,7 @@ final public class LedgerInteractionHelper {
     private Channel channel;
     private ConfigManager configManager;
     private User user;
+    private UserManager userManager;
     private Organization organization;
     private Configuration configuration;
     private EventHandler eventHandler;
@@ -56,7 +55,8 @@ final public class LedgerInteractionHelper {
             this.configuration = configManager.getConfiguration();
             this.user = organization.getPeerAdminUser();
             if (StringUtils.isNotEmpty(userName)) {
-                User user = organization.loadUser(userName);
+                this.userManager = UserManager.getInstance( configuration, organization );
+                this.userManager.completeUsers( userName );
                 if (null != user)
                     this.user = user;
             }

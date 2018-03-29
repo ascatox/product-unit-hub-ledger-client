@@ -15,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -43,11 +45,20 @@ public class UserManager {
         return instance;
     }
 
-    public void completeUsers(String name) throws ProductUnitHubException {
+    public void completeUsers(String name) throws ProductUnitHubException, NoSuchAlgorithmException, NoSuchProviderException, InvalidKeySpecException, IOException {
+        //@See ascatox
+        //FIXME control it's correct!!!
+        Set<User> user = organization.getUsers();
+        for (User users: user) {
+            users = (User) doCompleteUser( name );
+        }
+/*
             Stream<User> userStream = organization.getUsers().stream();
             userStream.forEach(user -> {
-                //TODO
+                //@See ascatox
+                //TODO with stream
             });
+*/
 
     }
 

@@ -12,6 +12,26 @@ public class OperationResult {
 
     private Collection<OperationResult> operationResults;
 
+
+    public OperationResult(Collection<OperationResult> operationResults) {
+        this.operationResults = new ArrayList<>();
+    }
+
+    public OperationResult() {
+        this.operationResults = new ArrayList<>();
+    }
+    /**
+     * This field represents a collection of OperationResult {@link OperationResult}
+     * @return
+     */
+    public Collection<OperationResult> getOperationResults() {
+        return operationResults;
+    }
+
+    public void setOperationResults(Collection<OperationResult> operationResults) {
+        this.operationResults = operationResults;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,26 +44,5 @@ public class OperationResult {
     public int hashCode() {
 
         return Objects.hash( operationResults );
-    }
-
-    public OperationResult(Collection<OperationResult> operationResults) {
-        this.operationResults = new ArrayList<>();
-    }
-
-    public OperationResult() {
-
-        this.operationResults = new ArrayList<>();
-    }
-
-    /**
-     * This field represents a collection of OperationResult {@link OperationResult}
-     * @return
-     */
-    public Collection<OperationResult> getOperationResults() {
-        return operationResults;
-    }
-
-    public void setOperationResults(Collection<OperationResult> operationResults) {
-        this.operationResults = operationResults;
     }
 }
