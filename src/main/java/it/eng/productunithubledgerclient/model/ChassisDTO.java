@@ -86,9 +86,13 @@ public class ChassisDTO implements Serializable {
         return productUnits;
     }
 
-
     public void setProductUnits(String productUnits) {
         this.productUnits = productUnits;
+    }
+
+
+    public void setBillOfProcessSteps(Collection<ProcessStep> billOfProcessSteps) {
+        this.billOfProcessSteps = billOfProcessSteps;
     }
 
     /**
