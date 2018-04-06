@@ -1,6 +1,5 @@
 package it.eng.productunithubledgerclient.fabric.config;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,8 +11,14 @@ public class Organization {
     private String domainName;
     private List<PeerConfig> peers;
     private List<OrdererConfig> orderers;
+
+
     private Set<User> users;
     private Ca ca;
+    private User peerAdminUser;
+    private User adminUser;
+    private User user;
+    private User loggedUser;
 
     public Organization(String mspID, List<PeerConfig> peerConfigs, List<OrdererConfig> ordererConfigs, Ca ca) {
         this.mspID = mspID;
@@ -60,6 +65,7 @@ public class Organization {
     public void setOrderers(List<OrdererConfig> orderers) {
         this.orderers = orderers;
     }
+
     public Ca getCa() {
         return ca;
     }
@@ -67,6 +73,7 @@ public class Organization {
     public void setCa(Ca ca) {
         this.ca = ca;
     }
+
     public Set<User> getUsers() {
         return users;
     }
@@ -75,29 +82,85 @@ public class Organization {
         this.users = users;
     }
 
-    public User getAdminUser() throws IOException {
+    public User getPeerAdminUser() {
+        if (peerAdminUser == null)
+            peerAdminUser = doGetPeerAdminUser();
+        return peerAdminUser;
+    }
+
+    public void setPeerAdminUser(User peerAdminUser) {
+        this.peerAdminUser = peerAdminUser;
+    }
+
+    public User getAdminUser() {
+        if (adminUser == null)
+            adminUser = doGetAdminUser();
+        return adminUser;
+    }
+
+    public void setAdminUser(User adminUser) {
+        this.adminUser = adminUser;
+    }
+
+    public User getUser() {
+        if (user == null)
+            user = doGetUser();
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private User doGetAdminUser() {
         if (null == getUsers() || getUsers().isEmpty())
             return null;
         for (User user : getUsers()) {
             for (String role : user.getRoles()) {
-                if (role.toLowerCase().contains("admin"))
+                if (role.toLowerCase().equals("admin"))
+                    return user;
+            }
+
+        }
+        return null;
+    }
+
+    private User doGetPeerAdminUser() {
+        if (null == getUsers() || getUsers().isEmpty())
+            return null;
+        for (User user :
+                getUsers()) {
+            for (String role : user.getRoles()) {
+                if (role.toLowerCase().equals("peer"))
                     return user;
             }
         }
         return null;
     }
 
-    public User getPeerAdminUser() {
+    private User doGetUser() {
         if (null == getUsers() || getUsers().isEmpty())
             return null;
         for (User user :
                 getUsers()) {
             for (String role : user.getRoles()) {
-                if (role.toLowerCase().contains("peer"))
+                if (!role.toLowerCase().equals("peer")
+                        && !role.toLowerCase().equals("admin"))
                     return user;
             }
         }
         return null;
+    }
+
+
+    public User getLoggedUser() {
+        if (getAdminUser() != null)
+            loggedUser = getAdminUser();
+        else if (getPeerAdminUser() != null)
+            loggedUser = getPeerAdminUser();
+        else
+            loggedUser = getUser();
+        return loggedUser;
     }
 
 
@@ -117,7 +180,6 @@ public class Organization {
     public int hashCode() {
         return mspID != null ? mspID.hashCode() : 0;
     }
-
 
 
 }

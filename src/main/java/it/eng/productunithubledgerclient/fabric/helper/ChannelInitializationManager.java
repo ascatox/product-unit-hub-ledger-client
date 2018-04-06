@@ -51,12 +51,18 @@ public class ChannelInitializationManager {
         initializeChannel(client, configManager, organization);
     }
 
-    private void setupEnv(HFClient client, ConfigManager configManager, Organization organization) throws InvalidArgumentException {
+    private void setupEnv(HFClient client, ConfigManager configManager, Organization organization) throws InvalidArgumentException, ProductUnitHubException {
         this.client = client;
         this.configManager = configManager;
         this.organization = organization;
+        //Only peer Admin org
+        client.setUserContext(organization.getPeerAdminUser());
         if (null == getChannel())
             this.channel = client.getChannel(configManager.getConfiguration().getChannelName());
+            if(channel == null) {
+                log.warn("Channel "+configManager.getConfiguration().getChannelName()+" not initialized...");
+                channel = client.newChannel(configManager.getConfiguration().getChannelName());
+            }
     }
 
     private void initializeChannel(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
@@ -66,8 +72,7 @@ public class ChannelInitializationManager {
         setupEnv(client, configManager, organization);
         try {
             log.debug("Constructing channel java structures %s", channel.getName());
-            //Only peer Admin org
-            client.setUserContext(organization.getPeerAdminUser());
+
 
             buildOrderers(organization.getOrderers());
 

@@ -25,9 +25,6 @@ final public class LedgerInteractionHelper {
     private HFClient client;
     private Channel channel;
     private ConfigManager configManager;
-    private User peerAdminUser;
-    private User adminUser;
-    private User user;
     private UserManager userManager;
     private Organization organization;
     private Configuration configuration;
@@ -56,12 +53,6 @@ final public class LedgerInteractionHelper {
             this.configuration = configManager.getConfiguration();
             this.userManager = UserManager.getInstance(configuration, organization);
             this.userManager.completeUsers();
-            this.peerAdminUser = organization.getPeerAdminUser();
-            this.adminUser = organization.getAdminUser();
-            if (null != peerAdminUser)
-                this.user = peerAdminUser;
-            if (null != adminUser)
-                this.user = adminUser;
             setup();
         } catch (Exception e) {
             log.error(e);
@@ -159,6 +150,7 @@ final public class LedgerInteractionHelper {
 
     public InvokeReturn invokeChaincode(String functionName, List<String> args) throws ProductUnitHubException {
         try {
+            User user = organization.getLoggedUser();
             Collection<ProposalResponse> successful = new LinkedList<>();
             Collection<ProposalResponse> failed = new LinkedList<>();
 
