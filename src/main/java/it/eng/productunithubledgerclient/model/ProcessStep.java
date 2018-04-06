@@ -3,8 +3,6 @@ package it.eng.productunithubledgerclient.model;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * This class represents a ProcessStep containing a collection of Operations to execute and is identified by a sequence number

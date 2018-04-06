@@ -8,9 +8,14 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <domainName>product-unit-hub-ledger-client</domainName>
+    <name>product-unit-hub-ledger-client</name>
     <description>Product Unit Hub LedgerClient</description>
-
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -20,6 +25,7 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.hyperledger.fabric-sdk-java</groupId>
             <artifactId>fabric-sdk-java</artifactId>
@@ -65,6 +71,11 @@
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
             <version>3.0.1-b08</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
+            <version>1.46</version>
         </dependency>
     </dependencies>
     <build>
@@ -176,7 +187,7 @@
                             </descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>it.eng.productunithubledgerclient.api.LedgerClient</mainClass>
+                                    <mainClass>it.eng.productunithubledgerclient.fabric.FabricLedgerClient</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

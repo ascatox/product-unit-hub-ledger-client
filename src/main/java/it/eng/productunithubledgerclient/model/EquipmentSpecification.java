@@ -19,7 +19,7 @@ public class EquipmentSpecification {
 
     }
 
-    public EquipmentSpecification(@NotNull Integer sequenceNo, String specification, String value, Integer quantity, Collection<it.eng.productunithubledgerclient.model.Parameters> parameters) {
+    public EquipmentSpecification(@NotNull Integer sequenceNo, String specification, String value, Integer quantity, Collection<Parameters> parameters) {
         this.sequenceNo = sequenceNo;
         this.specification = specification;
         this.value = value;
@@ -61,11 +61,11 @@ public class EquipmentSpecification {
         this.quantity = quantity;
     }
 
-    public Collection<it.eng.productunithubledgerclient.model.Parameters> getParameters() {
+    public Collection<Parameters> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<it.eng.productunithubledgerclient.model.Parameters> parameters) {
+    public void setParameters(List<Parameters> parameters) {
         this.parameters = parameters;
     }
 

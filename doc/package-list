@@ -1,10 +1,10 @@
-it.eng.productunithubledgerclient.api
-it.eng.productunithubledgerclient.api.base
-it.eng.productunithubledgerclient.api.config
-it.eng.productunithubledgerclient.api.exception
-it.eng.productunithubledgerclient.api.helper
+it.eng.productunithubledgerclient.base
 it.eng.productunithubledgerclient.convert
-it.eng.productunithubledgerclient.integration
+it.eng.productunithubledgerclient.exception
+it.eng.productunithubledgerclient.fabric
+it.eng.productunithubledgerclient.fabric.config
+it.eng.productunithubledgerclient.fabric.helper
+it.eng.productunithubledgerclient.fabric.integration
+it.eng.productunithubledgerclient.fabric.unit
 it.eng.productunithubledgerclient.model
-it.eng.productunithubledgerclient.unit
 it.eng.productunithubledgerclient.utils

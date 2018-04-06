@@ -2,7 +2,7 @@ package it.eng.productunithubledgerclient.convert;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
+import it.eng.productunithubledgerclient.exception.ProductUnitHubException;
 
 
 public class JsonConverter {

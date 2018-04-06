@@ -17,13 +17,8 @@
 package it.eng.productunithubledgerclient.utils;
 
 
-import it.eng.productunithubledgerclient.api.config.ConfigManager;
-import it.eng.productunithubledgerclient.api.config.Enrollment;
-import it.eng.productunithubledgerclient.api.config.Organization;
-import it.eng.productunithubledgerclient.api.config.User;
-import it.eng.productunithubledgerclient.api.exception.ProductUnitHubException;
+import it.eng.productunithubledgerclient.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.model.ChassisDTO;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,11 +28,15 @@ import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import javax.validation.ConstraintViolation;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
+import java.security.Security;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Set;
 
@@ -100,6 +99,7 @@ public class Utils {
         try (PEMParser pemParser = new PEMParser(pemReader)) {
             pemPair = (PrivateKeyInfo) pemParser.readObject();
         }
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
         PrivateKey privateKey = new JcaPEMKeyConverter().setProvider(BouncyCastleProvider.PROVIDER_NAME)
                 .getPrivateKey(pemPair);
