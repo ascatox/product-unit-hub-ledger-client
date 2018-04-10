@@ -200,10 +200,8 @@ final public class LedgerInteractionHelper {
 
                 throw new ProposalException(format("Not enough endorsers for invoke(move a,b,%s):%d endorser error:%s. Was verified:%b",
                         args.get(0), firstTransactionProposalResponse.getStatus().getStatus(), firstTransactionProposalResponse.getMessage(), firstTransactionProposalResponse.isVerified()));
-
             }
             log.debug("Successfully received transaction proposal responses.");
-
             // Send transaction to orderer
             log.debug("Sending chaincode transaction to orderer.", args.get(0));
             if (user != null) {
@@ -211,6 +209,7 @@ final public class LedgerInteractionHelper {
             }
             return new InvokeReturn(channel.sendTransaction(successful), payload);
         } catch (Exception e) {
+            log.error(e);
             throw new ProductUnitHubException(e);
 
         }
