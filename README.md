@@ -40,6 +40,7 @@ Edit the file `config-network.json`[*](https://github.com/ascatox/product-unit-h
   "channelName": "ledgerchannel",
   "timeout": 3000,
   "cryptoconfigdir": "",
+  "tls": false,
   "chaincode": {
     "path": "",
     "name": "product-unit-hub-chaincode",
