@@ -32,7 +32,7 @@ In order to use the Library, launch Fabric as described in the [official docs](h
 Information needed for install and instantiate the Chaincode are available [here](https://github.com/ascatox/product-unit-hub-chaincode).
 ## Configure the LedgerClient
 Edit the file `config-fabric-network.json`[*](https://github.com/ascatox/product-unit-hub-ledger-client/blob/master/src/main/resources/config-fabric-network.json) with your favourite text editor in order to configure the network as in your HLF previous installation. Under you can find a complete example of configured file: <br/>
-`vim config-network.json` 
+`vim config-fabric-network.json` 
 ```javascript
 {
   "name": "fabric-network",
