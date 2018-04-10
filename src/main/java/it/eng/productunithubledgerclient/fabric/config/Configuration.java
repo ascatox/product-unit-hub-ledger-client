@@ -13,6 +13,7 @@ public class Configuration {
     private String channelName;
     private Integer timeout;
     private String cryptoconfigdir;
+    private boolean tls;
 
     private List<Organization> organizations;
     private Chaincode chaincode;
@@ -88,6 +89,14 @@ public class Configuration {
     public void setChaincode(Chaincode chaincode) {
 
         this.chaincode = chaincode;
+    }
+
+    public boolean isTls() {
+        return tls;
+    }
+
+    public void setTls(boolean tls) {
+        this.tls = tls;
     }
 
     @Override

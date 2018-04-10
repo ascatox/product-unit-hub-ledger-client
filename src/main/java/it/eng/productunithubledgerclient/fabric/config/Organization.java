@@ -83,8 +83,12 @@ public class Organization {
     }
 
     public User getPeerAdminUser() {
-        if (peerAdminUser == null)
+        if (peerAdminUser == null) {
             peerAdminUser = doGetPeerAdminUser();
+            if (peerAdminUser == null)
+                peerAdminUser = getAdminUser();
+        }
+
         return peerAdminUser;
     }
 

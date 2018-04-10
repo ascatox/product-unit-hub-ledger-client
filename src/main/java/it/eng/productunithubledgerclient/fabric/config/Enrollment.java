@@ -32,11 +32,11 @@ public class Enrollment implements org.hyperledger.fabric.sdk.Enrollment {
 
     @Override
     public PrivateKey getKey() {
-        return null;
+        return privateKey;
     }
 
     @Override
     public String getCert() {
-        return null;
+        return cert;
     }
 }

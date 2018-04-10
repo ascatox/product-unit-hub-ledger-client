@@ -2,11 +2,10 @@ package it.eng.productunithubledgerclient.fabric.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.eng.productunithubledgerclient.exception.ProductUnitHubException;
-import it.eng.productunithubledgerclient.fabric.helper.ChannelInitializationManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
+import org.hyperledger.fabric.sdk.helper.Utils;
 
 import java.io.File;
 import java.net.URL;
@@ -36,7 +35,7 @@ public class ConfigManager {
     }
 
     public static ConfigManager getInstance() throws ProductUnitHubException, InvalidArgumentException {
-        if (ourInstance == null ) { //1
+        if (ourInstance == null) { //1
             synchronized (ConfigManager.class) {
                 if (ourInstance == null) {  //2
                     ourInstance = new ConfigManager();
@@ -65,29 +64,29 @@ public class ConfigManager {
 
     public Properties getPeerProperties(String name) {
 
-        return getEndPointProperties("peer", name);
+        return getEndpointProperties("peer", name);
 
     }
 
     public Properties getOrdererProperties(String name) {
 
-        return getEndPointProperties("orderer", name);
+        return getEndpointProperties("orderer", name);
 
     }
 
-    private Properties getEndPointProperties(final String type, final String name) {
+    private Properties getEndpointProperties(final String type, final String name) {
 
         final String domainName = getDomainName(name);
 
-        File cert = Paths.get(getTestChannelPath(), "crypto-config/ordererOrganizations".replace("orderer", type), domainName, type + "s",
+        File certTLS = Paths.get(configuration.getCryptoconfigdir() + "/ordererOrganizations".replace("orderer", type), domainName, type + "s",
                 name, "tls/server.crt").toFile();
-        if (!cert.exists()) {
+        if (!certTLS.exists() && configuration.isTls()) {
             throw new RuntimeException(format("Missing cert file for: %s. Could not find at location: %s", name,
-                    cert.getAbsolutePath()));
+                    certTLS.getAbsolutePath()));
         }
 
         Properties ret = new Properties();
-        ret.setProperty("pemFile", cert.getAbsolutePath());
+        ret.setProperty("pemFile", certTLS.getAbsolutePath());
         //      ret.setProperty("trustServerCertificate", "true"); //testing environment only NOT FOR PRODUCTION!
         ret.setProperty("hostnameOverride", name);
         ret.setProperty("sslProvider", "openSSL");
@@ -97,9 +96,7 @@ public class ConfigManager {
     }
 
     public Properties getEventHubProperties(String name) {
-
-        return getEndPointProperties("peer", name); //uses same as named peer
-
+        return getEndpointProperties("peer", name); //uses same as named peer
     }
 
 
@@ -128,6 +125,24 @@ public class ConfigManager {
 
     public long getProposalWaitTime() {
         return Integer.parseInt(PROPOSALWAITTIME);
+    }
+
+    public String grpcTLSify(String location) {
+        location = location.trim();
+        Exception e = Utils.checkGrpcUrl(location);
+        if (e != null) {
+            throw new RuntimeException(String.format("Bad TEST parameters for grpc url %s", location), e);
+        }
+        return configuration.isTls() ?
+                location.replaceFirst("^grpc://", "grpcs://") : location;
+
+    }
+
+    public String httpTLSify(String location) {
+        location = location.trim();
+
+        return configuration.isTls() ?
+                location.replaceFirst("^http://", "https://") : location;
     }
 
 

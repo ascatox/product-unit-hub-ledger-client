@@ -59,10 +59,10 @@ public class ChannelInitializationManager {
         client.setUserContext(organization.getPeerAdminUser());
         if (null == getChannel())
             this.channel = client.getChannel(configManager.getConfiguration().getChannelName());
-            if(channel == null) {
-                log.warn("Channel "+configManager.getConfiguration().getChannelName()+" not initialized...");
-                channel = client.newChannel(configManager.getConfiguration().getChannelName());
-            }
+        if (channel == null) {
+            log.warn("Channel " + configManager.getConfiguration().getChannelName() + " not initialized...");
+            channel = client.newChannel(configManager.getConfiguration().getChannelName());
+        }
     }
 
     private void initializeChannel(HFClient client, ConfigManager configManager, Organization organization) throws ProductUnitHubException, InvalidArgumentException {
@@ -72,7 +72,6 @@ public class ChannelInitializationManager {
         setupEnv(client, configManager, organization);
         try {
             log.debug("Constructing channel java structures %s", channel.getName());
-
 
             buildOrderers(organization.getOrderers());
 
@@ -101,7 +100,7 @@ public class ChannelInitializationManager {
             eventHubProperties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
                     .SECONDS});
 
-            EventHub eventHub = client.newEventHub(peerConfigObj.getName(), peerConfigObj.getEventURL(), eventHubProperties);
+            EventHub eventHub = client.newEventHub(peerConfigObj.getName(), configManager.grpcTLSify(peerConfigObj.getEventURL()), eventHubProperties);
             channel.addEventHub(eventHub);
         }
     }
@@ -119,7 +118,7 @@ public class ChannelInitializationManager {
             //Example of setting specific options on grpc's NettyChannelBuilder
             peerProperties.put("grpc.NettyChannelBuilderOption.maxInboundMessageSize", 9000000);
 
-            Peer peer = client.newPeer(peerConfigObj.getName(), peerLocation, peerProperties);
+            Peer peer = client.newPeer(peerConfigObj.getName(), configManager.grpcTLSify(peerLocation), peerProperties);
             //            newChannel.joinPeer(peer);
             channel.addPeer(peer);
             //org.addPeer(peer);
@@ -137,7 +136,7 @@ public class ChannelInitializationManager {
                     .MINUTES});
             ordererProperties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
                     .SECONDS});
-            orderers.add(client.newOrderer(ordererConfig.getName(), ordererConfig.getUrl(), ordererProperties));
+            orderers.add(client.newOrderer(ordererConfig.getName(), configManager.grpcTLSify(ordererConfig.getUrl()), ordererProperties));
         }
         org.hyperledger.fabric.sdk.Orderer anOrderer = orderers.iterator().next();
         //Just pick the first orderer in the list to create the channel.

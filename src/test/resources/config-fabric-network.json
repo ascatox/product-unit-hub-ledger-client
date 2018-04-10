@@ -4,6 +4,7 @@
   "channelName": "ledgerchannel",
   "timeout": 3000,
   "cryptoconfigdir": "/Users/ascatox/Desktop/crypto-config",
+  "tls": false,
   "chaincode": {
     "path": "",
     "name": "product-unit-hub-chaincode",

@@ -2,7 +2,6 @@ package it.eng.productunithubledgerclient.fabric.helper;
 
 import it.eng.productunithubledgerclient.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.fabric.config.*;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hyperledger.fabric.protos.peer.Query;
@@ -70,7 +69,7 @@ final public class LedgerInteractionHelper {
         this.channel = channel;
         //FIXME EventHandling
         this.eventHandler = EventHandler.getInstance();
-        this.eventHandler.register(this.channel, null);//FIXME Event Name
+        //this.eventHandler.register(this.channel, null);//TODO Event Name
 
         this.controlIntalledChaincodeOnPeers(configuration.getChaincode());
         this.controlInstantiatedChaincodeOnPeers(configuration.getChaincode());
@@ -78,71 +77,84 @@ final public class LedgerInteractionHelper {
 
     public void controlIntalledChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
         log.debug("Checking installed chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers());
-        try {
-            for (Peer peer : channel.getPeers()) {
+        for (Peer peer : channel.getPeers()) {
+            try {
                 if (!checkInstalledChaincode(peer, chaincode)) {
                     throw new ProductUnitHubException(format("Peer %s is missing chaincode whith name: %s, path: %s, version: %s",
                             peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion()));
                 }
+            } catch (ProductUnitHubException e) {
+                log.error(e);
+                throw new ProductUnitHubException(format("Peer %s is missing chaincode whith name: %s, path: %s, version: %s",
+                        peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion()));
             }
-        } catch (Exception e) {
-            throw new ProductUnitHubException(e);
         }
     }
 
-    private boolean checkInstalledChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private boolean checkInstalledChaincode(Peer peer, Chaincode chaincode) throws ProductUnitHubException {
         log.debug("Checking installed chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
-        List<Query.ChaincodeInfo> ccinfoList = client.queryInstalledChaincodes(peer);
         boolean found = false;
-
-        for (Query.ChaincodeInfo ccifo : ccinfoList) {
-            if (chaincode.getPath() != null) {
-                found = chaincode.getName().equals(ccifo.getName()) && chaincode.getPath().equals(ccifo.getPath()) && chaincode.getVersion().equals(ccifo.getVersion());
+        try {
+            List<Query.ChaincodeInfo> ccinfoList = null;
+            ccinfoList = client.queryInstalledChaincodes(peer);
+            for (Query.ChaincodeInfo ccifo : ccinfoList) {
+                if (chaincode.getPath() != null) {
+                    found = chaincode.getName().equals(ccifo.getName()) && chaincode.getPath().equals(ccifo.getPath()) && chaincode.getVersion().equals(ccifo.getVersion());
+                    if (found) {
+                        break;
+                    }
+                }
+                found = chaincode.getName().equals(ccifo.getName()) && chaincode.getVersion().equals(ccifo.getVersion());
                 if (found) {
                     break;
                 }
             }
-            found = chaincode.getName().equals(ccifo.getName()) && chaincode.getVersion().equals(ccifo.getVersion());
-            if (found) {
-                break;
-            }
+        } catch (InvalidArgumentException | ProposalException e) {
+            log.error(e);
+            throw new ProductUnitHubException(e);
         }
         return found;
     }
 
-
     public void controlInstantiatedChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
         log.debug("Checking installed chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers());
-        try {
-            for (Peer peer : channel.getPeers()) {
-                if (!checkInstantiatedChaincode(peer, chaincode)) {
+        for (Peer peer : channel.getPeers()) {
+            if (!checkInstantiatedChaincode(peer, chaincode)) {
+                try {
+                    throw new ProductUnitHubException(format("Peer %s has not installed chaincode with name: %s, path: %s, version: %s",
+                            peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion()));
+                } catch (ProductUnitHubException e) {
+                    log.error(e);
                     throw new ProductUnitHubException(format("Peer %s has not installed chaincode with name: %s, path: %s, version: %s",
                             peer.getName(), chaincode.getName(), chaincode.getPath(), chaincode.getVersion()));
                 }
             }
-        } catch (Exception e) {
-            throw new ProductUnitHubException(e);
         }
     }
 
-    private boolean checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws InvalidArgumentException, ProposalException {
+    private boolean checkInstantiatedChaincode(Peer peer, Chaincode chaincode) throws ProductUnitHubException {
         log.debug("Checking instantiated chaincode: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), peer.getName());
-        List<Query.ChaincodeInfo> ccinfoList = this.channel.queryInstantiatedChaincodes(peer);
-
         boolean found = false;
+        try {
+            List<Query.ChaincodeInfo> ccinfoList = null;
 
-        for (Query.ChaincodeInfo ccifo : ccinfoList) {
+            ccinfoList = this.channel.queryInstantiatedChaincodes(peer);
+            for (Query.ChaincodeInfo ccifo : ccinfoList) {
 
-            if (chaincode.getPath() != null) {
-                found = chaincode.getName().equals(ccifo.getName()) && chaincode.getPath().equals(ccifo.getPath()) && chaincode.getVersion().equals(ccifo.getVersion());
+                if (chaincode.getPath() != null) {
+                    found = chaincode.getName().equals(ccifo.getName()) && chaincode.getPath().equals(ccifo.getPath()) && chaincode.getVersion().equals(ccifo.getVersion());
+                    if (found) {
+                        break;
+                    }
+                }
+                found = chaincode.getName().equals(ccifo.getName()) && chaincode.getVersion().equals(ccifo.getVersion());
                 if (found) {
                     break;
                 }
             }
-            found = chaincode.getName().equals(ccifo.getName()) && chaincode.getVersion().equals(ccifo.getVersion());
-            if (found) {
-                break;
-            }
+        } catch (InvalidArgumentException | ProposalException e) {
+            log.error(e);
+            throw new ProductUnitHubException(e);
         }
         return found;
 
@@ -199,7 +211,6 @@ final public class LedgerInteractionHelper {
             }
             return new InvokeReturn(channel.sendTransaction(successful), payload);
         } catch (Exception e) {
-
             throw new ProductUnitHubException(e);
 
         }
@@ -256,6 +267,14 @@ final public class LedgerInteractionHelper {
             log.error(e);
             throw new ProductUnitHubException("Failed during chaincode query with error : " + e.getMessage());
         }
+    }
+
+    public EventHandler getEventHandler() {
+        return eventHandler;
+    }
+
+    public void setEventHandler(EventHandler eventHandler) {
+        this.eventHandler = eventHandler;
     }
 
 

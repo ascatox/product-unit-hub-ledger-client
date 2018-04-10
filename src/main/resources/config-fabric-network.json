@@ -4,6 +4,7 @@
   "channelName": "ledgerchannel",
   "timeout": 1000,
   "cryptoconfigdir": "",
+  "tls": false,
   "chaincode": {
     "path": "sdkintegration/gocc/sample_11",
     "name": "product-unit-hub-chaincode",
