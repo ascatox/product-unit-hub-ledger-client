@@ -7,9 +7,12 @@ import java.util.ResourceBundle;
 
 /**
  * @author ascatox
+ * This class decides the type of blockchain we can implement
  */
 public final class BlockchainFactory {
-
+    /**
+     * @param type describer the type of blockchain
+     */
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
     private static String type = resourceBundle.getString("BLOCKCHAIN_TYPE");
 

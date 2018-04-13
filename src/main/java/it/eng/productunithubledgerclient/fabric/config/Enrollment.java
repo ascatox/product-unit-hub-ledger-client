@@ -9,11 +9,12 @@ public class Enrollment implements org.hyperledger.fabric.sdk.Enrollment {
     private PrivateKey privateKey;
     private String cert;
 
-    public void setCert(String cert) {
-        this.cert = cert;
+    public Enrollment() {
     }
 
-    public Enrollment() {
+    public Enrollment(PrivateKey privateKey, String cert) {
+        this.privateKey = privateKey;
+        this.cert = cert;
     }
 
     public PrivateKey getPrivateKey() {
@@ -24,12 +25,6 @@ public class Enrollment implements org.hyperledger.fabric.sdk.Enrollment {
         this.privateKey = privateKey;
     }
 
-    public Enrollment(PrivateKey privateKey, String cert) {
-        this.privateKey = privateKey;
-        this.cert = cert;
-    }
-
-
     @Override
     public PrivateKey getKey() {
         return privateKey;
@@ -39,4 +34,9 @@ public class Enrollment implements org.hyperledger.fabric.sdk.Enrollment {
     public String getCert() {
         return cert;
     }
+
+    public void setCert(String cert) {
+        this.cert = cert;
+    }
 }
+

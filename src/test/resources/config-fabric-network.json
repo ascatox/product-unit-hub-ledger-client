@@ -3,8 +3,7 @@
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
   "timeout": 3000,
-  "cryptoconfigdir": "/Users/ascatox/Desktop/crypto-config",
-  "tls": false,
+  "cryptoconfigdir": "Users/Claudio/Desktop/ENG_STAGE",
   "chaincode": {
     "path": "",
     "name": "product-unit-hub-chaincode",
