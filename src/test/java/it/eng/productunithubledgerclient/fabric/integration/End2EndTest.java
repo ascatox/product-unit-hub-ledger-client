@@ -29,6 +29,7 @@ public class End2EndTest {
             BlockchainFactory factory = new BlockchainFactory();
             ledgerClient = factory.getType();
             proxyConfig = new ProxyConfig();
+            proxyConfig.Proxy();
 
         } catch (ProductUnitHubException e) {
             e.printStackTrace();
