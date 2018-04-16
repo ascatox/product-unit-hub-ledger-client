@@ -3,7 +3,7 @@
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
   "timeout": 1000,
-  "cryptoconfigdir": "",
+  "cryptoconfigdir": "C:/Users/Claudio/Desktop",
   "tls": false,
   "chaincode": {
     "path": "sdkintegration/gocc/sample_11",

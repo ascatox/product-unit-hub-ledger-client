@@ -21,12 +21,15 @@ import static org.junit.Assert.assertFalse;
 public class End2EndTest {
 
     static LedgerClient ledgerClient;
+    static ProxyConfig proxyConfig;
 
     @BeforeClass
     public static void begin() {
         try {
             BlockchainFactory factory = new BlockchainFactory();
             ledgerClient = factory.getType();
+            proxyConfig = new ProxyConfig();
+
         } catch (ProductUnitHubException e) {
             e.printStackTrace();
         }
