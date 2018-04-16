@@ -8,6 +8,7 @@ import java.util.Set;
  * @author ascatox
  */
 public class User implements org.hyperledger.fabric.sdk.User{
+
     private String name;
     private Set<String> roles;
     private String account;
