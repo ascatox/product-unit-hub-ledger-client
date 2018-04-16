@@ -165,7 +165,7 @@
             <id>dev</id>
             <properties>
                 <skipTests>true</skipTests>
-                <server.host>192.168.56.101</server.host>
+                <server.host>167.99.89.178</server.host>
                 <chain.user>Admin</chain.user>
             </properties>
         </profile>
