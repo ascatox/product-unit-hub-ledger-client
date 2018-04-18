@@ -16,7 +16,7 @@ public final class BlockchainFactory {
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
     private static String type = resourceBundle.getString("BLOCKCHAIN_TYPE");
 
-    private LedgerClient getType(BlockchainType blockchainType) throws ProductUnitHubException {
+    public LedgerClient getType(BlockchainType blockchainType) throws ProductUnitHubException {
         if (blockchainType.equals(BlockchainType.HL_FABRIC))
             return new FabricLedgerClient();
         return null;
