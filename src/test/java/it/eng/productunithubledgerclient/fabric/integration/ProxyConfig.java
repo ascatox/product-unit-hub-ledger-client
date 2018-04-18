@@ -8,15 +8,15 @@ public class ProxyConfig {
     {
         try {
             //SET HTTP
-            System.setProperty( "http.proxyHost", "http://proxy.acme.me" );
-            System.setProperty( "http.proxyPort", "666" );
+            System.setProperty( "http.proxyHost", "http://proxy.eng.it" );
+            System.setProperty( "http.proxyPort", "3128" );
             System.setProperty( "http.nonProxyHosts", "localhost|127.0.0.1" );
 
             //SET HTTPS
-            System.setProperty( "https.proxyHost", "http://proxy.acme.me" );
-            System.setProperty( "https.proxyPort", "666" );
-            System.setProperty( "https.proxyUser", "" );
-            System.setProperty( "https.proxyPassword", "" );
+            System.setProperty( "https.proxyHost", "http://proxy.eng.it" );
+            System.setProperty( "https.proxyPort", "3128" );
+            System.setProperty( "https.proxyUser", "cbarberini" );
+            System.setProperty( "https.proxyPassword", "Barrettm82" );
 
         } catch (Exception e) {
             System.err.println( e );
