@@ -33,16 +33,11 @@ final public class LedgerInteractionHelper {
     //File sampleStoreFile = new File(System.getProperty("java.io.tmpdir") + "/HFCSampletest.properties"); //FIXME
 
     public LedgerInteractionHelper(ConfigManager configManager, Organization organization) throws ProductUnitHubException {
-        doChainInteractionHelper(configManager, organization, null);
+        this(configManager, organization, null);
 
     }
 
     public LedgerInteractionHelper(ConfigManager configManager, Organization organization, String userName) throws ProductUnitHubException {
-        doChainInteractionHelper(configManager, organization, userName);
-
-    }
-
-    private void doChainInteractionHelper(ConfigManager configManager, Organization organization, String userName) throws ProductUnitHubException {
         try {
             //Create instance of client.
             client = HFClient.createNewInstance();
