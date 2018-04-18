@@ -21,18 +21,16 @@ import static org.junit.Assert.assertFalse;
 public class End2EndTest {
 
     static LedgerClient ledgerClient;
-    static ProxyConfig proxyConfig;
 
     @BeforeClass
     public static void begin() {
         try {
+            //ProxyConfig.setProxy();
             BlockchainFactory factory = new BlockchainFactory();
             ledgerClient = factory.getType();
-            proxyConfig = new ProxyConfig();
-            proxyConfig.Proxy();
 
         } catch (ProductUnitHubException e) {
-            e.printStackTrace();
+            assertFalse(e.getMessage(), true);
         }
     }
 
@@ -97,12 +95,12 @@ public class End2EndTest {
     public void testGetProcessStepFullArgs() {
         Collection<ChassisDTO> chassisDTOCollection = new ArrayList<>();
         ChassisDTO chassisDTO = new ChassisDTO();
-        chassisDTO.setChassisId("1234");
-        chassisDTO.setComponent("alpha");
-        chassisDTO.setSubComponent("beta");
+        chassisDTO.setChassisId("A819631");
+        chassisDTO.setComponent("CAB");
+        chassisDTO.setSubComponent("TCAB");
         ProcessStep processStep = new ProcessStep();
         WorkCellResource workCellResource = new WorkCellResource();
-        workCellResource.setId("4321");
+        workCellResource.setId("CTPP-01A");
         //workCellResource.setName( "omega" );
         processStep.setWorkCellResource(workCellResource);
         chassisDTO.setBillOfProcessSteps((Collection<ProcessStep>) processStep);

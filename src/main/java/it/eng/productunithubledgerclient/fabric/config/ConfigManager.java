@@ -21,7 +21,7 @@ public class ConfigManager {
     public static final String PROPOSALWAITTIME = "120000";
     public static final String UTF_8 = "UTF-8";
 
-    private final static Logger log = LogManager.getLogger(ConfigManager.class);
+    private final static Logger log = LogManager.getFormatterLogger(ConfigManager.class);
 
     private Configuration configuration;
     private static ConfigManager ourInstance;

@@ -71,11 +71,11 @@ final public class LedgerInteractionHelper {
         this.eventHandler = EventHandler.getInstance();
         //this.eventHandler.register(this.channel, null);//TODO Event Name
 
-        this.controlIntalledChaincodeOnPeers(configuration.getChaincode());
+        this.controlInstalledChaincodeOnPeers(configuration.getChaincode());
         this.controlInstantiatedChaincodeOnPeers(configuration.getChaincode());
     }
 
-    public void controlIntalledChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
+    public void controlInstalledChaincodeOnPeers(Chaincode chaincode) throws ProductUnitHubException {
         log.debug("Checking installed chaincode on all peer: %s, at version: %s, on peer: %s", chaincode.getName(), chaincode.getVersion(), channel.getPeers());
         for (Peer peer : channel.getPeers()) {
             try {

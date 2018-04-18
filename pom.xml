@@ -70,6 +70,16 @@
             <version>2.11.0</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jcl</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
@@ -108,7 +118,7 @@
                         <exclude>**/End2End*.java</exclude>
                     </excludes>
                     <includes>
-                        <!--<include>**/End2End*.java</include>--> <!--FIXME-->
+                        <include>**/End2End*.java</include>
                     </includes>
                 </configuration>
                 <executions>
@@ -175,7 +185,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <skipTests>true</skipTests> <!-- FIXME -->
+                <skipTests>false</skipTests>
                 <server.host>109.232.32.197</server.host>
                 <chain.user>Admin</chain.user>
             </properties>
@@ -183,7 +193,7 @@
         <profile>
             <id>all-jars</id>
             <properties>
-                <skipTests>true</skipTests> <!-- FIXME -->
+                <skipTests>true</skipTests>
                 <server.host>109.232.32.197</server.host>
                 <chain.user>Admin</chain.user>
             </properties>

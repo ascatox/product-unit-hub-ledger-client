@@ -3,12 +3,12 @@
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
   "timeout": 3000,
-  "cryptoconfigdir": "C:/Users/Claudio/Desktop/crypto-config",
+  "cryptoconfigdir": "/Users/ascatox/Desktop/crypto-config",
   "tls": false,
   "chaincode": {
-    "path": "",
-    "name": "product-unit-hub-chaincode",
-    "version": "1.0",
+    "path": "product-unit-hub-chaincode",
+    "name": "productunithub",
+    "version": "1.7",
     "lang": "NODE"
   },
   "organizations": [
