@@ -27,6 +27,8 @@ public class ProcessStep {
 
     public ProcessStep() {
         this.billofOperations = new ArrayList<>();
+        this.plannedProductionTime = 0;
+        this.sequenceNo = 0;
     }
 
     /**

@@ -137,7 +137,6 @@ public class End2EndTest {
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }
-
     }
 
     @Test

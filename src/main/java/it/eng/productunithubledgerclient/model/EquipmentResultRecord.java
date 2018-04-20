@@ -10,6 +10,7 @@ public class EquipmentResultRecord {
     private String quantity;
 
     public EquipmentResultRecord() {
+        this.sequenceNo = 0;
     }
 
     public EquipmentResultRecord(Integer sequenceNo, String result, String value, String Quantity) {

@@ -20,6 +20,7 @@ public class EquipmentRequirement {
 
     public EquipmentRequirement() {
         this.specifications = new ArrayList<>();
+        this.sequenceNo = 0;
     }
 
     public String getEquipmentType() {
@@ -37,8 +38,6 @@ public class EquipmentRequirement {
     public void setSequenceNo(Integer sequenceNo) {
         this.sequenceNo = sequenceNo;
     }
-
-
 
     public Collection<EquipmentSpecification> getSpecifications() {
         return specifications;

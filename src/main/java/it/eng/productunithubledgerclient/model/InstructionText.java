@@ -11,6 +11,7 @@ public class InstructionText implements Serializable {
     private String rtf;
 
     public InstructionText() {
+        this.sequenceNo = 0;
     }
 
     public InstructionText(String text, String rtf, Integer SequenceNo) {

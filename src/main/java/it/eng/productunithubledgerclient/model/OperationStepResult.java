@@ -27,6 +27,7 @@ public class OperationStepResult {
     public OperationStepResult() {
         this.equipmentResult = new EquipmentResult();
         this.equipmentRequirement = new EquipmentRequirement();
+        this.sequenceNo = 0;
     }
 
     public Integer getSequenceNo() {

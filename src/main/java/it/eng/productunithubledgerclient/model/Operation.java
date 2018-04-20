@@ -24,6 +24,7 @@ public class Operation {
         this.instructionTexts = new ArrayList<>(  );
         this.equipmentRequirements = new ArrayList<>(  );
         this.operationSteps = new ArrayList<>(  );
+        this.sequenceNo = 0;
     }
 
     public Operation(@NotNull Integer sequenceNo, Collection<InstructionText> instructionTexts, Collection<EquipmentRequirement> equipmentRequirements, Collection<OperationStep> operationSteps, String id, @Pattern(regexp = "[0-9]") String CIN, String description, String operationType) {

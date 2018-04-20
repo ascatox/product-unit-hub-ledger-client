@@ -12,6 +12,7 @@ public class Material {
 
 
     public Material() {
+        this.quantity = 0;
     }
 
     public Material(String partNo, Integer quantity, String description) {

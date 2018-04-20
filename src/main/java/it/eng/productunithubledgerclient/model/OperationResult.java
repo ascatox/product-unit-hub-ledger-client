@@ -9,39 +9,28 @@ import java.util.Objects;
  */
 public class OperationResult {
 
-    private Collection<OperationResult> operationResults;
+    private Collection<OperationStepResult> operationStepResults;
 
 
-    public OperationResult(Collection<OperationResult> operationResults) {
-        this.operationResults = new ArrayList<>();
+    public OperationResult(Collection<OperationStepResult> operationStepResults) {
+        this.operationStepResults = new ArrayList<>();
     }
 
     public OperationResult() {
-        this.operationResults = new ArrayList<>();
+        this.operationStepResults = new ArrayList<>();
     }
+
     /**
-     * This field represents a collection of OperationResult {@link OperationResult}
+     * This field represents a collection of OperationStepResult {@link OperationStepResult}
+     *
      * @return
      */
-    public Collection<OperationResult> getOperationResults() {
-        return operationResults;
+
+    public Collection<OperationStepResult> getOperationStepResults() {
+        return operationStepResults;
     }
 
-    public void setOperationResults(Collection<OperationResult> operationResults) {
-        this.operationResults = operationResults;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OperationResult)) return false;
-        OperationResult that = (OperationResult) o;
-        return Objects.equals( operationResults, that.operationResults );
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash( operationResults );
+    public void setOperationStepResults(Collection<OperationStepResult> operationStepResults) {
+        this.operationStepResults = operationStepResults;
     }
 }

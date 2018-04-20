@@ -16,6 +16,7 @@ public class EquipmentSpecification {
 
     public EquipmentSpecification() {
         this.parameters = new ArrayList<>(  );
+        this.sequenceNo = 0;
 
     }
 

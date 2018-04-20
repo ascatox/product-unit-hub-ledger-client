@@ -30,6 +30,7 @@ public class OperationStep {
     public OperationStep() {
         this.equipmentRequirements = new ArrayList<>();
         this.istructionTexts = new ArrayList<>();
+        this.sequenceNo  = 0;
     }
 
     public Integer getSequenceNo() {

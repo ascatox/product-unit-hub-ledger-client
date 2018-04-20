@@ -13,6 +13,7 @@ public class EquipmentResult {
 
     public EquipmentResult() {
         this.results = new ArrayList<>();
+        this.sequenceNo = 0;
     }
 
     public EquipmentResult(Integer sequenceNo, String equipmentType, Collection<EquipmentResultRecord> results) {
