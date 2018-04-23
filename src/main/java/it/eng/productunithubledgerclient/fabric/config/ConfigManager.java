@@ -131,7 +131,7 @@ public class ConfigManager {
         location = location.trim();
         Exception e = Utils.checkGrpcUrl(location);
         if (e != null) {
-            throw new RuntimeException(String.format("Bad TEST parameters for grpc url %s", location), e);
+            throw new RuntimeException(String.format("Bad TEST Parameters for grpc url %s", location), e);
         }
         return configuration.isTls() ?
                 location.replaceFirst("^grpc://", "grpcs://") : location;

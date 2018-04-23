@@ -7,44 +7,44 @@ import java.util.List;
 
 public class EquipmentRequirement {
 
-    private String equipmentType;
+    private String EquipmentType;
     @NotNull
-    private Integer sequenceNo;
-    private Collection<EquipmentSpecification> specifications;
+    private Integer SequenceNo;
+    private Collection<EquipmentSpecification> Specifications;
 
     public EquipmentRequirement(String equipmentType, Integer sequenceNo, Collection<EquipmentSpecification> specifications) {
-        this.equipmentType = equipmentType;
-        this.sequenceNo = sequenceNo;
-        this.specifications = new ArrayList<>();
+        this.EquipmentType = equipmentType;
+        this.SequenceNo = sequenceNo;
+        this.Specifications = new ArrayList<>();
     }
 
     public EquipmentRequirement() {
-        this.specifications = new ArrayList<>();
-        this.sequenceNo = 0;
+        this.Specifications = new ArrayList<>();
+        this.SequenceNo = 0;
     }
 
     public String getEquipmentType() {
-        return equipmentType;
+        return EquipmentType;
     }
 
     public void setEquipmentType(String equipmentType) {
-        this.equipmentType = equipmentType;
+        this.EquipmentType = equipmentType;
     }
 
     public Integer getSequenceNo() {
-        return sequenceNo;
+        return SequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.sequenceNo = sequenceNo;
+        this.SequenceNo = sequenceNo;
     }
 
     public Collection<EquipmentSpecification> getSpecifications() {
-        return specifications;
+        return Specifications;
     }
 
     public void setSpecifications(List<EquipmentSpecification> specifications) {
-        this.specifications = specifications;
+        this.Specifications = specifications;
     }
 
     @Override
@@ -56,11 +56,11 @@ public class EquipmentRequirement {
 
         EquipmentRequirement that = (EquipmentRequirement) o;
 
-        return sequenceNo != null ? sequenceNo.equals(that.sequenceNo) : that.sequenceNo == null;
+        return SequenceNo != null ? SequenceNo.equals(that.SequenceNo ) : that.SequenceNo == null;
     }
 
     @Override
     public int hashCode() {
-        return sequenceNo != null ? sequenceNo.hashCode() : 0;
+        return SequenceNo != null ? SequenceNo.hashCode() : 0;
     }
 }

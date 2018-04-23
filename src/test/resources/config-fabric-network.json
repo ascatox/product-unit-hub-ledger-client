@@ -8,7 +8,7 @@
   "chaincode": {
     "path": "product-unit-hub-chaincode",
     "name": "productunithub",
-    "version": "1.6",
+    "version": "1.8",
     "lang": "NODE"
   },
   "organizations": [

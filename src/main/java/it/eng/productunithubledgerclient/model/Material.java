@@ -6,43 +6,43 @@ import java.util.Objects;
 public class Material {
 
     @NotNull
-    public String partNo;
-    public Integer quantity;
-    public String description;
+    public String PartNo;
+    public Integer Quantity;
+    public String Description;
 
 
     public Material() {
-        this.quantity = 0;
+        this.Quantity = 0;
     }
 
     public Material(String partNo, Integer quantity, String description) {
-        this.partNo = partNo;
-        this.quantity = quantity;
-        this.description = description;
+        this.PartNo = partNo;
+        this.Quantity = quantity;
+        this.Description = description;
     }
 
     public String getPartNo() {
-        return partNo;
+        return PartNo;
     }
 
     public void setPartNo(String partNo) {
-        this.partNo = partNo;
+        this.PartNo = partNo;
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
     public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+        this.Quantity = quantity;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     @Override
@@ -52,12 +52,12 @@ public class Material {
         if (!(o instanceof Material))
             return false;
         Material that = (Material) o;
-        return Objects.equals(partNo, that.partNo) && Objects.equals(quantity, that.quantity) && Objects.equals(description, that.description);
+        return Objects.equals( PartNo, that.PartNo ) && Objects.equals( Quantity, that.Quantity ) && Objects.equals( Description, that.Description );
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(partNo, quantity, description);
+        return Objects.hash( PartNo, Quantity, Description );
     }
 }

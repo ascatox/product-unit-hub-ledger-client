@@ -8,74 +8,74 @@ import java.util.List;
 
 public class Operation {
     @NotNull
-    private Integer sequenceNo;
-    private String id;
+    private Integer SequenceNo;
+    private String Id;
     @Pattern( regexp = "[0-9]")
     private String CIN;
-    private String description;
-    private String operationType;
+    private String Description;
+    private String OperationType;
 
-    private Collection<InstructionText> instructionTexts;
-    private Collection<EquipmentRequirement> equipmentRequirements;
-    private Collection<OperationStep> operationSteps;
+    private Collection<InstructionText> InstructionTexts;
+    private Collection<EquipmentRequirement> EquipmentRequirements;
+    private Collection<OperationStep> OperationSteps;
 
 
     public Operation() {
-        this.instructionTexts = new ArrayList<>(  );
-        this.equipmentRequirements = new ArrayList<>(  );
-        this.operationSteps = new ArrayList<>(  );
-        this.sequenceNo = 0;
+        this.InstructionTexts = new ArrayList<>(  );
+        this.EquipmentRequirements = new ArrayList<>(  );
+        this.OperationSteps = new ArrayList<>(  );
+        this.SequenceNo = 0;
     }
 
     public Operation(@NotNull Integer sequenceNo, Collection<InstructionText> instructionTexts, Collection<EquipmentRequirement> equipmentRequirements, Collection<OperationStep> operationSteps, String id, @Pattern(regexp = "[0-9]") String CIN, String description, String operationType) {
-        this.sequenceNo = sequenceNo;
-        this.instructionTexts = new ArrayList<>(  );
-        this.equipmentRequirements = new ArrayList<>(  );
-        this.operationSteps = new ArrayList<>(  );
-        this.id = id;
+        this.SequenceNo = sequenceNo;
+        this.InstructionTexts = new ArrayList<>(  );
+        this.EquipmentRequirements = new ArrayList<>(  );
+        this.OperationSteps = new ArrayList<>(  );
+        this.Id = id;
         this.CIN = CIN;
-        this.description = description;
-        this.operationType = operationType;
+        this.Description = description;
+        this.OperationType = operationType;
     }
 
     public Integer getSequenceNo() {
-        return sequenceNo;
+        return SequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.sequenceNo = sequenceNo;
+        this.SequenceNo = sequenceNo;
     }
 
     public Collection<InstructionText> getInstructionTexts() {
-        return instructionTexts;
+        return InstructionTexts;
     }
 
     public void setInstructionTexts(List<InstructionText> instructionTexts) {
-        this.instructionTexts = instructionTexts;
+        this.InstructionTexts = instructionTexts;
     }
 
     public Collection<EquipmentRequirement> getEquipmentRequirements() {
-        return equipmentRequirements;
+        return EquipmentRequirements;
     }
 
     public void setEquipmentRequirements(List<EquipmentRequirement> equipmentRequirements) {
-        this.equipmentRequirements = equipmentRequirements;
+        this.EquipmentRequirements = equipmentRequirements;
     }
 
     public Collection<OperationStep> getOperationSteps() {
-        return operationSteps;
+        return OperationSteps;
     }
 
     public void setOperationSteps(List<OperationStep> operationSteps) {
-        this.operationSteps = operationSteps;
+        this.OperationSteps = operationSteps;
     }
 
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getCIN() {
@@ -87,19 +87,19 @@ public class Operation {
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     public String getOperationType() {
-        return operationType;
+        return OperationType;
     }
 
     public void setOperationType(String operationType) {
-        this.operationType = operationType;
+        this.OperationType = operationType;
     }
 
     @Override
@@ -111,15 +111,15 @@ public class Operation {
 
         Operation operation = (Operation) o;
 
-        if (sequenceNo != null ? !sequenceNo.equals(operation.sequenceNo) : operation.sequenceNo != null)
+        if (SequenceNo != null ? !SequenceNo.equals(operation.SequenceNo ) : operation.SequenceNo != null)
             return false;
-        return id != null ? id.equals(operation.id) : operation.id == null;
+        return Id != null ? Id.equals(operation.Id ) : operation.Id == null;
     }
 
     @Override
     public int hashCode() {
-        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
-        result = 31 * result + (id != null ? id.hashCode() : 0);
+        int result = SequenceNo != null ? SequenceNo.hashCode() : 0;
+        result = 31 * result + (Id != null ? Id.hashCode() : 0);
         return result;
     }
 }

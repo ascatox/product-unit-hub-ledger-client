@@ -7,15 +7,15 @@ import java.util.Objects;
  */
 public class WorkCellResource {
 
-    private String id;
-    private String name;
+    private String Id;
+    private String Name;
 
     public WorkCellResource() {
     }
 
     public WorkCellResource(String id, String name) {
-        this.id = id;
-        this.name = name;
+        this.Id = id;
+        this.Name = name;
     }
 
     /**
@@ -24,24 +24,24 @@ public class WorkCellResource {
      * @return
      */
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.Id = id;
     }
 
     /**
-     * This field {@link String} represents the name of the WorkCell.
+     * This field {@link String} represents the Name of the WorkCell.
      *
      * @return
      */
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.Name = name;
     }
 
     @Override
@@ -51,12 +51,12 @@ public class WorkCellResource {
         if (!(o instanceof WorkCellResource))
             return false;
         WorkCellResource that = (WorkCellResource) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        return Objects.equals( Id, that.Id ) && Objects.equals( Name, that.Name );
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name);
+        return Objects.hash( Id, Name );
     }
 }

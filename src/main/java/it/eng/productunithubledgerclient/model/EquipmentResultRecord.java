@@ -4,52 +4,52 @@ import javax.validation.constraints.NotNull;
 
 public class EquipmentResultRecord {
     @NotNull
-    private Integer sequenceNo;
-    private String result;
-    private String value;
-    private String quantity;
+    private Integer SequenceNo;
+    private String Result;
+    private String Value;
+    private String Quantity;
 
     public EquipmentResultRecord() {
-        this.sequenceNo = 0;
+        this.SequenceNo = 0;
     }
 
     public EquipmentResultRecord(Integer sequenceNo, String result, String value, String Quantity) {
-        this.sequenceNo = sequenceNo;
-        this.result = result;
-        this.value = value;
-        this.quantity = Quantity;
+        this.SequenceNo = sequenceNo;
+        this.Result = result;
+        this.Value = value;
+        this.Quantity = Quantity;
     }
 
     public Integer getSequenceNo() {
-        return sequenceNo;
+        return SequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.sequenceNo = sequenceNo;
+        this.SequenceNo = sequenceNo;
     }
 
     public String getResult() {
-        return result;
+        return Result;
     }
 
     public void setResult(String result) {
-        this.result = result;
+        this.Result = result;
     }
 
     public String getValue() {
-        return value;
+        return Value;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.Value = value;
     }
 
     public String getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
     public void setQuantity(String quantity) {
-        this.quantity = quantity;
+        this.Quantity = quantity;
     }
 
     @Override
@@ -61,11 +61,11 @@ public class EquipmentResultRecord {
 
         EquipmentResultRecord that = (EquipmentResultRecord) o;
 
-        return sequenceNo.equals(that.sequenceNo);
+        return SequenceNo.equals(that.SequenceNo );
     }
 
     @Override
     public int hashCode() {
-        return sequenceNo.hashCode();
+        return SequenceNo.hashCode();
     }
 }

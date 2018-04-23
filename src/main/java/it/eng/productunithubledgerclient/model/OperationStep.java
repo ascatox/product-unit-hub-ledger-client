@@ -11,34 +11,34 @@ import java.util.List;
 public class OperationStep {
 
     @NotNull
-    private Integer sequenceNo;
+    private Integer SequenceNo;
     private String Description;
 
-    private Collection<Material> billofMaterial;
-    private Collection <EquipmentRequirement> equipmentRequirements;
-    private Collection <InstructionText> istructionTexts;
+    private Collection<Material> BillofMaterial;
+    private Collection <EquipmentRequirement> EquipmentRequirements;
+    private Collection <InstructionText> IstructionTexts;
 
 
     public OperationStep(Integer sequenceNo, String billofMaterial, String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> istructionTexts) {
-        this.sequenceNo = sequenceNo;
-        this.billofMaterial = new ArrayList<>();
-        this.equipmentRequirements = new ArrayList<>();
-        this.istructionTexts = new ArrayList<>();
+        this.SequenceNo = sequenceNo;
+        this.BillofMaterial = new ArrayList<>();
+        this.EquipmentRequirements = new ArrayList<>();
+        this.IstructionTexts = new ArrayList<>();
         this.Description = Description;
     }
 
     public OperationStep() {
-        this.equipmentRequirements = new ArrayList<>();
-        this.istructionTexts = new ArrayList<>();
-        this.sequenceNo  = 0;
+        this.EquipmentRequirements = new ArrayList<>();
+        this.IstructionTexts = new ArrayList<>();
+        this.SequenceNo = 0;
     }
 
     public Integer getSequenceNo() {
-        return sequenceNo;
+        return SequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.sequenceNo = sequenceNo;
+        this.SequenceNo = sequenceNo;
     }
 
     /**
@@ -46,7 +46,7 @@ public class OperationStep {
      * @return
      */
     public Collection<Material> getBillofMaterial() {
-        return billofMaterial;
+        return BillofMaterial;
     }
 
     public String getDescription() {
@@ -58,7 +58,7 @@ public class OperationStep {
     }
 
     public void setBillofMaterial(List<Material> billofMaterial) {
-        this.billofMaterial = billofMaterial;
+        this.BillofMaterial = billofMaterial;
     }
 
 
@@ -67,11 +67,11 @@ public class OperationStep {
      * @return
      */
     public Collection<EquipmentRequirement> getEquipmentRequirements() {
-        return equipmentRequirements;
+        return EquipmentRequirements;
     }
 
     public void setEquipmentRequirements(List<EquipmentRequirement> equipmentRequirements) {
-        this.equipmentRequirements = equipmentRequirements;
+        this.EquipmentRequirements = equipmentRequirements;
     }
 
 
@@ -80,11 +80,11 @@ public class OperationStep {
      * @return
      */
     public Collection<InstructionText> getIstructionTexts() {
-        return istructionTexts;
+        return IstructionTexts;
     }
 
     public void setIstructionTexts(List<InstructionText> istructionTexts) {
-        this.istructionTexts = istructionTexts;
+        this.IstructionTexts = istructionTexts;
     }
 
     @Override
@@ -96,11 +96,11 @@ public class OperationStep {
 
         OperationStep that = (OperationStep) o;
 
-        return sequenceNo != null ? sequenceNo.equals(that.sequenceNo) : that.sequenceNo == null;
+        return SequenceNo != null ? SequenceNo.equals(that.SequenceNo ) : that.SequenceNo == null;
     }
 
     @Override
     public int hashCode() {
-        return sequenceNo != null ? sequenceNo.hashCode() : 0;
+        return SequenceNo != null ? SequenceNo.hashCode() : 0;
     }
 }

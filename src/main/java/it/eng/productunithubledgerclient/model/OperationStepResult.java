@@ -7,75 +7,75 @@ import java.util.Objects;
  */
 public class OperationStepResult {
 
-    private Integer sequenceNo;
-    private String stepName;
-    private String stepStatus;
-    private String channelId;
-    private EquipmentResult equipmentResult;
-    private EquipmentRequirement equipmentRequirement;
+    private Integer SequenceNo;
+    private String StepName;
+    private String StepStatus;
+    private String ChannelId;
+    private EquipmentResult EquipmentResult;
+    private EquipmentRequirement EquipmentRequirement;
 
 
     public OperationStepResult(Integer sequenceNo, String stepName, String stepStatus, String channelId, EquipmentResult equipmentResult, EquipmentRequirement equipmentRequirement) {
-        this.sequenceNo = sequenceNo;
-        this.stepName = stepName;
-        this.stepStatus = stepStatus;
-        this.channelId = channelId;
-        this.equipmentResult = new EquipmentResult();
-        this.equipmentRequirement = new EquipmentRequirement();
+        this.SequenceNo = sequenceNo;
+        this.StepName = stepName;
+        this.StepStatus = stepStatus;
+        this.ChannelId = channelId;
+        this.EquipmentResult = new EquipmentResult();
+        this.EquipmentRequirement = new EquipmentRequirement();
     }
 
     public OperationStepResult() {
-        this.equipmentResult = new EquipmentResult();
-        this.equipmentRequirement = new EquipmentRequirement();
-        this.sequenceNo = 0;
+        this.EquipmentResult = new EquipmentResult();
+        this.EquipmentRequirement = new EquipmentRequirement();
+        this.SequenceNo = 0;
     }
 
     public Integer getSequenceNo() {
-        return sequenceNo;
+        return SequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.sequenceNo = sequenceNo;
+        this.SequenceNo = sequenceNo;
     }
 
     public String getStepName() {
-        return stepName;
+        return StepName;
     }
 
     public void setStepName(String stepName) {
-        this.stepName = stepName;
+        this.StepName = stepName;
     }
 
     public String getStepStatus() {
-        return stepStatus;
+        return StepStatus;
     }
 
     public void setStepStatus(String stepStatus) {
-        this.stepStatus = stepStatus;
+        this.StepStatus = stepStatus;
     }
 
     public String getChannelId() {
-        return channelId;
+        return ChannelId;
     }
 
     public void setChannelId(String channelId) {
-        this.channelId = channelId;
+        this.ChannelId = channelId;
     }
 
     public EquipmentResult getEquipmentResult() {
-        return equipmentResult;
+        return EquipmentResult;
     }
 
     public void setEquipmentResult(EquipmentResult equipmentResult) {
-        this.equipmentResult = equipmentResult;
+        this.EquipmentResult = equipmentResult;
     }
 
     public EquipmentRequirement getEquipmentRequirement() {
-        return equipmentRequirement;
+        return EquipmentRequirement;
     }
 
     public void setEquipmentRequirement(EquipmentRequirement equipmentRequirement) {
-        this.equipmentRequirement = equipmentRequirement;
+        this.EquipmentRequirement = equipmentRequirement;
     }
 
     @Override
@@ -83,12 +83,12 @@ public class OperationStepResult {
         if (this == o) return true;
         if (!(o instanceof OperationStepResult)) return false;
         OperationStepResult that = (OperationStepResult) o;
-        return Objects.equals( sequenceNo, that.sequenceNo ) && Objects.equals( stepName, that.stepName ) && Objects.equals( stepStatus, that.stepStatus ) && Objects.equals( channelId, that.channelId ) && Objects.equals( equipmentResult, that.equipmentResult ) && Objects.equals( equipmentRequirement, that.equipmentRequirement );
+        return Objects.equals( SequenceNo, that.SequenceNo ) && Objects.equals( StepName, that.StepName ) && Objects.equals( StepStatus, that.StepStatus ) && Objects.equals( ChannelId, that.ChannelId ) && Objects.equals( EquipmentResult, that.EquipmentResult ) && Objects.equals( EquipmentRequirement, that.EquipmentRequirement );
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash( sequenceNo, stepName, stepStatus, channelId, equipmentResult, equipmentRequirement );
+        return Objects.hash( SequenceNo, StepName, StepStatus, ChannelId, EquipmentResult, EquipmentRequirement );
     }
 }

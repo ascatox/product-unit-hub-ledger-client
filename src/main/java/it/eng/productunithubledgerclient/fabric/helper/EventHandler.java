@@ -52,7 +52,7 @@ public class EventHandler {
     private Vector<ChaincodeEventCapture> chaincodeEvents = new Vector<>(); // Test list to capture chaincode events.
 
     public void register(Channel channel, String eventName) throws InvalidArgumentException {
-        // Register a chaincode event listener that will trigger for any chaincode id and only for EXPECTED_EVENT_NAME event.
+        // Register a chaincode event listener that will trigger for any chaincode Id and only for EXPECTED_EVENT_NAME event.
         String event = EXPECTED_EVENT_NAME;
         if (StringUtils.isNotEmpty(eventName))
             event = eventName;
@@ -63,8 +63,8 @@ public class EventHandler {
                     chaincodeEvents.add(new ChaincodeEventCapture(handle, blockEvent, chaincodeEvent));
 
                     String es = blockEvent.getPeer() != null ? blockEvent.getPeer().getName() : blockEvent.getEventHub().getName();
-                    log.info("RECEIVED Chaincode event with handle: %s, chaincode id: %s, chaincode event name: %s, "
-                                    + "transaction id: %s, event payload: \"%s\", from eventhub: %s",
+                    log.info("RECEIVED Chaincode event with handle: %s, chaincode Id: %s, chaincode event name: %s, "
+                                    + "transaction Id: %s, event payload: \"%s\", from eventhub: %s",
                             handle, chaincodeEvent.getChaincodeId(),
                             chaincodeEvent.getEventName(),
                             chaincodeEvent.getTxId(),

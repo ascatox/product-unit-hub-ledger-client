@@ -31,7 +31,7 @@ public class InvokeReturn {
 
     public String getId() {
         JsonObject record = parser.parse(getPayload()).getAsJsonObject();
-        String id = record.get("id").getAsString();
+        String id = record.get("Id").getAsString();
         return id;
     }
 

@@ -7,67 +7,67 @@ import java.util.List;
 
 public class EquipmentSpecification {
     @NotNull
-    public Integer sequenceNo;
-    public String specification;
-    public String value;
-    public Integer quantity;
-    public Collection<Parameters> parameters;
+    public Integer SequenceNo;
+    public String Specification;
+    public String Value;
+    public Integer Quantity;
+    public Collection<Parameters> Parameters;
 
 
     public EquipmentSpecification() {
-        this.parameters = new ArrayList<>(  );
-        this.sequenceNo = 0;
+        this.Parameters = new ArrayList<>(  );
+        this.SequenceNo = 0;
 
     }
 
     public EquipmentSpecification(@NotNull Integer sequenceNo, String specification, String value, Integer quantity, Collection<Parameters> parameters) {
-        this.sequenceNo = sequenceNo;
-        this.specification = specification;
-        this.value = value;
-        this.quantity = quantity;
-        this.parameters = new ArrayList<>(  );
+        this.SequenceNo = sequenceNo;
+        this.Specification = specification;
+        this.Value = value;
+        this.Quantity = quantity;
+        this.Parameters = new ArrayList<>(  );
     }
 
     public Integer getSequenceNo() {
-        return sequenceNo;
+        return SequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.sequenceNo = sequenceNo;
+        this.SequenceNo = sequenceNo;
     }
 
     public String getSpecification() {
-        return specification;
+        return Specification;
     }
 
     public void setSpecification(String specification) {
-        this.specification = specification;
+        this.Specification = specification;
     }
 
     public String getValue() {
-        return value;
+        return Value;
     }
 
 
 
     public void setValue(String value) {
-        this.value = value;
+        this.Value = value;
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
     public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+        this.Quantity = quantity;
     }
 
     public Collection<Parameters> getParameters() {
-        return parameters;
+        return Parameters;
     }
 
     public void setParameters(List<Parameters> parameters) {
-        this.parameters = parameters;
+        this.Parameters = parameters;
     }
 
     @Override
@@ -79,15 +79,15 @@ public class EquipmentSpecification {
 
         EquipmentSpecification that = (EquipmentSpecification) o;
 
-        if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo) : that.sequenceNo != null)
+        if (SequenceNo != null ? !SequenceNo.equals(that.SequenceNo ) : that.SequenceNo != null)
             return false;
-        return specification != null ? specification.equals(that.specification) : that.specification == null;
+        return Specification != null ? Specification.equals(that.Specification ) : that.Specification == null;
     }
 
     @Override
     public int hashCode() {
-        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
-        result = 31 * result + (specification != null ? specification.hashCode() : 0);
+        int result = SequenceNo != null ? SequenceNo.hashCode() : 0;
+        result = 31 * result + (Specification != null ? Specification.hashCode() : 0);
         return result;
     }
 }

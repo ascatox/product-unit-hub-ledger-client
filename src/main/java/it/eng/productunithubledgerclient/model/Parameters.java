@@ -4,41 +4,41 @@ import java.util.Objects;
 
 public class Parameters {
 
-    public String group;
-    public String id;
-    public String value;
+    public String Group;
+    public String Id;
+    public String Value;
 
     public Parameters() {
     }
 
     public Parameters(String group, String id, String value) {
-        this.group = group;
-        this.id = id;
-        this.value = value;
+        this.Group = group;
+        this.Id = id;
+        this.Value = value;
     }
 
     public String getGroup() {
-        return group;
+        return Group;
     }
 
     public void setGroup(String group) {
-        this.group = group;
+        this.Group = group;
     }
 
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getValue() {
-        return value;
+        return Value;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.Value = value;
     }
 
     @Override
@@ -46,12 +46,12 @@ public class Parameters {
         if (this == o) return true;
         if (!(o instanceof Parameters)) return false;
         Parameters that = (Parameters) o;
-        return Objects.equals(group, that.group) && Objects.equals(id, that.id) && Objects.equals(value, that.value);
+        return Objects.equals( Group, that.Group ) && Objects.equals( Id, that.Id ) && Objects.equals( Value, that.Value );
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(group, id, value);
+        return Objects.hash( Group, Id, Value );
     }
 }

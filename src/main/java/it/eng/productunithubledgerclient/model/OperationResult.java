@@ -2,22 +2,21 @@ package it.eng.productunithubledgerclient.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 
 /**
  * This class represents a Result of an Operation.
  */
 public class OperationResult {
 
-    private Collection<OperationStepResult> operationStepResults;
+    private Collection<OperationStepResult> OperationStepResults;
 
 
     public OperationResult(Collection<OperationStepResult> operationStepResults) {
-        this.operationStepResults = new ArrayList<>();
+        this.OperationStepResults = new ArrayList<>();
     }
 
     public OperationResult() {
-        this.operationStepResults = new ArrayList<>();
+        this.OperationStepResults = new ArrayList<>();
     }
 
     /**
@@ -27,10 +26,10 @@ public class OperationResult {
      */
 
     public Collection<OperationStepResult> getOperationStepResults() {
-        return operationStepResults;
+        return OperationStepResults;
     }
 
     public void setOperationStepResults(Collection<OperationStepResult> operationStepResults) {
-        this.operationStepResults = operationStepResults;
+        this.OperationStepResults = operationStepResults;
     }
 }

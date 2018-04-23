@@ -97,7 +97,7 @@ public interface LedgerClient {
 
 
     /**
-     * This method gives a ProcessStepResultDTO {@link ProcessStepResultDTO} passing as parameters a full key with component, subComponent and WorkCellResourceId
+     * This method gives a ProcessStepResultDTO {@link ProcessStepResultDTO} passing as Parameters a full key with component, subComponent and WorkCellResourceId
      *
      * @param chassisId
      * @param component

@@ -7,43 +7,43 @@ import java.util.List;
 
 public class EquipmentResult {
     @NotNull
-    private Integer sequenceNo;
-    private String equipmentType;
-    private Collection<EquipmentResultRecord> results;
+    private Integer SequenceNo;
+    private String EquipmentType;
+    private Collection<EquipmentResultRecord> Results;
 
     public EquipmentResult() {
-        this.results = new ArrayList<>();
-        this.sequenceNo = 0;
+        this.Results = new ArrayList<>();
+        this.SequenceNo = 0;
     }
 
     public EquipmentResult(Integer sequenceNo, String equipmentType, Collection<EquipmentResultRecord> results) {
-        this.sequenceNo = sequenceNo;
-        this.equipmentType = equipmentType;
-        this.results = new ArrayList<>();
+        this.SequenceNo = sequenceNo;
+        this.EquipmentType = equipmentType;
+        this.Results = new ArrayList<>();
     }
 
     public Integer getSequenceNo() {
-        return sequenceNo;
+        return SequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.sequenceNo = sequenceNo;
+        this.SequenceNo = sequenceNo;
     }
 
     public String getEquipmentType() {
-        return equipmentType;
+        return EquipmentType;
     }
 
     public void setEquipmentType(String equipmentType) {
-        this.equipmentType = equipmentType;
+        this.EquipmentType = equipmentType;
     }
 
     public Collection<EquipmentResultRecord> getResults() {
-        return results;
+        return Results;
     }
 
     public void setResults(List<EquipmentResultRecord> results) {
-        this.results = results;
+        this.Results = results;
     }
 
     @Override
@@ -55,15 +55,15 @@ public class EquipmentResult {
 
         EquipmentResult that = (EquipmentResult) o;
 
-        if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo) : that.sequenceNo != null)
+        if (SequenceNo != null ? !SequenceNo.equals(that.SequenceNo ) : that.SequenceNo != null)
             return false;
-        return equipmentType != null ? equipmentType.equals(that.equipmentType) : that.equipmentType == null;
+        return EquipmentType != null ? EquipmentType.equals(that.EquipmentType ) : that.EquipmentType == null;
     }
 
     @Override
     public int hashCode() {
-        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
-        result = 31 * result + (equipmentType != null ? equipmentType.hashCode() : 0);
+        int result = SequenceNo != null ? SequenceNo.hashCode() : 0;
+        result = 31 * result + (EquipmentType != null ? EquipmentType.hashCode() : 0);
         return result;
     }
 }
