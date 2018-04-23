@@ -11,24 +11,24 @@ import java.util.Collection;
 public class ProcessStep {
 
     @NotNull
-    private Integer PlannedProductionTime;
+    private Integer plannedProductionTime;
     @NotNull
-    private Integer SequenceNo;
-    private WorkCellResource WorkCellResource;
-    private Collection<Operation> BillofOperations;
+    private Integer sequenceNo;
+    private WorkCellResource workCellResource;
+    private Collection<Operation> billofOperations;
 
 
     public ProcessStep(Integer plannedProductionTime, Integer sequenceNo, WorkCellResource workcellOperation, Collection<Operation> billofOperations) {
-        this.PlannedProductionTime = plannedProductionTime;
-        this.SequenceNo = sequenceNo;
-        this.WorkCellResource = workcellOperation;
-        this.BillofOperations = new ArrayList<>();
+        this.plannedProductionTime = plannedProductionTime;
+        this.sequenceNo = sequenceNo;
+        this.workCellResource = workcellOperation;
+        this.billofOperations = new ArrayList<>();
     }
 
     public ProcessStep() {
-        this.BillofOperations = new ArrayList<>();
-        this.PlannedProductionTime = 0;
-        this.SequenceNo = 0;
+        this.billofOperations = new ArrayList<>();
+        this.plannedProductionTime = 0;
+        this.sequenceNo = 0;
     }
 
     /**
@@ -36,11 +36,11 @@ public class ProcessStep {
      * @return
      */
     public Integer getPlannedProductionTime() {
-        return PlannedProductionTime;
+        return plannedProductionTime;
     }
 
     public void setPlannedProductionTime(Integer plannedProductionTime) {
-        this.PlannedProductionTime = plannedProductionTime;
+        this.plannedProductionTime = plannedProductionTime;
     }
 
     /**
@@ -48,11 +48,11 @@ public class ProcessStep {
      * @return
      */
     public Integer getSequenceNo() {
-        return SequenceNo;
+        return sequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.SequenceNo = sequenceNo;
+        this.sequenceNo = sequenceNo;
     }
 
     /**
@@ -60,11 +60,11 @@ public class ProcessStep {
      * @return
      */
     public WorkCellResource getWorkCellResource() {
-        return WorkCellResource;
+        return workCellResource;
     }
 
     public void setWorkCellResource(WorkCellResource workCellResource) {
-        this.WorkCellResource = workCellResource;
+        this.workCellResource = workCellResource;
     }
 
     /**
@@ -72,11 +72,11 @@ public class ProcessStep {
      * @return
      */
     public Collection<Operation> getBillofOperations() {
-        return BillofOperations;
+        return billofOperations;
     }
 
     public void setBillofOperations(Collection<Operation> billofOperations) {
-        this.BillofOperations = billofOperations;
+        this.billofOperations = billofOperations;
     }
 
     @Override
@@ -88,15 +88,15 @@ public class ProcessStep {
 
         ProcessStep that = (ProcessStep) o;
 
-        if (SequenceNo != null ? !SequenceNo.equals(that.SequenceNo ) : that.SequenceNo != null)
+        if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo ) : that.sequenceNo != null)
             return false;
-        return WorkCellResource != null ? WorkCellResource.equals(that.WorkCellResource ) : that.WorkCellResource == null;
+        return workCellResource != null ? workCellResource.equals(that.workCellResource ) : that.workCellResource == null;
     }
 
     @Override
     public int hashCode() {
-        int result = SequenceNo != null ? SequenceNo.hashCode() : 0;
-        result = 31 * result + (WorkCellResource != null ? WorkCellResource.hashCode() : 0);
+        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
+        result = 31 * result + (workCellResource != null ? workCellResource.hashCode() : 0);
         return result;
     }
 }

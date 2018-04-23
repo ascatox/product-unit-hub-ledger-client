@@ -22,7 +22,7 @@ public class TestModelEquipmentSpecification {
     public void testModelQeuipmentSpecification(){
         try {
             equipmentSpecification.setSequenceNo( 20 );
-            assertNotNull("SequenceNo is empty", equipmentSpecification.getSequenceNo() );
+            assertNotNull("sequenceNo is empty", equipmentSpecification.getSequenceNo() );
 
 
         } catch (Exception e) {

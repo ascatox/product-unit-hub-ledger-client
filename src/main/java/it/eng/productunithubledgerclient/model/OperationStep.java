@@ -11,34 +11,34 @@ import java.util.List;
 public class OperationStep {
 
     @NotNull
-    private Integer SequenceNo;
-    private String Description;
+    private Integer sequenceNo;
+    private String description;
 
-    private Collection<Material> BillofMaterial;
-    private Collection <EquipmentRequirement> EquipmentRequirements;
-    private Collection <InstructionText> IstructionTexts;
+    private Collection<Material> billofMaterial;
+    private Collection <EquipmentRequirement> equipmentRequirements;
+    private Collection <InstructionText> instructionTexts;
 
 
-    public OperationStep(Integer sequenceNo, String billofMaterial, String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> istructionTexts) {
-        this.SequenceNo = sequenceNo;
-        this.BillofMaterial = new ArrayList<>();
-        this.EquipmentRequirements = new ArrayList<>();
-        this.IstructionTexts = new ArrayList<>();
-        this.Description = Description;
+    public OperationStep(Integer sequenceNo, String billofMaterial, String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> instructionTexts) {
+        this.sequenceNo = sequenceNo;
+        this.billofMaterial = new ArrayList<>();
+        this.equipmentRequirements = new ArrayList<>();
+        this.instructionTexts = new ArrayList<>();
+        this.description = Description;
     }
 
     public OperationStep() {
-        this.EquipmentRequirements = new ArrayList<>();
-        this.IstructionTexts = new ArrayList<>();
-        this.SequenceNo = 0;
+        this.equipmentRequirements = new ArrayList<>();
+        this.instructionTexts = new ArrayList<>();
+        this.sequenceNo = 0;
     }
 
     public Integer getSequenceNo() {
-        return SequenceNo;
+        return sequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.SequenceNo = sequenceNo;
+        this.sequenceNo = sequenceNo;
     }
 
     /**
@@ -46,32 +46,32 @@ public class OperationStep {
      * @return
      */
     public Collection<Material> getBillofMaterial() {
-        return BillofMaterial;
+        return billofMaterial;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public void setBillofMaterial(List<Material> billofMaterial) {
-        this.BillofMaterial = billofMaterial;
+        this.billofMaterial = billofMaterial;
     }
 
 
     /**
-     * The field represents a collection of EquipmentRequirements {@link EquipmentRequirement}
+     * The field represents a collection of equipmentRequirements {@link EquipmentRequirement}
      * @return
      */
     public Collection<EquipmentRequirement> getEquipmentRequirements() {
-        return EquipmentRequirements;
+        return equipmentRequirements;
     }
 
     public void setEquipmentRequirements(List<EquipmentRequirement> equipmentRequirements) {
-        this.EquipmentRequirements = equipmentRequirements;
+        this.equipmentRequirements = equipmentRequirements;
     }
 
 
@@ -79,12 +79,12 @@ public class OperationStep {
      * The field represents a collection of Instructions to execute {@link InstructionText}.
      * @return
      */
-    public Collection<InstructionText> getIstructionTexts() {
-        return IstructionTexts;
+    public Collection<InstructionText> getInstructionTexts() {
+        return instructionTexts;
     }
 
-    public void setIstructionTexts(List<InstructionText> istructionTexts) {
-        this.IstructionTexts = istructionTexts;
+    public void setInstructionTexts(List<InstructionText> instructionTexts) {
+        this.instructionTexts = instructionTexts;
     }
 
     @Override
@@ -96,11 +96,11 @@ public class OperationStep {
 
         OperationStep that = (OperationStep) o;
 
-        return SequenceNo != null ? SequenceNo.equals(that.SequenceNo ) : that.SequenceNo == null;
+        return sequenceNo != null ? sequenceNo.equals(that.sequenceNo ) : that.sequenceNo == null;
     }
 
     @Override
     public int hashCode() {
-        return SequenceNo != null ? SequenceNo.hashCode() : 0;
+        return sequenceNo != null ? sequenceNo.hashCode() : 0;
     }
 }

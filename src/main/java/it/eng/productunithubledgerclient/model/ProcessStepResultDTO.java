@@ -10,22 +10,22 @@ import java.util.Collection;
  */
 public class ProcessStepResultDTO {
     @NotNull
-    private String ChassisId;
+    private String chassisId;
     @NotNull
-    private String Component;
+    private String component;
     @NotNull
-    private String SubComponent;
+    private String subComponent;
 
-    private String WorkCellResourceId;
+    private String workCellResourceId;
 
 
     private Collection<OperationResult> operationResults;
 
     public ProcessStepResultDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String workCellResourceId) {
-        this.ChassisId = chassisId;
-        this.Component = component;
-        this.SubComponent = subComponent;
-        this.WorkCellResourceId = workCellResourceId;
+        this.chassisId = chassisId;
+        this.component = component;
+        this.subComponent = subComponent;
+        this.workCellResourceId = workCellResourceId;
     }
 
     public ProcessStepResultDTO() {
@@ -34,35 +34,35 @@ public class ProcessStepResultDTO {
     }
 
     public String getChassisId() {
-        return ChassisId;
+        return chassisId;
     }
 
     public void setChassisId(String chassisId) {
-        this.ChassisId = chassisId;
+        this.chassisId = chassisId;
     }
 
     public String getComponent() {
-        return Component;
+        return component;
     }
 
     public void setComponent(String component) {
-        this.Component = component;
+        this.component = component;
     }
 
     public String getWorkCellResourceId() {
-        return WorkCellResourceId;
+        return workCellResourceId;
     }
 
     public void setWorkCellResourceId(String workCellResourceId) {
-        this.WorkCellResourceId = workCellResourceId;
+        this.workCellResourceId = workCellResourceId;
     }
 
     public String getSubComponent() {
-        return SubComponent;
+        return subComponent;
     }
 
     public void setSubComponent(String subComponent) {
-        this.SubComponent = subComponent;
+        this.subComponent = subComponent;
     }
 
     /**
@@ -86,21 +86,21 @@ public class ProcessStepResultDTO {
 
         ProcessStepResultDTO that = (ProcessStepResultDTO) o;
 
-        if (ChassisId != null ? !ChassisId.equals(that.ChassisId ) : that.ChassisId != null)
+        if (chassisId != null ? !chassisId.equals(that.chassisId ) : that.chassisId != null)
             return false;
-        if (Component != null ? !Component.equals(that.Component ) : that.Component != null)
+        if (component != null ? !component.equals(that.component ) : that.component != null)
             return false;
-        if (SubComponent != null ? !SubComponent.equals(that.SubComponent ) : that.SubComponent != null)
+        if (subComponent != null ? !subComponent.equals(that.subComponent ) : that.subComponent != null)
             return false;
-        return WorkCellResourceId != null ? WorkCellResourceId.equals(that.WorkCellResourceId ) : that.WorkCellResourceId == null;
+        return workCellResourceId != null ? workCellResourceId.equals(that.workCellResourceId ) : that.workCellResourceId == null;
     }
 
     @Override
     public int hashCode() {
-        int result = ChassisId != null ? ChassisId.hashCode() : 0;
-        result = 31 * result + (Component != null ? Component.hashCode() : 0);
-        result = 31 * result + (SubComponent != null ? SubComponent.hashCode() : 0);
-        result = 31 * result + (WorkCellResourceId != null ? WorkCellResourceId.hashCode() : 0);
+        int result = chassisId != null ? chassisId.hashCode() : 0;
+        result = 31 * result + (component != null ? component.hashCode() : 0);
+        result = 31 * result + (subComponent != null ? subComponent.hashCode() : 0);
+        result = 31 * result + (workCellResourceId != null ? workCellResourceId.hashCode() : 0);
         return result;
     }
 

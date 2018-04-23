@@ -6,47 +6,47 @@ import java.io.Serializable;
 public class InstructionText implements Serializable {
 
     @NotNull
-    private Integer SequenceNo;
-    private String Text;
-    private String Rtf;
+    private Integer sequenceNo;
+    private String text;
+    private String rtf;
 
     public InstructionText() {
-        this.SequenceNo = 0;
+        this.sequenceNo = 0;
     }
 
     public InstructionText(String text, String rtf, Integer SequenceNo) {
-        this.SequenceNo = SequenceNo;
-        this.Text = text;
-        this.Rtf = rtf;
+        this.sequenceNo = SequenceNo;
+        this.text = text;
+        this.rtf = rtf;
     }
 
     public String getText() {
-        return Text;
+        return text;
     }
 
     public void setText(String text) {
-        this.Text = text;
+        this.text = text;
     }
 
     public String getRtf() {
-        return Rtf;
+        return rtf;
     }
 
     public void setRtf(String rtf) {
-        this.Rtf = rtf;
+        this.rtf = rtf;
     }
 
     public Integer getSequenceNo() {
-        return SequenceNo;
+        return sequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.SequenceNo = sequenceNo;
+        this.sequenceNo = sequenceNo;
     }
 
     @Override
     public String toString() {
-        return "InstructionText{" + "Text='" + Text + '\'' + ", Rtf='" + Rtf + '\'' + '}';
+        return "InstructionText{" + "text='" + text + '\'' + ", rtf='" + rtf + '\'' + '}';
     }
 
     @Override
@@ -58,18 +58,18 @@ public class InstructionText implements Serializable {
 
         InstructionText that = (InstructionText) o;
 
-        if (SequenceNo != null ? !SequenceNo.equals(that.SequenceNo ) : that.SequenceNo != null)
+        if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo ) : that.sequenceNo != null)
             return false;
-        if (Text != null ? !Text.equals(that.Text ) : that.Text != null)
+        if (text != null ? !text.equals(that.text ) : that.text != null)
             return false;
-        return Rtf != null ? Rtf.equals(that.Rtf ) : that.Rtf == null;
+        return rtf != null ? rtf.equals(that.rtf ) : that.rtf == null;
     }
 
     @Override
     public int hashCode() {
-        int result = SequenceNo != null ? SequenceNo.hashCode() : 0;
-        result = 31 * result + (Text != null ? Text.hashCode() : 0);
-        result = 31 * result + (Rtf != null ? Rtf.hashCode() : 0);
+        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (rtf != null ? rtf.hashCode() : 0);
         return result;
     }
 }

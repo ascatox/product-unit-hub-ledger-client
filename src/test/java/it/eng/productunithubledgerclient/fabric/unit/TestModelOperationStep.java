@@ -23,7 +23,7 @@ public class TestModelOperationStep {
     public void testModelOperationStep(){
         try {
             operationStep.setSequenceNo( 2 );
-            assertNotNull("SequenceNo is empty", operationStep.getSequenceNo() );
+            assertNotNull("sequenceNo is empty", operationStep.getSequenceNo() );
 
 
         } catch (Exception e) {

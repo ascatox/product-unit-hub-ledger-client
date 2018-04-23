@@ -215,7 +215,7 @@ final public class LedgerInteractionHelper {
         try {
             if (null != transactionEvent) {
                 //waitOnFabric(0);
-                log.debug("Finished transaction with transaction Id %s", transactionEvent.getTransactionID());
+                log.debug("Finished transaction with transaction id %s", transactionEvent.getTransactionID());
                 String testTxID = transactionEvent.getTransactionID(); // used in the channel queries later
             }
             // Send Query Proposal to all peers

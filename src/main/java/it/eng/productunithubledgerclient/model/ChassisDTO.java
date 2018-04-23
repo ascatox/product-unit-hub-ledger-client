@@ -16,83 +16,83 @@ public class ChassisDTO implements Serializable {
 
 
     @NotNull
-    private String ChassisId;
+    private String chassisId;
     @NotNull
-    private String Component;
+    private String component;
     @NotNull
-    private String SubComponent;
+    private String subComponent;
 
-    private String ProductUnits;
+    private String productUnits;
 
-    private Collection<ProcessStep> BillOfProcessSteps;
+    private Collection<ProcessStep> billOfProcessSteps;
 
 
     public ChassisDTO() {
-        this.BillOfProcessSteps = new ArrayList<>();
+        this.billOfProcessSteps = new ArrayList<>();
     }
 
     public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits, List<ProcessStep> billOfProcessSteps) {
-        this.ChassisId = chassisId;
-        this.Component = component;
-        this.SubComponent = subComponent;
-        this.ProductUnits = productUnits;
-        this.BillOfProcessSteps = new ArrayList<>();
+        this.chassisId = chassisId;
+        this.component = component;
+        this.subComponent = subComponent;
+        this.productUnits = productUnits;
+        this.billOfProcessSteps = new ArrayList<>();
     }
 
     /**
-     * The ChassisId {@link String} field represents the Chassis identifier and is part of the key.
+     * The chassisId {@link String} field represents the Chassis identifier and is part of the key.
      *
      * @return
      */
     public String getChassisId() {
-        return ChassisId;
+        return chassisId;
     }
 
     public void setChassisId(String chassisId) {
-        this.ChassisId = chassisId;
+        this.chassisId = chassisId;
     }
 
     /**
-     * The Component {@link String} field represents a part of the key
+     * The component {@link String} field represents a part of the key
      *
      * @return
      */
     public String getComponent() {
-        return Component;
+        return component;
     }
 
     public void setComponent(String component) {
-        this.Component = component;
+        this.component = component;
     }
 
     /**
-     * The SubComponent {@link String} field is the last part of the key identifier of Chassis.
+     * The subComponent {@link String} field is the last part of the key identifier of Chassis.
      *
      * @return
      */
     public String getSubComponent() {
-        return SubComponent;
+        return subComponent;
     }
 
     public void setSubComponent(String subComponent) {
-        this.SubComponent = subComponent;
+        this.subComponent = subComponent;
     }
 
     /**
-     * The ProductUnits {@link String} field contains the productUnit identifiers.
+     * The productUnits {@link String} field contains the productUnit identifiers.
      * @return
      */
     public String getProductUnits() {
-        return ProductUnits;
+        return productUnits;
     }
 
     public void setProductUnits(String productUnits) {
-        this.ProductUnits = productUnits;
+        this.productUnits = productUnits;
     }
 
 
     public void setBillOfProcessSteps(Collection<ProcessStep> billOfProcessSteps) {
-        this.BillOfProcessSteps = billOfProcessSteps;
+        this.billOfProcessSteps = billOfProcessSteps;
     }
 
     /**
@@ -100,11 +100,11 @@ public class ChassisDTO implements Serializable {
      * @return
      */
     public Collection<ProcessStep> getBillOfProcessSteps() {
-        return BillOfProcessSteps;
+        return billOfProcessSteps;
     }
 
     public void setBillOfProcessSteps(List<ProcessStep> billOfProcessSteps) {
-        this.BillOfProcessSteps = billOfProcessSteps;
+        this.billOfProcessSteps = billOfProcessSteps;
     }
 
     @Override
@@ -116,18 +116,18 @@ public class ChassisDTO implements Serializable {
 
         ChassisDTO that = (ChassisDTO) o;
 
-        if (ChassisId != null ? !ChassisId.equals(that.ChassisId ) : that.ChassisId != null)
+        if (chassisId != null ? !chassisId.equals(that.chassisId ) : that.chassisId != null)
             return false;
-        if (Component != null ? !Component.equals(that.Component ) : that.Component != null)
+        if (component != null ? !component.equals(that.component ) : that.component != null)
             return false;
-        return SubComponent != null ? SubComponent.equals(that.SubComponent ) : that.SubComponent == null;
+        return subComponent != null ? subComponent.equals(that.subComponent ) : that.subComponent == null;
     }
 
     @Override
     public int hashCode() {
-        int result = ChassisId != null ? ChassisId.hashCode() : 0;
-        result = 31 * result + (Component != null ? Component.hashCode() : 0);
-        result = 31 * result + (SubComponent != null ? SubComponent.hashCode() : 0);
+        int result = chassisId != null ? chassisId.hashCode() : 0;
+        result = 31 * result + (component != null ? component.hashCode() : 0);
+        result = 31 * result + (subComponent != null ? subComponent.hashCode() : 0);
         return result;
     }
 

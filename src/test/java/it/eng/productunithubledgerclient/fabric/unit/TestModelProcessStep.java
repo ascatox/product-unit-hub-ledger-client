@@ -27,7 +27,7 @@ public class TestModelProcessStep {
 
 
             assertNotNull("plannedProductionTime is empty", processStep.getPlannedProductionTime() );
-            assertNotNull( "SequenceNo is empty", processStep.getSequenceNo() );
+            assertNotNull( "sequenceNo is empty", processStep.getSequenceNo() );
 
         } catch (Exception e) {
             assertFalse(e.getMessage(), true);

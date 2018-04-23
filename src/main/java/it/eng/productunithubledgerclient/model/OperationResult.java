@@ -8,15 +8,15 @@ import java.util.Collection;
  */
 public class OperationResult {
 
-    private Collection<OperationStepResult> OperationStepResults;
+    private Collection<OperationStepResult> operationStepResults;
 
 
     public OperationResult(Collection<OperationStepResult> operationStepResults) {
-        this.OperationStepResults = new ArrayList<>();
+        this.operationStepResults = new ArrayList<>();
     }
 
     public OperationResult() {
-        this.OperationStepResults = new ArrayList<>();
+        this.operationStepResults = new ArrayList<>();
     }
 
     /**
@@ -26,10 +26,10 @@ public class OperationResult {
      */
 
     public Collection<OperationStepResult> getOperationStepResults() {
-        return OperationStepResults;
+        return operationStepResults;
     }
 
     public void setOperationStepResults(Collection<OperationStepResult> operationStepResults) {
-        this.OperationStepResults = operationStepResults;
+        this.operationStepResults = operationStepResults;
     }
 }

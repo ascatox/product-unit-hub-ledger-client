@@ -8,98 +8,98 @@ import java.util.List;
 
 public class Operation {
     @NotNull
-    private Integer SequenceNo;
-    private String Id;
+    private Integer sequenceNo;
+    private String id;
     @Pattern( regexp = "[0-9]")
-    private String CIN;
-    private String Description;
-    private String OperationType;
+    private String cin;
+    private String description;
+    private String operationType;
 
-    private Collection<InstructionText> InstructionTexts;
-    private Collection<EquipmentRequirement> EquipmentRequirements;
-    private Collection<OperationStep> OperationSteps;
+    private Collection<InstructionText> instructionTexts;
+    private Collection<EquipmentRequirement> equipmentRequirements;
+    private Collection<OperationStep> operationSteps;
 
 
     public Operation() {
-        this.InstructionTexts = new ArrayList<>(  );
-        this.EquipmentRequirements = new ArrayList<>(  );
-        this.OperationSteps = new ArrayList<>(  );
-        this.SequenceNo = 0;
+        this.instructionTexts = new ArrayList<>(  );
+        this.equipmentRequirements = new ArrayList<>(  );
+        this.operationSteps = new ArrayList<>(  );
+        this.sequenceNo = 0;
     }
 
-    public Operation(@NotNull Integer sequenceNo, Collection<InstructionText> instructionTexts, Collection<EquipmentRequirement> equipmentRequirements, Collection<OperationStep> operationSteps, String id, @Pattern(regexp = "[0-9]") String CIN, String description, String operationType) {
-        this.SequenceNo = sequenceNo;
-        this.InstructionTexts = new ArrayList<>(  );
-        this.EquipmentRequirements = new ArrayList<>(  );
-        this.OperationSteps = new ArrayList<>(  );
-        this.Id = id;
-        this.CIN = CIN;
-        this.Description = description;
-        this.OperationType = operationType;
+    public Operation(@NotNull Integer sequenceNo, Collection<InstructionText> instructionTexts, Collection<EquipmentRequirement> equipmentRequirements, Collection<OperationStep> operationSteps, String id, @Pattern(regexp = "[0-9]") String cin, String description, String operationType) {
+        this.sequenceNo = sequenceNo;
+        this.instructionTexts = new ArrayList<>(  );
+        this.equipmentRequirements = new ArrayList<>(  );
+        this.operationSteps = new ArrayList<>(  );
+        this.id = id;
+        this.cin = cin;
+        this.description = description;
+        this.operationType = operationType;
     }
 
     public Integer getSequenceNo() {
-        return SequenceNo;
+        return sequenceNo;
     }
 
     public void setSequenceNo(Integer sequenceNo) {
-        this.SequenceNo = sequenceNo;
+        this.sequenceNo = sequenceNo;
     }
 
     public Collection<InstructionText> getInstructionTexts() {
-        return InstructionTexts;
+        return instructionTexts;
     }
 
     public void setInstructionTexts(List<InstructionText> instructionTexts) {
-        this.InstructionTexts = instructionTexts;
+        this.instructionTexts = instructionTexts;
     }
 
     public Collection<EquipmentRequirement> getEquipmentRequirements() {
-        return EquipmentRequirements;
+        return equipmentRequirements;
     }
 
     public void setEquipmentRequirements(List<EquipmentRequirement> equipmentRequirements) {
-        this.EquipmentRequirements = equipmentRequirements;
+        this.equipmentRequirements = equipmentRequirements;
     }
 
     public Collection<OperationStep> getOperationSteps() {
-        return OperationSteps;
+        return operationSteps;
     }
 
     public void setOperationSteps(List<OperationStep> operationSteps) {
-        this.OperationSteps = operationSteps;
+        this.operationSteps = operationSteps;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        this.Id = id;
+        this.id = id;
     }
 
-    public String getCIN() {
-        return CIN;
+    public String getCin() {
+        return cin;
     }
 
-    public void setCIN(String CIN) {
-        this.CIN = CIN;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        this.Description = description;
+        this.description = description;
     }
 
     public String getOperationType() {
-        return OperationType;
+        return operationType;
     }
 
     public void setOperationType(String operationType) {
-        this.OperationType = operationType;
+        this.operationType = operationType;
     }
 
     @Override
@@ -111,15 +111,15 @@ public class Operation {
 
         Operation operation = (Operation) o;
 
-        if (SequenceNo != null ? !SequenceNo.equals(operation.SequenceNo ) : operation.SequenceNo != null)
+        if (sequenceNo != null ? !sequenceNo.equals(operation.sequenceNo ) : operation.sequenceNo != null)
             return false;
-        return Id != null ? Id.equals(operation.Id ) : operation.Id == null;
+        return id != null ? id.equals(operation.id ) : operation.id == null;
     }
 
     @Override
     public int hashCode() {
-        int result = SequenceNo != null ? SequenceNo.hashCode() : 0;
-        result = 31 * result + (Id != null ? Id.hashCode() : 0);
+        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
 }
