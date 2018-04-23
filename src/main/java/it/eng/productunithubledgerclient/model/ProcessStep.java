@@ -6,7 +6,7 @@ import java.util.Collection;
 
 /**
  * This class represents a ProcessStep containing a collection of Operations to execute and is identified by a sequence number
- * and a {@link WorkCellResource}
+ * and a {@link WorkcellResource}
  */
 public class ProcessStep {
 
@@ -14,19 +14,19 @@ public class ProcessStep {
     private Integer plannedProductionTime;
     @NotNull
     private Integer sequenceNo;
-    private WorkCellResource workCellResource;
-    private Collection<Operation> billofOperations;
+    private WorkcellResource workcellResource;
+    private Collection<Operation> billOfOperation;
 
 
-    public ProcessStep(Integer plannedProductionTime, Integer sequenceNo, WorkCellResource workcellOperation, Collection<Operation> billofOperations) {
+    public ProcessStep(Integer plannedProductionTime, Integer sequenceNo, WorkcellResource workcellOperation, Collection<Operation> billOfOperation) {
         this.plannedProductionTime = plannedProductionTime;
         this.sequenceNo = sequenceNo;
-        this.workCellResource = workcellOperation;
-        this.billofOperations = new ArrayList<>();
+        this.workcellResource = workcellOperation;
+        this.billOfOperation = billOfOperation;
     }
 
     public ProcessStep() {
-        this.billofOperations = new ArrayList<>();
+        this.billOfOperation = new ArrayList<>();
         this.plannedProductionTime = 0;
         this.sequenceNo = 0;
     }
@@ -56,27 +56,27 @@ public class ProcessStep {
     }
 
     /**
-     * This field {@link WorkCellResource} represents the WorkCell executing the process.
+     * This field {@link WorkcellResource} represents the WorkCell executing the process.
      * @return
      */
-    public WorkCellResource getWorkCellResource() {
-        return workCellResource;
+    public WorkcellResource getWorkcellResource() {
+        return workcellResource;
     }
 
-    public void setWorkCellResource(WorkCellResource workCellResource) {
-        this.workCellResource = workCellResource;
+    public void setWorkcellResource(WorkcellResource workcellResource) {
+        this.workcellResource = workcellResource;
     }
 
     /**
      * This field represents a collection of {@link Operation}
      * @return
      */
-    public Collection<Operation> getBillofOperations() {
-        return billofOperations;
+    public Collection<Operation> getBillOfOpeation() {
+        return billOfOperation;
     }
 
-    public void setBillofOperations(Collection<Operation> billofOperations) {
-        this.billofOperations = billofOperations;
+    public void setBillOfOperation(Collection<Operation> billofOperations) {
+        this.billOfOperation = billofOperations;
     }
 
     @Override
@@ -90,13 +90,13 @@ public class ProcessStep {
 
         if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo ) : that.sequenceNo != null)
             return false;
-        return workCellResource != null ? workCellResource.equals(that.workCellResource ) : that.workCellResource == null;
+        return workcellResource != null ? workcellResource.equals(that.workcellResource) : that.workcellResource == null;
     }
 
     @Override
     public int hashCode() {
         int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
-        result = 31 * result + (workCellResource != null ? workCellResource.hashCode() : 0);
+        result = 31 * result + (workcellResource != null ? workcellResource.hashCode() : 0);
         return result;
     }
 }

@@ -5,15 +5,15 @@ import java.util.Objects;
 /**
  * This class represents a WorkCell.
  */
-public class WorkCellResource {
+public class WorkcellResource {
 
     private String id;
     private String name;
 
-    public WorkCellResource() {
+    public WorkcellResource() {
     }
 
-    public WorkCellResource(String id, String name) {
+    public WorkcellResource(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -48,9 +48,9 @@ public class WorkCellResource {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof WorkCellResource))
+        if (!(o instanceof WorkcellResource))
             return false;
-        WorkCellResource that = (WorkCellResource) o;
+        WorkcellResource that = (WorkcellResource) o;
         return Objects.equals( id, that.id ) && Objects.equals( name, that.name );
     }
 

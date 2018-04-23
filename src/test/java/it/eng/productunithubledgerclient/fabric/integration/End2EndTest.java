@@ -9,7 +9,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -130,10 +129,10 @@ public class End2EndTest {
         chassisDTO.setProductUnits("0000123cab");
         ProcessStep processStep = new ProcessStep();
         //Collection<ProcessStep> processStep = (Collection<ProcessStep>) new ProcessStep();
-        WorkCellResource workCellResource = new WorkCellResource();
-        workCellResource.setId("CTPP-01A");
-        //workCellResource.setName( "omega" );
-        processStep.setWorkCellResource(workCellResource);
+        WorkcellResource workcellResource = new WorkcellResource();
+        workcellResource.setId("CTPP-01A");
+        //workcellResource.setName( "omega" );
+        processStep.setWorkcellResource(workcellResource);
         ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
         processStepCollection.add(processStep);
         chassisDTO.setBillOfProcessSteps(processStepCollection);
@@ -141,7 +140,7 @@ public class End2EndTest {
         try {
             ledgerClient.storeProcessStepRouting(chassisDTOCollection);
             Collection<ProcessStep> chassisDTOCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent(),
-                    workCellResource.getId());
+                    workcellResource.getId());
             assertEquals(chassisDTOCollection1, chassisDTOCollection);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
@@ -178,10 +177,10 @@ public class End2EndTest {
         chassisDTO.setSubComponent("TCAB");
         ProcessStep processStep = new ProcessStep();
         //Collection<ProcessStep> processStep = (Collection<ProcessStep>) new ProcessStep();
-        WorkCellResource workCellResource = new WorkCellResource();
-        workCellResource.setId("CTPP-01A");
-        //workCellResource.setName( "omega" );
-        processStep.setWorkCellResource(workCellResource);
+        WorkcellResource workcellResource = new WorkcellResource();
+        workcellResource.setId("CTPP-01A");
+        //workcellResource.setName( "omega" );
+        processStep.setWorkcellResource(workcellResource);
         ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
         processStepCollection.add(processStep);
         chassisDTO.setBillOfProcessSteps(processStepCollection);
@@ -189,7 +188,7 @@ public class End2EndTest {
         //ledgerClient.storeProcessStepRouting(chassisDTOCollection);
         Collection<ProcessStep> chassisDTOCollection1 = null;
         try {
-            chassisDTOCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent(), workCellResource.getId());
+            chassisDTOCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent(), workcellResource.getId());
         } catch (ProductUnitHubException e) {
             e.printStackTrace();
         }
