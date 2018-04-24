@@ -21,8 +21,6 @@ public class ProxyConfig {
             //SET HTTPS
             System.setProperty("https.proxyHost", "http://localhost");
             System.setProperty("https.proxyPort", "8680");
-            System.setProperty("https.proxyUser", "ascatolo");
-            System.setProperty("https.proxyPassword", "Fs26112011");
 
         } catch (Exception e) {
             System.err.println(e);
