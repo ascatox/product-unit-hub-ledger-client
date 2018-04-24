@@ -172,7 +172,7 @@ final public class FabricLedgerClient implements LedgerClient {
             return payload;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             log.error(fcn.name().toUpperCase() +" "+ e.getMessage());
-            throw new ProductUnitHubException(fcn.name().toUpperCase() +" "+ e.getMessage());
+            throw new ProductUnitHubException(fcn.name() +" "+ e.getMessage());
         }
     }
 
@@ -187,8 +187,8 @@ final public class FabricLedgerClient implements LedgerClient {
             }
             return chassisDTOS;
         } catch (Exception e) {
-            log.error(fcn.name().toUpperCase() +" "+ e.getMessage());
-            throw new ProductUnitHubException(fcn.name().toUpperCase() +" "+ e.getMessage());
+            log.error(fcn.name() +" "+ e.getMessage());
+            throw new ProductUnitHubException(fcn.name() +" "+ e.getMessage());
         }
     }
 
@@ -203,7 +203,7 @@ final public class FabricLedgerClient implements LedgerClient {
             }
             return processSteps;
         } catch (Exception e) {
-            log.error(fcn.name().toUpperCase() +" "+ e.getMessage());
+            log.error(fcn.name() +" "+ e.getMessage());
             throw new ProductUnitHubException(fcn.name().toUpperCase() +" "+ e.getMessage());
         }
     }
