@@ -31,7 +31,7 @@ public class TestJsonConverter {
         try {
             String toJson = JsonConverter.convertToJson( instructionText );
             assertFalse( "Json returned is empty", StringUtils.isEmpty( toJson ) );
-            Object object = JsonConverter.convertFromJson( toJson, InstructionText.class );
+            Object object = JsonConverter.convertFromJson( toJson, InstructionText.class ,false);
             InstructionText instructionText1 = (InstructionText) object;
             assertEquals( "Test equals instructionText!", instructionText, instructionText1 );
         } catch (ProductUnitHubException e) {

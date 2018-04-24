@@ -113,7 +113,7 @@ final public class FabricLedgerClient implements LedgerClient {
         List<String> args = new ArrayList<>();
         args.add(component);
         args.add(subComponent);
-        return doQueryByJson(Function.getProcessStepRouting, args);
+        return doChassisQueryByJson(Function.getProcessStepRouting, args);
     }
 
     @Override
@@ -124,7 +124,7 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(chassisID);
         args.add(component);
         args.add(subComponent);
-        return (ChassisDTO) doQueryByJson(Function.getProcessStepRouting, args);
+        return (ChassisDTO) doChassisQueryByJson(Function.getProcessStepRouting, args);
     }
 
     @Override
@@ -158,7 +158,7 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(chassisID);
         args.add(component);
         args.add(subComponent);
-        return (ProcessStepResultDTO) doQueryByJson(Function.getProcessStepResult, args);
+        return (ProcessStepResultDTO) doChassisQueryByJson(Function.getProcessStepResult, args);
     }
 
 
@@ -171,39 +171,40 @@ final public class FabricLedgerClient implements LedgerClient {
             final String payload = invokeReturn.getPayload();
             return payload;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            log.error(e);
-            throw new ProductUnitHubException(e);
+            log.error(fcn.name().toUpperCase() +" "+ e.getMessage());
+            throw new ProductUnitHubException(fcn.name().toUpperCase() +" "+ e.getMessage());
         }
     }
 
 
-    private List<ChassisDTO> doQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
+    private List<ChassisDTO> doChassisQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
         List<ChassisDTO> chassisDTOS = new ArrayList<>();
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
             for (QueryReturn queryReturn : queryReturns) {
-                ChassisDTO fromJson = (ChassisDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class);
+                ChassisDTO fromJson = (ChassisDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class, true);
                 chassisDTOS.add(fromJson);
             }
             return chassisDTOS;
         } catch (Exception e) {
-            log.error(e);
-            throw new ProductUnitHubException(e);
+            log.error(fcn.name().toUpperCase() +" "+ e.getMessage());
+            throw new ProductUnitHubException(fcn.name().toUpperCase() +" "+ e.getMessage());
         }
     }
 
     private Collection<ProcessStep> doProcessStepQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
+        //Collection<ProcessStep> processSteps = new ArrayList<>();
         Collection<ProcessStep> processSteps = new ArrayList<>();
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
             for (QueryReturn queryReturn : queryReturns) {
-                ProcessStep fromJson = (ProcessStep) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStep.class);
-                processSteps.add(fromJson);
+                processSteps = (Collection<ProcessStep>) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStep.class, true);
+                //processSteps.add(processSteps);
             }
             return processSteps;
         } catch (Exception e) {
-            log.error(e);
-            throw new ProductUnitHubException(e);
+            log.error(fcn.name().toUpperCase() +" "+ e.getMessage());
+            throw new ProductUnitHubException(fcn.name().toUpperCase() +" "+ e.getMessage());
         }
     }
 

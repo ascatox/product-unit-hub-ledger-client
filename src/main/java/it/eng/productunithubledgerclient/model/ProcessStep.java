@@ -11,17 +11,21 @@ import java.util.Collection;
 public class ProcessStep {
 
     @NotNull
+    private String id;
+    private String name;
+    @NotNull
     private Integer plannedProductionTime;
     @NotNull
     private Integer sequenceNo;
     private WorkcellResource workcellResource;
     private Collection<Operation> billOfOperation;
 
-
-    public ProcessStep(Integer plannedProductionTime, Integer sequenceNo, WorkcellResource workcellOperation, Collection<Operation> billOfOperation) {
+    public ProcessStep(@NotNull String id, String name, @NotNull Integer plannedProductionTime, @NotNull Integer sequenceNo, WorkcellResource workcellResource, Collection<Operation> billOfOperation) {
+        this.id = id;
+        this.name = name;
         this.plannedProductionTime = plannedProductionTime;
         this.sequenceNo = sequenceNo;
-        this.workcellResource = workcellOperation;
+        this.workcellResource = workcellResource;
         this.billOfOperation = billOfOperation;
     }
 
@@ -63,6 +67,23 @@ public class ProcessStep {
         return workcellResource;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        ProcessStep that = (ProcessStep) o;
+
+        return id != null ? id.equals(that.id) : that.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
     public void setWorkcellResource(WorkcellResource workcellResource) {
         this.workcellResource = workcellResource;
     }
@@ -79,24 +100,19 @@ public class ProcessStep {
         this.billOfOperation = billofOperations;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        ProcessStep that = (ProcessStep) o;
-
-        if (sequenceNo != null ? !sequenceNo.equals(that.sequenceNo ) : that.sequenceNo != null)
-            return false;
-        return workcellResource != null ? workcellResource.equals(that.workcellResource) : that.workcellResource == null;
+    public String getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        int result = sequenceNo != null ? sequenceNo.hashCode() : 0;
-        result = 31 * result + (workcellResource != null ? workcellResource.hashCode() : 0);
-        return result;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

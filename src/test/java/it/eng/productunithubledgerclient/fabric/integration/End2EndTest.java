@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author ascatox
@@ -128,10 +129,10 @@ public class End2EndTest {
         chassisDTO.setSubComponent("TCAB");
         chassisDTO.setProductUnits("0000123cab");
         ProcessStep processStep = new ProcessStep();
-        //Collection<ProcessStep> processStep = (Collection<ProcessStep>) new ProcessStep();
+        processStep.setId("001_8415E5D-47A2-4E79-BF1C-1F56B105AC6");
+        processStep.setName("New ALF in TAS");
         WorkcellResource workcellResource = new WorkcellResource();
         workcellResource.setId("CTPP-01A");
-        //workcellResource.setName( "omega" );
         processStep.setWorkcellResource(workcellResource);
         ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
         processStepCollection.add(processStep);
@@ -139,9 +140,8 @@ public class End2EndTest {
         chassisDTOCollection.add(chassisDTO);
         try {
             ledgerClient.storeProcessStepRouting(chassisDTOCollection);
-            Collection<ProcessStep> chassisDTOCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent(),
-                    workcellResource.getId());
-            assertEquals(chassisDTOCollection1, chassisDTOCollection);
+            Collection<ProcessStep> processStepCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent(), workcellResource.getId());
+            assertEquals(processStepCollection1, processStepCollection);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }
@@ -155,14 +155,16 @@ public class End2EndTest {
         chassisDTO.setComponent("CAB");
         chassisDTO.setSubComponent("TCAB");
         ProcessStep processStep = new ProcessStep();
+        processStep.setId("001_8415E5D-47A2-4E79-BF1C-1F56B105AC6");
+        processStep.setName("New ALF in TAS");
         ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
         processStepCollection.add(processStep);
         chassisDTO.setBillOfProcessSteps(processStepCollection);
         chassisDTOCollection.add(chassisDTO);
         try {
             ledgerClient.storeProcessStepRouting(chassisDTOCollection);
-            Collection<ProcessStep> chassisDTOCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent());
-            assertEquals(chassisDTOCollection1, chassisDTOCollection);
+            Collection<ProcessStep> processStepCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent());
+            assertEquals(processStepCollection, processStepCollection1);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }
@@ -176,10 +178,10 @@ public class End2EndTest {
         chassisDTO.setComponent("CAB");
         chassisDTO.setSubComponent("TCAB");
         ProcessStep processStep = new ProcessStep();
-        //Collection<ProcessStep> processStep = (Collection<ProcessStep>) new ProcessStep();
+        processStep.setId("001_8415E5D-47A2-4E79-BF1C-1F56B105AC6");
+        processStep.setName("New ALF in TAS");
         WorkcellResource workcellResource = new WorkcellResource();
         workcellResource.setId("CTPP-01A");
-        //workcellResource.setName( "omega" );
         processStep.setWorkcellResource(workcellResource);
         ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
         processStepCollection.add(processStep);
@@ -191,12 +193,16 @@ public class End2EndTest {
             chassisDTOCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent(), workcellResource.getId());
         } catch (ProductUnitHubException e) {
             e.printStackTrace();
+            assertFalse(e.getMessage(), true);
         }
         //assertEquals(chassisDTOCollection1, chassisDTOCollection);
         if (chassisDTOCollection1.isEmpty()) {
             System.out.println("Process step is empty!!!!");
+            assertFalse("Process step is empty!!!!", true);
         } else {
             System.out.println("Test getProcessStep OK!!!");
+            assertTrue("Test getProcessStep OK!!!", true);
+
         }
         //assertFalse(e.getMessage(), true);
     }

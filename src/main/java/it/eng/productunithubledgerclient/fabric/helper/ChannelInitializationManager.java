@@ -95,15 +95,14 @@ public class ChannelInitializationManager {
 
             final Properties eventHubProperties = configManager.getEventHubProperties(peerConfigObj.getName());
 
-            eventHubProperties.put("grpc.NettyChannelBuilderOption.keepAliveTime", new Object[]{5L, TimeUnit
-                    .MINUTES});
-            eventHubProperties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
-                    .SECONDS});
+            setGRPCProperties(eventHubProperties);
 
             EventHub eventHub = client.newEventHub(peerConfigObj.getName(), configManager.grpcTLSify(peerConfigObj.getEventURL()), eventHubProperties);
             channel.addEventHub(eventHub);
         }
     }
+
+
 
     private void buildPeers(List<PeerConfig> peerConfigList) throws InvalidArgumentException {
         for (PeerConfig peerConfigObj : peerConfigList) {
@@ -132,10 +131,7 @@ public class ChannelInitializationManager {
             Properties ordererProperties = configManager.getOrdererProperties(ordererConfig.getName());
             //example of setting keepAlive to avoid timeouts on inactive http2 connections.
             // Under 5 minutes would require changes to server side to accept faster ping rates.
-            ordererProperties.put("grpc.NettyChannelBuilderOption.keepAliveTime", new Object[]{5L, TimeUnit
-                    .MINUTES});
-            ordererProperties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
-                    .SECONDS});
+            setGRPCProperties(ordererProperties);
             orderers.add(client.newOrderer(ordererConfig.getName(), configManager.grpcTLSify(ordererConfig.getUrl()), ordererProperties));
         }
         org.hyperledger.fabric.sdk.Orderer anOrderer = orderers.iterator().next();
@@ -146,6 +142,13 @@ public class ChannelInitializationManager {
                 channel.addOrderer(orderer);
         }
 
+    }
+
+    private void setGRPCProperties(Properties properties) {
+        properties.put("grpc.NettyChannelBuilderOption.keepAliveTime", new Object[]{5L, TimeUnit
+                .MINUTES});
+        properties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
+                .SECONDS});
     }
 
     public Channel getChannel() {
