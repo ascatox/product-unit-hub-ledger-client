@@ -16,16 +16,16 @@ public class ProcessStepResultDTO {
     @NotNull
     private String subComponent;
 
-    private String workCellResourceId;
+    private String workcellResourceId;
 
 
     private Collection<OperationResult> operationResults;
 
-    public ProcessStepResultDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String workCellResourceId) {
+    public ProcessStepResultDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String workcellResourceId) {
         this.chassisId = chassisId;
         this.component = component;
         this.subComponent = subComponent;
-        this.workCellResourceId = workCellResourceId;
+        this.workcellResourceId = workcellResourceId;
     }
 
     public ProcessStepResultDTO() {
@@ -49,12 +49,12 @@ public class ProcessStepResultDTO {
         this.component = component;
     }
 
-    public String getWorkCellResourceId() {
-        return workCellResourceId;
+    public String getWorkcellResourceId() {
+        return workcellResourceId;
     }
 
-    public void setWorkCellResourceId(String workCellResourceId) {
-        this.workCellResourceId = workCellResourceId;
+    public void setWorkcellResourceId(String workcellResourceId) {
+        this.workcellResourceId = workcellResourceId;
     }
 
     public String getSubComponent() {
@@ -92,7 +92,7 @@ public class ProcessStepResultDTO {
             return false;
         if (subComponent != null ? !subComponent.equals(that.subComponent ) : that.subComponent != null)
             return false;
-        return workCellResourceId != null ? workCellResourceId.equals(that.workCellResourceId ) : that.workCellResourceId == null;
+        return workcellResourceId != null ? workcellResourceId.equals(that.workcellResourceId) : that.workcellResourceId == null;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ProcessStepResultDTO {
         int result = chassisId != null ? chassisId.hashCode() : 0;
         result = 31 * result + (component != null ? component.hashCode() : 0);
         result = 31 * result + (subComponent != null ? subComponent.hashCode() : 0);
-        result = 31 * result + (workCellResourceId != null ? workCellResourceId.hashCode() : 0);
+        result = 31 * result + (workcellResourceId != null ? workcellResourceId.hashCode() : 0);
         return result;
     }
 

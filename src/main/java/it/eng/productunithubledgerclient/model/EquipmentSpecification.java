@@ -25,7 +25,7 @@ public class EquipmentSpecification {
         this.specification = specification;
         this.value = value;
         this.quantity = quantity;
-        this.parameters = new ArrayList<>(  );
+        this.parameters =  parameters;
     }
 
     public Integer getSequenceNo() {

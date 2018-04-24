@@ -20,8 +20,8 @@ public class OperationStepResult {
         this.stepName = stepName;
         this.stepStatus = stepStatus;
         this.channelId = channelId;
-        this.equipmentResult = new EquipmentResult();
-        this.equipmentRequirement = new EquipmentRequirement();
+        this.equipmentResult =  equipmentResult;
+        this.equipmentRequirement = equipmentRequirement;
     }
 
     public OperationStepResult() {

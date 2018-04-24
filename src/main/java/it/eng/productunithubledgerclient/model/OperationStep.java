@@ -19,11 +19,11 @@ public class OperationStep {
     private Collection <InstructionText> instructionTexts;
 
 
-    public OperationStep(Integer sequenceNo, String billofMaterial, String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> instructionTexts) {
+    public OperationStep(Integer sequenceNo, Collection<Material> billofMaterial, String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> instructionTexts) {
         this.sequenceNo = sequenceNo;
-        this.billofMaterial = new ArrayList<>();
-        this.equipmentRequirements = new ArrayList<>();
-        this.instructionTexts = new ArrayList<>();
+        this.billofMaterial = billofMaterial;
+        this.equipmentRequirements = equipmentRequirements;
+        this.instructionTexts = instructionTexts;
         this.description = Description;
     }
 

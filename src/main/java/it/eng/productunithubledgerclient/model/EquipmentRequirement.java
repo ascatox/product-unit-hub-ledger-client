@@ -15,7 +15,7 @@ public class EquipmentRequirement {
     public EquipmentRequirement(String equipmentType, Integer sequenceNo, Collection<EquipmentSpecification> specifications) {
         this.equipmentType = equipmentType;
         this.sequenceNo = sequenceNo;
-        this.specifications = new ArrayList<>();
+        this.specifications = specifications;
     }
 
     public EquipmentRequirement() {
@@ -56,7 +56,7 @@ public class EquipmentRequirement {
 
         EquipmentRequirement that = (EquipmentRequirement) o;
 
-        return sequenceNo != null ? sequenceNo.equals(that.sequenceNo ) : that.sequenceNo == null;
+        return sequenceNo != null ? sequenceNo.equals(that.sequenceNo) : that.sequenceNo == null;
     }
 
     @Override

@@ -43,7 +43,7 @@ import java.util.Set;
 import static java.lang.String.format;
 
 public class Utils {
-    private final static Logger log = LogManager.getLogger(Utils.class);
+    private final static Logger logger = LogManager.getLogger(Utils.class);
 
 
     public static void getMessageViolations(Set<ConstraintViolation<ChassisDTO>> violations) throws ProductUnitHubException {

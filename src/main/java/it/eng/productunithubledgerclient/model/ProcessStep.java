@@ -71,7 +71,7 @@ public class ProcessStep {
      * This field represents a collection of {@link Operation}
      * @return
      */
-    public Collection<Operation> getBillOfOpeation() {
+    public Collection<Operation> getBillOfOperation() {
         return billOfOperation;
     }
 

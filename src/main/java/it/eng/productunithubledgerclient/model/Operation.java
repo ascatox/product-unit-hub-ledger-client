@@ -10,7 +10,7 @@ public class Operation {
     @NotNull
     private Integer sequenceNo;
     private String id;
-    @Pattern( regexp = "[0-9]")
+    @Pattern(regexp = "[0-9]")
     private String cin;
     private String description;
     private String operationType;
@@ -21,17 +21,17 @@ public class Operation {
 
 
     public Operation() {
-        this.instructionTexts = new ArrayList<>(  );
-        this.equipmentRequirements = new ArrayList<>(  );
-        this.operationSteps = new ArrayList<>(  );
+        this.instructionTexts = new ArrayList<>();
+        this.equipmentRequirements = new ArrayList<>();
+        this.operationSteps = new ArrayList<>();
         this.sequenceNo = 0;
     }
 
     public Operation(@NotNull Integer sequenceNo, Collection<InstructionText> instructionTexts, Collection<EquipmentRequirement> equipmentRequirements, Collection<OperationStep> operationSteps, String id, @Pattern(regexp = "[0-9]") String cin, String description, String operationType) {
         this.sequenceNo = sequenceNo;
-        this.instructionTexts = new ArrayList<>(  );
-        this.equipmentRequirements = new ArrayList<>(  );
-        this.operationSteps = new ArrayList<>(  );
+        this.instructionTexts = instructionTexts;
+        this.equipmentRequirements = equipmentRequirements;
+        this.operationSteps = operationSteps;
         this.id = id;
         this.cin = cin;
         this.description = description;
@@ -111,9 +111,9 @@ public class Operation {
 
         Operation operation = (Operation) o;
 
-        if (sequenceNo != null ? !sequenceNo.equals(operation.sequenceNo ) : operation.sequenceNo != null)
+        if (sequenceNo != null ? !sequenceNo.equals(operation.sequenceNo) : operation.sequenceNo != null)
             return false;
-        return id != null ? id.equals(operation.id ) : operation.id == null;
+        return id != null ? id.equals(operation.id) : operation.id == null;
     }
 
     @Override

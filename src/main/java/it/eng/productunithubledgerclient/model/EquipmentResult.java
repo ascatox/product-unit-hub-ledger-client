@@ -19,7 +19,7 @@ public class EquipmentResult {
     public EquipmentResult(Integer sequenceNo, String equipmentType, Collection<EquipmentResultRecord> results) {
         this.sequenceNo = sequenceNo;
         this.equipmentType = equipmentType;
-        this.results = new ArrayList<>();
+        this.results = results;
     }
 
     public Integer getSequenceNo() {

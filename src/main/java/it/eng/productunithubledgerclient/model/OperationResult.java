@@ -12,7 +12,7 @@ public class OperationResult {
 
 
     public OperationResult(Collection<OperationStepResult> operationStepResults) {
-        this.operationStepResults = new ArrayList<>();
+        this.operationStepResults = operationStepResults;
     }
 
     public OperationResult() {

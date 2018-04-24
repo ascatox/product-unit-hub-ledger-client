@@ -36,7 +36,7 @@ public class ChassisDTO implements Serializable {
         this.component = component;
         this.subComponent = subComponent;
         this.productUnits = productUnits;
-        this.billOfProcessSteps = new ArrayList<>();
+        this.billOfProcessSteps = billOfProcessSteps;
     }
 
     /**
