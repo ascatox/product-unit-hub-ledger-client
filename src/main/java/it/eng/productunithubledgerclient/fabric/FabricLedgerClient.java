@@ -136,7 +136,7 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(component);
         args.add(subComponent);
         args.add(workCellResourceID);
-        return doProcessStepQueryByJson(Function.getProcessStep, args);
+        return doProcessStepQueryByJson(Function.getProcessStep, args, false);
     }
 
     @Override
@@ -147,7 +147,7 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(chassisID);
         args.add(component);
         args.add(subComponent);
-        return doProcessStepQueryByJson(Function.getProcessStep, args);
+        return doProcessStepQueryByJson(Function.getProcessStep, args, true);
     }
 
     @Override
@@ -192,14 +192,13 @@ final public class FabricLedgerClient implements LedgerClient {
         }
     }
 
-    private Collection<ProcessStep> doProcessStepQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
+    private Collection<ProcessStep> doProcessStepQueryByJson(Function fcn, List<String> args, boolean isCollection) throws ProductUnitHubException {
         //Collection<ProcessStep> processSteps = new ArrayList<>();
         Collection<ProcessStep> processSteps = new ArrayList<>();
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
             for (QueryReturn queryReturn : queryReturns) {
-                processSteps = (Collection<ProcessStep>) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStep.class, true);
-                //processSteps.add(processSteps);
+                processSteps = (Collection<ProcessStep>) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStep.class, isCollection);
             }
             return processSteps;
         } catch (Exception e) {
