@@ -20,7 +20,7 @@ public class JsonConverter {
     private final static Logger log = LogManager.getLogger(JsonConverter.class);
 
     public enum TypeOfModel {
-       ChassisDTO, ProcessStep
+        ChassisDTO, ProcessStep, ProcessStepResultDTO
     }
 
 
@@ -44,9 +44,11 @@ public class JsonConverter {
             if (isCollection) {
                 ObjectReader objectReader = null;
                 if (clazz.getSimpleName().equals(TypeOfModel.ChassisDTO.name()))
-                    objectReader = mapper.reader().forType(new TypeReference<List<ChassisDTO>>() {});
-                else
-                    objectReader = mapper.reader().forType(new TypeReference<List<ProcessStep>>() {});
+                    objectReader = mapper.reader().forType(new TypeReference<List<ChassisDTO>>() {
+                    });
+                else if (clazz.getSimpleName().equals(TypeOfModel.ProcessStep.name()))
+                    objectReader = mapper.reader().forType(new TypeReference<List<ProcessStep>>() {
+                    });
                 return objectReader.readValue(json);
             }
             return mapper.readValue(json, clazz);
