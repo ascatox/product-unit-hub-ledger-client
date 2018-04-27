@@ -2,10 +2,7 @@ package it.eng.productunithubledgerclient.convert;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.*;
 import it.eng.productunithubledgerclient.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.model.ChassisDTO;
 import it.eng.productunithubledgerclient.model.ProcessStep;

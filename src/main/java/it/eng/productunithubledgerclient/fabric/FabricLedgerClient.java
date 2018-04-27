@@ -124,7 +124,11 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(chassisID);
         args.add(component);
         args.add(subComponent);
-        return (ChassisDTO) doChassisQueryByJson(Function.getProcessStepRouting, args, false);
+        List<ChassisDTO> chassisDTOS = doChassisQueryByJson(Function.getProcessStepRouting, args, false);
+        if (null != chassisDTOS && !chassisDTOS.isEmpty())
+            return chassisDTOS.get(0);
+        return null;
+
     }
 
     @Override
@@ -136,7 +140,7 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(component);
         args.add(subComponent);
         args.add(workCellResourceID);
-        return doProcessStepQueryByJson(Function.getProcessStep, args, false);
+        return doProcessStepQueryByJson(Function.getProcessStep, args, true);
     }
 
     @Override
@@ -183,7 +187,7 @@ final public class FabricLedgerClient implements LedgerClient {
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
             for (QueryReturn queryReturn : queryReturns) {
-                if(isCollection)
+                if (isCollection)
                     chassisDTOS = (List<ChassisDTO>) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class, isCollection);
                 else {
                     ChassisDTO chassisDTO = (ChassisDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class, isCollection);
