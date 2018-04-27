@@ -1,5 +1,7 @@
 package it.eng.productunithubledgerclient.exception;
 
+import it.eng.productunithubledgerclient.fabric.helper.Function;
+
 public class ProductUnitHubException extends Exception {
 
     public ProductUnitHubException() {
@@ -23,6 +25,9 @@ public class ProductUnitHubException extends Exception {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
+    public ProductUnitHubException(Function function, String message) {
+        super(function.name() + " " + message);
+    }
 
 
 }

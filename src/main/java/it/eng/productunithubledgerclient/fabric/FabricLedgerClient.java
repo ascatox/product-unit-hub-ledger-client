@@ -113,7 +113,7 @@ final public class FabricLedgerClient implements LedgerClient {
         List<String> args = new ArrayList<>();
         args.add(component);
         args.add(subComponent);
-        return doChassisQueryByJson(Function.getProcessStepRouting, args);
+        return doChassisQueryByJson(Function.getProcessStepRouting, args, true);
     }
 
     @Override
@@ -124,7 +124,7 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(chassisID);
         args.add(component);
         args.add(subComponent);
-        return (ChassisDTO) doChassisQueryByJson(Function.getProcessStepRouting, args);
+        return (ChassisDTO) doChassisQueryByJson(Function.getProcessStepRouting, args, false);
     }
 
     @Override
@@ -177,18 +177,22 @@ final public class FabricLedgerClient implements LedgerClient {
     }
 
 
-    private List<ChassisDTO> doChassisQueryByJson(Function fcn, List<String> args) throws ProductUnitHubException {
+    private List<ChassisDTO> doChassisQueryByJson(Function fcn, List<String> args, boolean isCollection) throws ProductUnitHubException {
         List<ChassisDTO> chassisDTOS = new ArrayList<>();
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
             for (QueryReturn queryReturn : queryReturns) {
-                ChassisDTO fromJson = (ChassisDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class, true);
-                chassisDTOS.add(fromJson);
+                if(isCollection)
+                    chassisDTOS = (List<ChassisDTO>) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class, isCollection);
+                else {
+                    ChassisDTO chassisDTO = (ChassisDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ChassisDTO.class, isCollection);
+                    chassisDTOS.add(chassisDTO);
+                }
             }
             return chassisDTOS;
         } catch (Exception e) {
             log.error(fcn.name() + " " + e.getMessage());
-            throw new ProductUnitHubException(fcn.name() + " " + e.getMessage());
+            throw new ProductUnitHubException(fcn, e.getMessage());
         }
     }
 
@@ -198,12 +202,12 @@ final public class FabricLedgerClient implements LedgerClient {
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
             for (QueryReturn queryReturn : queryReturns) {
-                processStepResultDTO = (ProcessStepResultDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStepResultDTO.class, true);
+                processStepResultDTO = (ProcessStepResultDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStepResultDTO.class, false);
             }
             return processStepResultDTO;
         } catch (Exception e) {
             log.error(fcn.name() + " " + e.getMessage());
-            throw new ProductUnitHubException(fcn.name() + " " + e.getMessage());
+            throw new ProductUnitHubException(fcn, e.getMessage());
         }
     }
 
@@ -222,7 +226,7 @@ final public class FabricLedgerClient implements LedgerClient {
             return processSteps;
         } catch (Exception e) {
             log.error(fcn.name() + " " + e.getMessage());
-            throw new ProductUnitHubException(fcn.name().toUpperCase() + " " + e.getMessage());
+            throw new ProductUnitHubException(fcn, e.getMessage());
         }
     }
 
