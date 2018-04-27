@@ -198,7 +198,7 @@ final public class FabricLedgerClient implements LedgerClient {
         try {
             final List<QueryReturn> queryReturns = ledgerInteractionHelper.queryChainCode(fcn.name(), args, null);
             for (QueryReturn queryReturn : queryReturns) {
-                processStepResultDTO = (ProcessStepResultDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStepResultDTO.class, true);
+                processStepResultDTO = (ProcessStepResultDTO) JsonConverter.convertFromJson(queryReturn.getPayload(), ProcessStepResultDTO.class, false);
             }
             return processStepResultDTO;
         } catch (Exception e) {

@@ -61,9 +61,16 @@ public class End2EndTest {
 
 
     @Test
-    public void testStoreProcessStepResult() {
+    public void testStoreGetProcessStepResult() {
         ProcessStepResultDTO processStepResultDTO = new ProcessStepResultDTO();
+        processStepResultDTO.setChassisId( "alpha" );
+        processStepResultDTO.setComponent( "beta" );
+        processStepResultDTO.setSubComponent( "omega" );
+        processStepResultDTO.setWorkcellResourceId( "lambda" );
         OperationResult operationResult = new OperationResult();
+        OperationStepResult operationStepResult = new OperationStepResult();
+        operationStepResult.setChannelId( "AAA" );
+        operationResult.getOperationStepResults().add( operationStepResult );
         processStepResultDTO.getOperationResults().add(operationResult);
         try {
             ledgerClient.storeProcessStepResult(processStepResultDTO);
@@ -119,7 +126,9 @@ public class End2EndTest {
             assertFalse(e.getMessage(), true);
         }
     }
-
+    /*
+        Test OK
+     */
     @Test
     public void testGetProcessStepFullArgs() {
         Collection<ChassisDTO> chassisDTOCollection = new ArrayList<>();
