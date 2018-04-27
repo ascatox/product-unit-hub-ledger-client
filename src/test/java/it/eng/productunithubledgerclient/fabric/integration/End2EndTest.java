@@ -9,6 +9,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.security.cert.CollectionCertStoreParameters;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,24 +44,6 @@ public class End2EndTest {
 
 
     @Test
-    public void testStoreProcessStepRouting() {
-        List<ChassisDTO> chassisDTOList = new ArrayList<>();
-        ChassisDTO chassisDTO = new ChassisDTO();
-        chassisDTO.setChassisId("A819631");
-        chassisDTO.setComponent("CAB");
-        chassisDTO.setSubComponent("TCAB");
-        chassisDTOList.add(chassisDTO);
-        try {
-            ledgerClient.storeProcessStepRouting(chassisDTOList);
-                Collection<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
-            assertEquals(chassisDTOList, processStepRoutings);
-        } catch (ProductUnitHubException e) {
-            assertFalse(e.getMessage(), true);
-        }
-    }
-
-
-    @Test
     public void testStoreGetProcessStepResult() {
         ProcessStepResultDTO processStepResultDTO = new ProcessStepResultDTO();
         processStepResultDTO.setChassisId( "alpha" );
@@ -82,58 +65,81 @@ public class End2EndTest {
         }
     }
 
-    //@Test
+    @Test
     public void testStoreProcessStepRoutingJSON() {
-        String json = "";
         List<ChassisDTO> chassisDTOList = new ArrayList<>();
         ChassisDTO chassisDTO = new ChassisDTO();
         chassisDTO.setChassisId("A819851");
         chassisDTO.setComponent("CAB");
         chassisDTO.setSubComponent("TCAB");
         chassisDTOList.add(chassisDTO);
-        JsonConverter jsonConverter = new JsonConverter();
         try {
+            String json = JsonConverter.convertToJson( chassisDTOList);
             ledgerClient.storeProcessStepRouting(json);
             Collection<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
-            assertEquals(json, jsonConverter.convertToJson(processStepRoutings));
+            assertEquals(json, JsonConverter.convertToJson(processStepRoutings));
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }
 
     }
-
-
-    //@Test
-    public void storeProcessStepResult() {
-
-
-    }
-
-
     @Test
     public void testStoreGetProcessStepRouting() {
-        List<ChassisDTO> chassisDTOList = new ArrayList<>();
+        Collection<ChassisDTO> chassisDTOList = new ArrayList<>();
         ChassisDTO chassisDTO = new ChassisDTO();
         chassisDTO.setChassisId("A819631");
         chassisDTO.setComponent("CAB");
         chassisDTO.setSubComponent("TCAB");
-        chassisDTOList.add(chassisDTO);
+        ProcessStep processStep = new ProcessStep();
+        processStep.setId("001_8415E5D-47A2-4E79-BF1C-1F56B105AC6");
+        processStep.setName("New ALF in TAS");
+        WorkcellResource workcellResource = new WorkcellResource();
+        workcellResource.setId("CTPP-01A");
+        processStep.setWorkcellResource(workcellResource);
+        ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
+        processStepCollection.add(processStep);
+        chassisDTO.setBillOfProcessSteps(processStepCollection);
+        chassisDTOList.add( chassisDTO );
         try {
             ledgerClient.storeProcessStepRouting(chassisDTOList);
-            Collection<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
-            assertEquals(chassisDTOList, processStepRoutings);
+            Collection<ChassisDTO> chassisDTOList1 =  ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
+            assertEquals(chassisDTOList, chassisDTOList1);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }
     }
-    /*
-        Test OK
-     */
+
+    @Test
+    public void testStoreGetProcessStepRoutingFullArgs() {
+        Collection<ChassisDTO> chassisDTOList = new ArrayList<>();
+        ChassisDTO chassisDTO = new ChassisDTO();
+        chassisDTO.setChassisId("A819631");
+        chassisDTO.setComponent("CAB");
+        chassisDTO.setSubComponent("TCAB");
+        ProcessStep processStep = new ProcessStep();
+        processStep.setId("001_8415E5D-47A2-4E79-BF1C-1F56B105AC6");
+        processStep.setName("New ALF in TAS");
+        WorkcellResource workcellResource = new WorkcellResource();
+        workcellResource.setId("CTPP-01A");
+        processStep.setWorkcellResource(workcellResource);
+        ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
+        processStepCollection.add(processStep);
+        chassisDTO.setBillOfProcessSteps(processStepCollection);
+        chassisDTOList.add( chassisDTO );
+        try {
+            ledgerClient.storeProcessStepRouting(chassisDTOList);
+            ChassisDTO chassisDTO1 = ledgerClient.getProcessStepRouting(chassisDTO.getChassisId(),chassisDTO.getComponent(), chassisDTO.getSubComponent());
+            assertEquals(chassisDTO, chassisDTO1);
+        } catch (ProductUnitHubException e) {
+            assertFalse(e.getMessage(), true);
+        }
+    }
+
     @Test
     public void testGetProcessStepFullArgs() {
         Collection<ChassisDTO> chassisDTOCollection = new ArrayList<>();
         ChassisDTO chassisDTO = new ChassisDTO();
-        chassisDTO.setChassisId("A819631");
+        chassisDTO.setChassisId("A8196");
         chassisDTO.setComponent("CAB");
         chassisDTO.setSubComponent("TCAB");
         chassisDTO.setProductUnits("0000123cab");
@@ -141,7 +147,7 @@ public class End2EndTest {
         processStep.setId("001_8415E5D-47A2-4E79-BF1C-1F56B105AC6");
         processStep.setName("New ALF in TAS");
         WorkcellResource workcellResource = new WorkcellResource();
-        workcellResource.setId("CTPP-01A");
+        workcellResource.setId("CTPP-01");
         processStep.setWorkcellResource(workcellResource);
         ArrayList<ProcessStep> processStepCollection = new ArrayList<>();
         processStepCollection.add(processStep);
@@ -160,7 +166,7 @@ public class End2EndTest {
     public void testGetProcessStep() {
         Collection<ChassisDTO> chassisDTOCollection = new ArrayList<>();
         ChassisDTO chassisDTO = new ChassisDTO();
-        chassisDTO.setChassisId("A819631");
+        chassisDTO.setChassisId("A81963");
         chassisDTO.setComponent("CAB");
         chassisDTO.setSubComponent("TCAB");
         ProcessStep processStep = new ProcessStep();
@@ -196,7 +202,6 @@ public class End2EndTest {
         processStepCollection.add(processStep);
         chassisDTO.setBillOfProcessSteps(processStepCollection);
         chassisDTOCollection.add(chassisDTO);
-        //ledgerClient.storeProcessStepRouting(chassisDTOCollection);
         Collection<ProcessStep> chassisDTOCollection1 = null;
         try {
             chassisDTOCollection1 = ledgerClient.getProcessStep(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent(), workcellResource.getId());
@@ -204,7 +209,6 @@ public class End2EndTest {
             e.printStackTrace();
             assertFalse(e.getMessage(), true);
         }
-        //assertEquals(chassisDTOCollection1, chassisDTOCollection);
         if (chassisDTOCollection1.isEmpty()) {
             System.out.println("Process step is empty!!!!");
             assertFalse("Process step is empty!!!!", true);
@@ -213,7 +217,6 @@ public class End2EndTest {
             assertTrue("Test getProcessStep OK!!!", true);
 
         }
-        //assertFalse(e.getMessage(), true);
     }
 }
 
