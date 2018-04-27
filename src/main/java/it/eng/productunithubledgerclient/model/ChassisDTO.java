@@ -104,10 +104,6 @@ public class ChassisDTO implements Serializable {
         return billOfProcessSteps;
     }
 
-    public void setBillOfProcessSteps(List<ProcessStep> billOfProcessSteps) {
-        this.billOfProcessSteps = billOfProcessSteps;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o)

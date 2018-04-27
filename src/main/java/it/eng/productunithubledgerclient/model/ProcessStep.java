@@ -96,8 +96,8 @@ public class ProcessStep {
         return billOfOperation;
     }
 
-    public void setBillOfOperation(Collection<Operation> billofOperations) {
-        this.billOfOperation = billofOperations;
+    public void setBillOfOperation(Collection<Operation> billofOperation) {
+        this.billOfOperation = billofOperation;
     }
 
     public String getId() {

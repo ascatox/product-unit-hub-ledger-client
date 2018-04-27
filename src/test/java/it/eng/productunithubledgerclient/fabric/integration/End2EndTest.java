@@ -52,7 +52,7 @@ public class End2EndTest {
         chassisDTOList.add(chassisDTO);
         try {
             ledgerClient.storeProcessStepRouting(chassisDTOList);
-            Collection<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
+                Collection<ChassisDTO> processStepRoutings = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
             assertEquals(chassisDTOList, processStepRoutings);
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);

@@ -151,13 +151,14 @@ final public class FabricLedgerClient implements LedgerClient {
     }
 
     @Override
-    public final ProcessStepResultDTO getProcessStepResult(String chassisID, String component, String subComponent, String workCellResourceID) throws ProductUnitHubException {
+    public final ProcessStepResultDTO getProcessStepResult(String chassisID, String component, String subComponent, String workcellResourceID) throws ProductUnitHubException {
         if (StringUtils.isEmpty(component) || StringUtils.isEmpty(subComponent) || StringUtils.isEmpty(chassisID))
             throw new ProductUnitHubException(Function.getProcessStepResult.name() + " is in error, No input data!");
         List<String> args = new ArrayList<>();
         args.add(chassisID);
         args.add(component);
         args.add(subComponent);
+        args.add(workcellResourceID);
         return (ProcessStepResultDTO) doProcessStepResultQueryByJson(Function.getProcessStepResult, args);
     }
 
