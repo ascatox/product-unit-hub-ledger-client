@@ -24,11 +24,11 @@ public class ChassisDTO implements Serializable {
 
     private String productUnits;
 
-    private Collection<ProcessStep> billOfProcessSteps;
+    private Collection<ProcessStep> BillOfProcessSteps;
 
 
     public ChassisDTO() {
-        this.billOfProcessSteps = new ArrayList<>();
+        this.BillOfProcessSteps = new ArrayList<>();
     }
 
     public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits, List<ProcessStep> billOfProcessSteps) {
@@ -36,7 +36,7 @@ public class ChassisDTO implements Serializable {
         this.component = component;
         this.subComponent = subComponent;
         this.productUnits = productUnits;
-        this.billOfProcessSteps = billOfProcessSteps;
+        this.BillOfProcessSteps = billOfProcessSteps;
     }
 
     /**
@@ -93,7 +93,7 @@ public class ChassisDTO implements Serializable {
 
 
     public void setBillOfProcessSteps(Collection<ProcessStep> billOfProcessSteps) {
-        this.billOfProcessSteps = billOfProcessSteps;
+        this.BillOfProcessSteps = billOfProcessSteps;
     }
 
     /**
@@ -101,7 +101,7 @@ public class ChassisDTO implements Serializable {
      * @return
      */
     public Collection<ProcessStep> getBillOfProcessSteps() {
-        return billOfProcessSteps;
+        return BillOfProcessSteps;
     }
 
     @Override

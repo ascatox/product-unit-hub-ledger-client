@@ -2,13 +2,13 @@
   "name": "fabric-network",
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
-  "timeout": 3000,
+  "timeout": 5000,
   "cryptoconfigdir": "C:/Users/Claudio/Desktop/crypto-config",
   "tls": false,
   "chaincode": {
     "path": "product-unit-hub-chaincode",
     "name": "productunithub",
-    "version": "3.4",
+    "version": "2.2",
     "lang": "NODE"
   },
   "organizations": [

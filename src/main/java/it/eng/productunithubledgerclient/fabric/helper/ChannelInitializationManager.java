@@ -145,9 +145,9 @@ public class ChannelInitializationManager {
     }
 
     private void setGRPCProperties(Properties properties) {
-        properties.put("grpc.NettyChannelBuilderOption.keepAliveTime", new Object[]{5L, TimeUnit
+        properties.put("grpc.NettyChannelBuilderOption.keepAliveTime", new Object[]{10L, TimeUnit
                 .MINUTES});
-        properties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{8L, TimeUnit
+        properties.put("grpc.NettyChannelBuilderOption.keepAliveTimeout", new Object[]{16L, TimeUnit
                 .SECONDS});
     }
 
