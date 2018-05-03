@@ -1,5 +1,6 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,10 +18,11 @@ public class ProcessStep {
     private Integer plannedProductionTime;
     @NotNull
     private Integer sequenceNo;
+    @NotNull
     private WorkcellResource workcellResource;
     private Collection<Operation> billOfOperation;
 
-    public ProcessStep(@NotNull String id, String name, @NotNull Integer plannedProductionTime, @NotNull Integer sequenceNo, WorkcellResource workcellResource, Collection<Operation> billOfOperation) {
+    public ProcessStep(@NotNull String id, String name, @NotNull Integer plannedProductionTime, @NotNull Integer sequenceNo, @NotNull WorkcellResource workcellResource, Collection<Operation> billOfOperation) {
         this.id = id;
         this.name = name;
         this.plannedProductionTime = plannedProductionTime;

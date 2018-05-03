@@ -1,6 +1,7 @@
 
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ChassisDTO implements Serializable {
     private String subComponent;
 
     private String productUnits;
-
+    @NotEmpty
     private Collection<ProcessStep> BillOfProcessSteps;
 
 
@@ -31,7 +32,7 @@ public class ChassisDTO implements Serializable {
         this.BillOfProcessSteps = new ArrayList<>();
     }
 
-    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits, List<ProcessStep> billOfProcessSteps) {
+    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits,@NotEmpty List<ProcessStep> billOfProcessSteps) {
         this.chassisId = chassisId;
         this.component = component;
         this.subComponent = subComponent;

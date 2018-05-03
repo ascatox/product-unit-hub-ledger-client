@@ -84,16 +84,61 @@ public class End2EndTest {
             assertFalse(e.getMessage(), true);
         }
     }
-
     @Test
-    public void testStoreGetProcessStepRoutingFullArgs() {
+    public void testStoreGetProcessStepRoutingWrong() {
+
         Collection<ChassisDTO> chassisDTOList = new ArrayList<>();
-        final ChassisDTO chassisDTO = buildChassisDTO();
+        ChassisDTO chassisDTO = new ChassisDTO(  );
+        chassisDTO.setChassisId( "ENG" );
+        chassisDTO.setSubComponent( "ASL" );
+        chassisDTO.setComponent( "Siena" );
         chassisDTOList.add(chassisDTO);
+
         try {
             ledgerClient.storeProcessStepRouting(chassisDTOList);
+            Collection<ChassisDTO> chassisDTOList1 = ledgerClient.getProcessStepRouting(chassisDTO.getComponent(), chassisDTO.getSubComponent());
+            assertEquals(chassisDTOList, chassisDTOList1);
+
+        } catch (ProductUnitHubException e) {
+            assertFalse(e.getMessage(), true);
+        }
+    }
+
+        @Test
+    public void testStoreGetProcessStepRoutingFullArgs() {
+        Collection<ChassisDTO> chassisDTOList = new ArrayList<>();
+        Collection<ChassisDTO> chassisDTOList1 = new ArrayList<>();
+
+        final ChassisDTO chassisDTO = buildChassisDTO();
+        final ChassisDTO chassisDTO2 = buildChassisDTO();
+        chassisDTOList.add(chassisDTO);
+        chassisDTOList1.add(chassisDTO2);
+        try {
+            ledgerClient.storeProcessStepRouting(chassisDTOList);
+            ledgerClient.storeProcessStepRouting( chassisDTOList1 );
             ChassisDTO chassisDTO1 = ledgerClient.getProcessStepRouting(chassisDTO.getChassisId(), chassisDTO.getComponent(), chassisDTO.getSubComponent());
             assertEquals(chassisDTO, chassisDTO1);
+        } catch (ProductUnitHubException e) {
+            assertFalse(e.getMessage(), true);
+        }
+    }
+
+    @Test
+    public void testStoreDoubleGetProcessStepRouting() {
+
+        final ChassisDTO chassisDTO2 = buildChassisDTO();
+        Collection<ChassisDTO> chassisDTOList1 = new ArrayList<>();
+        chassisDTOList1.add(chassisDTO2);
+
+        try {
+            ledgerClient.storeProcessStepRouting( chassisDTOList1 );
+            ChassisDTO chassisDTO1 = ledgerClient.getProcessStepRouting(chassisDTO2.getChassisId(), chassisDTO2.getComponent(), chassisDTO2.getSubComponent());
+            assertEquals(chassisDTO2, chassisDTO1);
+            Collection<ChassisDTO> chassisDTOLCOllection1 = ledgerClient.getProcessStepRouting(chassisDTO2.getComponent(), chassisDTO2.getSubComponent());
+            Collection<ChassisDTO> chassisDTOCollection = new ArrayList<>(  );
+            chassisDTOCollection.add(chassisDTO1);
+            assertEquals(chassisDTOLCOllection1, chassisDTOCollection);
+
         } catch (ProductUnitHubException e) {
             assertFalse(e.getMessage(), true);
         }

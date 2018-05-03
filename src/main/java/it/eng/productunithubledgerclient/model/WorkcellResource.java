@@ -1,19 +1,20 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * This class represents a Workcell.
  */
 public class WorkcellResource {
-
+    @NotNull
     private String id;
     private String name;
 
     public WorkcellResource() {
     }
 
-    public WorkcellResource(String id, String name) {
+    public WorkcellResource(@NotNull String id, String name) {
         this.id = id;
         this.name = name;
     }
