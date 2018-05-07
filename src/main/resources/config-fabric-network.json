@@ -2,13 +2,13 @@
   "name": "fabric-network",
   "type": "hlfv1.1",
   "channelName": "ledgerchannel",
-  "timeout": 3000,
-  "cryptoconfigdir": "C:/Users/Claudio/Desktop",
+  "timeout": 5000,
+  "cryptoconfigdir": "",
   "tls": false,
   "chaincode": {
-    "path": "sdkintegration/gocc/sample_11",
-    "name": "product-unit-hub-chaincode",
-    "version": "2.0",
+    "path": "product-unit-hub-chaincode",
+    "name": "productunithub",
+    "version": "1.0",
     "lang": "NODE"
   },
   "organizations": [
@@ -18,23 +18,23 @@
       "peers": [
         {
           "name": "peer0.org1.example.com",
-          "requestURL": "grpc://${server.host}:7051",
-          "eventURL": "grpc://${server.host}:7053"
+          "requestURL": "grpc://109.232.32.197:7051",
+          "eventURL": "grpc://109.232.32.197:7053"
         }
       ],
       "ca": {
-        "url": "http://${server.host}:7054",
+        "url": "http://109.232.32.197:7054",
         "name": "ca.example.com"
       },
       "orderers": [
         {
           "name": "orderer.example.com",
-          "url": "grpc://${server.host}:7050"
+          "url": "grpc://109.232.32.197:7050"
         }
       ],
       "users": [
         {
-          "name": "${chain.user}",
+          "name": "Admin",
           "roles": [
             "admin"
           ]
