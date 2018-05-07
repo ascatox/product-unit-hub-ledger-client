@@ -8,6 +8,7 @@ import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.helper.Utils;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -49,11 +50,11 @@ public class ConfigManager {
     private Configuration loadConfigurationFromJSONFile() {
 
         try {
-            URL resource = getClass().getResource("/config-fabric-network.json");
-            File file = new File(resource.getFile());
+            InputStream resource = getClass().getResourceAsStream("/config-fabric-network.json");
+           // File file = new File(resource.getFile());
             ObjectMapper objectMapper = new ObjectMapper();
-            Configuration configuration = objectMapper.readValue(file, Configuration.class);
-            log.debug("Configuration JSON is\n" + resource.getPath());
+            Configuration configuration = objectMapper.readValue(resource, Configuration.class);
+            //log.debug("Configuration JSON is\n" + resource.getPath());
             return configuration;
         } catch (Exception e) {
             log.error(e);

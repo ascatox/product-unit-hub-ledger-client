@@ -13,7 +13,7 @@
   },
   "organizations": [
     {
-      "name": "org1.example.com",
+      "domainName": "org1.example.com",
       "mspID": "Org1MSP",
       "peers": [
         {
