@@ -8,28 +8,28 @@
   "chaincode": {
     "path": "product-unit-hub-chaincode",
     "name": "productunithub",
-    "version": "3.3",
+    "version": "1.1",
     "lang": "NODE"
   },
   "organizations": [
     {
-      "domainName": "org1.example.com",
+      "name": "org1.example.com",
       "mspID": "Org1MSP",
       "peers": [
         {
           "name": "peer0.org1.example.com",
-          "requestURL": "grpc://167.99.89.178:7051",
-          "eventURL": "grpc://167.99.89.178:7053"
+          "requestURL": "grpc://109.232.32.197:7051",
+          "eventURL": "grpc://109.232.32.197:7053"
         }
       ],
       "ca": {
-        "url": "http://167.99.89.178:7054",
+        "url": "http://109.232.32.197:7054",
         "name": "ca.example.com"
       },
       "orderers": [
         {
           "name": "orderer.example.com",
-          "url": "grpc://167.99.89.178:7050"
+          "url": "grpc://109.232.32.197:7050"
         }
       ],
       "users": [
