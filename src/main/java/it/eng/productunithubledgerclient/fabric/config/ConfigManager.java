@@ -51,7 +51,6 @@ public class ConfigManager {
 
         try {
             InputStream resource = getClass().getResourceAsStream("/config-fabric-network.json");
-           // File file = new File(resource.getFile());
             ObjectMapper objectMapper = new ObjectMapper();
             Configuration configuration = objectMapper.readValue(resource, Configuration.class);
             //log.debug("Configuration JSON is\n" + resource.getPath());

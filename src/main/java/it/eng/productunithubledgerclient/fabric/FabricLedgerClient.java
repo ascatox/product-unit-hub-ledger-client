@@ -172,7 +172,9 @@ final public class FabricLedgerClient implements LedgerClient {
         args.add(json);
         final InvokeReturn invokeReturn = ledgerInteractionHelper.invokeChaincode(fcn.name(), args);
         try {
+            log.debug("BEFORE -> Store Completable Future at "+System.currentTimeMillis());
             invokeReturn.getCompletableFuture().get(configManager.getConfiguration().getTimeout(), TimeUnit.MILLISECONDS);
+            log.debug("AFTER -> Store Completable Future at "+System.currentTimeMillis());
             final String payload = invokeReturn.getPayload();
             return payload;
         } catch (InterruptedException | ExecutionException | TimeoutException e) {

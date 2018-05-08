@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -100,7 +101,7 @@ public class End2EndTest {
             assertEquals(chassisDTOList, chassisDTOList1);
 
         } catch (ProductUnitHubException e) {
-            assertFalse(e.getMessage(), true);
+            assertTrue(e.getMessage(), true);
         }
     }
 
