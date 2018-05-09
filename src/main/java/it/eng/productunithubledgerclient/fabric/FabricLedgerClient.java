@@ -84,11 +84,11 @@ final public class FabricLedgerClient implements LedgerClient {
     public void storeProcessStepResult(ProcessStepResultDTO processStepResultDTO) throws ProductUnitHubException {
         if (processStepResultDTO == null || processStepResultDTO.getOperationResults().isEmpty())
             throw new ProductUnitHubException(Function.storeProcessStepResult.name() + " is in error, No input data!");
+        Utils.getMessageViolationsResult(validator.validate(processStepResultDTO));
         String json = JsonConverter.convertToJson(processStepResultDTO);
         final String payload = doInvokeByJson(Function.storeProcessStepResult, json);
         log.debug("Payload retrieved: " + payload);
     }
-
     @Override
     public void storeProcessStepRouting(String json) throws ProductUnitHubException {
         if (null == json || json.isEmpty())

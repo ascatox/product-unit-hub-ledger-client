@@ -1,5 +1,6 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -7,14 +8,14 @@ import java.util.Objects;
  * This class represents a Workcell.
  */
 public class WorkcellResource {
-    @NotNull
+    @NotEmpty
     private String id;
     private String name;
 
     public WorkcellResource() {
     }
 
-    public WorkcellResource(@NotNull String id, String name) {
+    public WorkcellResource(@NotEmpty String id, String name) {
         this.id = id;
         this.name = name;
     }

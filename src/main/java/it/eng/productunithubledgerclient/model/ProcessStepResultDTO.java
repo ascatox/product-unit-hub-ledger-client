@@ -1,5 +1,6 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,19 +10,19 @@ import java.util.Collection;
  * <b>This DTO shares data with the Chaincode</b>.
  */
 public class ProcessStepResultDTO {
-    @NotNull
+    @NotEmpty
     private String chassisId;
-    @NotNull
+    @NotEmpty
     private String component;
-    @NotNull
+    @NotEmpty
     private String subComponent;
-
+    @NotEmpty
     private String workcellResourceId;
 
 
     private Collection<OperationResult> operationResults;
 
-    public ProcessStepResultDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String workcellResourceId) {
+    public ProcessStepResultDTO(@NotEmpty String chassisId, @NotEmpty String component, @NotEmpty String subComponent, @NotEmpty String workcellResourceId) {
         this.chassisId = chassisId;
         this.component = component;
         this.subComponent = subComponent;

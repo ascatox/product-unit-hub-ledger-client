@@ -1,5 +1,6 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,9 @@ import java.util.Objects;
  */
 public class OperationStepResult {
 
+    @NotNull
     private Integer sequenceNo;
+
     private String stepName;
     private String stepStatus;
     private String channelId;
@@ -15,7 +18,7 @@ public class OperationStepResult {
     private EquipmentRequirement equipmentRequirement;
 
 
-    public OperationStepResult(Integer sequenceNo, String stepName, String stepStatus, String channelId, EquipmentResult equipmentResult, EquipmentRequirement equipmentRequirement) {
+    public OperationStepResult(@NotNull Integer sequenceNo, String stepName, String stepStatus, String channelId, EquipmentResult equipmentResult, EquipmentRequirement equipmentRequirement) {
         this.sequenceNo = sequenceNo;
         this.stepName = stepName;
         this.stepStatus = stepStatus;

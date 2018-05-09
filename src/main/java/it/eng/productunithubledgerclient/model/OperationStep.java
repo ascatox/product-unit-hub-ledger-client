@@ -19,7 +19,7 @@ public class OperationStep {
     private Collection <InstructionText> instructionTexts;
 
 
-    public OperationStep(Integer sequenceNo, Collection<Material> billofMaterial, String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> instructionTexts) {
+    public OperationStep(@NotNull Integer sequenceNo, Collection<Material> billofMaterial, String Description, Collection<EquipmentRequirement> equipmentRequirements, Collection<InstructionText> instructionTexts) {
         this.sequenceNo = sequenceNo;
         this.billofMaterial = billofMaterial;
         this.equipmentRequirements = equipmentRequirements;

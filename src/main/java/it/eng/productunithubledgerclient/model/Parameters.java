@@ -1,17 +1,19 @@
 package it.eng.productunithubledgerclient.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class Parameters {
 
     public String group;
+    @NotNull
     public String id;
     public String value;
 
     public Parameters() {
     }
 
-    public Parameters(String group, String id, String value) {
+    public Parameters(String group, @NotNull String id, String value) {
         this.group = group;
         this.id = id;
         this.value = value;

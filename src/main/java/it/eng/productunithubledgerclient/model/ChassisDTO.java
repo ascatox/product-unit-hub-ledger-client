@@ -16,11 +16,11 @@ import java.util.List;
 public class ChassisDTO implements Serializable {
 
 
-    @NotNull
+    @NotEmpty
     private String chassisId;
-    @NotNull
+    @NotEmpty
     private String component;
-    @NotNull
+    @NotEmpty
     private String subComponent;
 
     private String productUnits;
@@ -32,7 +32,7 @@ public class ChassisDTO implements Serializable {
         this.BillOfProcessSteps = new ArrayList<>();
     }
 
-    public ChassisDTO(@NotNull String chassisId, @NotNull String component, @NotNull String subComponent, String productUnits,@NotEmpty List<ProcessStep> billOfProcessSteps) {
+    public ChassisDTO(@NotEmpty String chassisId, @NotEmpty String component, @NotEmpty String subComponent, String productUnits,@NotEmpty List<ProcessStep> billOfProcessSteps) {
         this.chassisId = chassisId;
         this.component = component;
         this.subComponent = subComponent;

@@ -19,6 +19,7 @@ package it.eng.productunithubledgerclient.utils;
 
 import it.eng.productunithubledgerclient.exception.ProductUnitHubException;
 import it.eng.productunithubledgerclient.model.ChassisDTO;
+import it.eng.productunithubledgerclient.model.ProcessStepResultDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,11 +52,23 @@ public class Utils {
             return ;
         StringBuilder messageBuilder = new StringBuilder();
         for (ConstraintViolation violation : violations) {
-            messageBuilder.append(violation.getMessage());
+            messageBuilder.append(violation.getPropertyPath()+ ": " +violation.getMessage() +"; ");
         }
         if (StringUtils.isNotEmpty(messageBuilder.toString()))
             throw new ProductUnitHubException(messageBuilder.toString());
     }
+
+    public static void getMessageViolationsResult(Set<ConstraintViolation<ProcessStepResultDTO>> violations) throws ProductUnitHubException {
+        if (violations.isEmpty())
+            return ;
+        StringBuilder messageBuilder = new StringBuilder();
+        for (ConstraintViolation violation : violations) {
+            messageBuilder.append(violation.getPropertyPath()+ ": " +violation.getMessage() +"; ");
+        }
+        if (StringUtils.isNotEmpty(messageBuilder.toString()))
+            throw new ProductUnitHubException(messageBuilder.toString());
+    }
+
 
     public static File findFileSk(String domainName, String user, String cryptoDir) {
         File directory = getSkConfigPath(domainName,user, cryptoDir);
