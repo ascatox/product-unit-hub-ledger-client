@@ -84,7 +84,7 @@ Copy your HLF `crypto-config` dir under the chosen directory (default directory 
 ### Maven projects
 In order to use the library use Maven with these commands:
 ```bash
- mvn package && mvn install
+ mvn package -P all-jars
 ```
 # JavaDoc
 The **JavaDoc** documentation of the Library, is present in the `doc` folder of the project.<br/>
