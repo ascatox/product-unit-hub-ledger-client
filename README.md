@@ -18,7 +18,7 @@ In order to use the FAR-EDGE Hosted Env, you should **only** copy your HLF `cryp
 <dependency>
 	<groupId>com.github.ascatox</groupId>
 	<artifactId>product-unit-hub-ledger-client</artifactId>
-	<version>v1.0.3</version>
+	<version>v1.0.4</version>
 </dependency>
 ```
 # Developer Environment 
