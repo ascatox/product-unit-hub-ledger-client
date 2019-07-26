@@ -7,7 +7,7 @@
   "tls": false,
   "chaincode": {
     "path": "product-unit-hub-chaincode",
-    "name": "productunithub",
+    "name": "product-unit-hub-chaincode",
     "version": "1.2",
     "lang": "NODE"
   },
